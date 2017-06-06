@@ -12,47 +12,47 @@ using System.Web.Http.Description;
 namespace BookingApp.Controllers
 {
     [RoutePrefix("api")]
-    public class CountryController : ApiController
+    public class PlaceController : ApiController
     {
         private BAContext db = new BAContext();
 
         [HttpGet]
-        [Route("countries")]
-        public IQueryable<Country> GetCountry()
+        [Route("places")]
+        public IQueryable<Place> GetPlace()
         {
-            return db.Countries;
+            return db.Places;
         }
 
         [HttpGet]
-        [Route("countries")]
+        [Route("places")]
         [ResponseType(typeof(Country))]
-        public IHttpActionResult GetCountry([FromUri] int id)
+        public IHttpActionResult GetPlace([FromUri] int id)
         {
-            Country country = db.Countries.Find(id);
-            if (country == null)
+            Place product = db.Places.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return Ok(country);
+            return Ok(product);
         }
 
         [HttpPut]
-        [Route("countries/{id}")]
+        [Route("places/{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCountry(int id, Country country)
+        public IHttpActionResult PutPlace(int id, Place product)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != country.Id)
+            if (id != product.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(country).State = EntityState.Modified;
+            db.Entry(product).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!PlaceExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace BookingApp.Controllers
         }
 
         [HttpPost]
-        [Route("countries")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult PostCountry(Country country)
+        [Route("places")]
+        [ResponseType(typeof(Place))]
+        public IHttpActionResult PostPlace(Place product)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Countries.Add(country);
+            db.Places.Add(product);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { controller = "Country", id = country.Id }, country);
+            return CreatedAtRoute("DefaultApi", new { controller = "Place", id = product.Id }, product);
         }
 
         [HttpDelete]
-        [Route("countries/{id}")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult DeleteCountry(int id)
+        [Route("places/{id}")]
+        [ResponseType(typeof(Place))]
+        public IHttpActionResult DeletePlace(int id)
         {
-            Country country = db.Countries.Find(id);
-            if (country == null)
+            Place product = db.Places.Find(id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            db.Countries.Remove(country);
+            db.Places.Remove(product);
             db.SaveChanges();
 
-            return Ok(country);
+            return Ok(product);
         }
 
         protected override void Dispose(bool disposing)
@@ -115,9 +115,9 @@ namespace BookingApp.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CountryExists(int id)
+        private bool PlaceExists(int id)
         {
-            return db.Countries.Count(e => e.Id == id) > 0;
+            return db.Places.Count(e => e.Id == id) > 0;
         }
     }
 }

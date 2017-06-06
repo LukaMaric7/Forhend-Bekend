@@ -12,47 +12,47 @@ using System.Web.Http.Description;
 namespace BookingApp.Controllers
 {
     [RoutePrefix("api")]
-    public class CountryController : ApiController
+    public class CommentController : ApiController
     {
         private BAContext db = new BAContext();
 
         [HttpGet]
-        [Route("countries")]
-        public IQueryable<Country> GetCountry()
+        [Route("comments")]
+        public IQueryable<Comment> GetComment()
         {
-            return db.Countries;
+            return db.Comments;
         }
 
         [HttpGet]
-        [Route("countries")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult GetCountry([FromUri] int id)
+        [Route("comments/{id1}/{id2}")]
+        [ResponseType(typeof(Comment))]
+        public IHttpActionResult GetComment(int id1, int id2)
         {
-            Country country = db.Countries.Find(id);
-            if (country == null)
+            Comment comment = db.Comments.Find(new { AccommodationId = id1, UserId = id2 });
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return Ok(country);
+            return Ok(comment);
         }
 
         [HttpPut]
-        [Route("countries/{id}")]
+        [Route("comments/{id1}/{id2}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCountry(int id, Country country)
+        public IHttpActionResult PutComment(int id1, int id2, Comment comment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != country.Id)
+            if (id1 != comment.AccommodationId || id2 != comment.UserId)
             {
                 return BadRequest();
             }
 
-            db.Entry(country).State = EntityState.Modified;
+            db.Entry(comment).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!CommentExists(id1, id2))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace BookingApp.Controllers
         }
 
         [HttpPost]
-        [Route("countries")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult PostCountry(Country country)
+        [Route("comments")]
+        [ResponseType(typeof(Comment))]
+        public IHttpActionResult PostComment(Comment comment)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Countries.Add(country);
+            db.Comments.Add(comment);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { controller = "Country", id = country.Id }, country);
+            return CreatedAtRoute("DefaultApi", new { controller = "Comment", id = comment.UserId }, comment);
         }
 
         [HttpDelete]
-        [Route("countries/{id}")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult DeleteCountry(int id)
+        [Route("comments/{id1}/{id2}")]
+        [ResponseType(typeof(Comment))]
+        public IHttpActionResult DeleteComment(int id1, int id2)
         {
-            Country country = db.Countries.Find(id);
-            if (country == null)
+            Comment comment = db.Comments.Find(new { AccommodationId = id1, UserId = id2});
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            db.Countries.Remove(country);
+            db.Comments.Remove(comment);
             db.SaveChanges();
 
-            return Ok(country);
+            return Ok(comment);
         }
 
         protected override void Dispose(bool disposing)
@@ -115,9 +115,9 @@ namespace BookingApp.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CountryExists(int id)
+        private bool CommentExists(int id1, int id2)
         {
-            return db.Countries.Count(e => e.Id == id) > 0;
+            return db.Comments.Count(e => e.AccommodationId == id1 && e.UserId == id2) > 0;
         }
     }
 }
