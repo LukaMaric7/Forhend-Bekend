@@ -86,7 +86,7 @@ namespace BookingApp.Controllers
             db.Comments.Add(comment);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { controller = "Comment", id = comment.UserId }, comment);
+            return CreatedAtRoute("DefaultApi", new { controller = "Comment",id1 = comment.AccommodationId, id2 = comment.UserId }, comment);
         }
 
         [HttpDelete]

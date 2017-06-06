@@ -68,6 +68,10 @@ namespace BookingApp.Controllers
                 {
                     throw;
                 }
+                if(AccommodationTypeNameExists(accommodationType.Name))
+                {
+                    return BadRequest();
+                }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -83,8 +87,15 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.AccommodationTypes.Add(accommodationType);
-            db.SaveChanges();
+            if (!AccommodationTypeNameExists(accommodationType.Name))
+            {
+                db.AccommodationTypes.Add(accommodationType);
+                db.SaveChanges();
+            }
+            else
+            {
+                return BadRequest();
+            }
 
             return CreatedAtRoute("DefaultApi", new {controller = "AccommodationType", id = accommodationType.Id }, accommodationType);
         }
@@ -118,6 +129,11 @@ namespace BookingApp.Controllers
         private bool AccommodationTypeExists(int id)
         {
             return db.AccommodationTypes.Count(e => e.Id == id) > 0;
+        }
+
+        private bool AccommodationTypeNameExists(string name)
+        {
+            return db.AccommodationTypes.Count(e => e.Name == name) > 0;
         }
     }
 }
