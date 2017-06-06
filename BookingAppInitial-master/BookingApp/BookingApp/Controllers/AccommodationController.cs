@@ -12,47 +12,47 @@ using System.Web.Http.Description;
 namespace BookingApp.Controllers
 {
     [RoutePrefix("api")]
-    public class RegionController : ApiController
+    public class AccommodationController : ApiController
     {
         BAContext db = new BAContext();
 
         [HttpGet]
-        [Route("region")]
-        public IQueryable<Region> GetRegions()
+        [Route("accommodation")]
+        public IQueryable<Accommodation> GetAccommodations()
         {
-            return db.Regions;
+            return db.Accommodations;
         }
 
         [HttpGet]
-        [Route("region/{id}")]
-        [ResponseType(typeof(Region))]
-        public IHttpActionResult GetRegion(int id)
+        [Route("accommodation/{id}")]
+        [ResponseType(typeof(Accommodation))]
+        public IHttpActionResult GetAccommodation(int id)
         {
-            Region region = db.Regions.Find(id);
-            if (region == null)
+            Accommodation accommodation = db.Accommodations.Find(id);
+            if (accommodation == null)
             {
                 return NotFound();
             }
 
-            return Ok(region);
+            return Ok(accommodation);
         }
 
         [HttpPut]
-        [Route("region/{id}")]
+        [Route("accommodation/{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRegion(int id, Region region)
+        public IHttpActionResult PutAccommodation(int id, Accommodation accommodation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != region.Id)
+            if (id != accommodation.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(region).State = EntityState.Modified;
+            db.Entry(accommodation).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RegionExists(id))
+                if (!AccommodationExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace BookingApp.Controllers
         }
 
         [HttpPost]
-        [Route("region")]
-        [ResponseType(typeof(Region))]
-        public IHttpActionResult PostRegion(Region region)
+        [Route("accommodation")]
+        [ResponseType(typeof(Accommodation))]
+        public IHttpActionResult PostAccommodation(Accommodation accommodation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Regions.Add(region);
+            db.Accommodations.Add(accommodation);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { controller = "Region", id = region.Id }, region);
-        }
+            return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
+            }
 
         [HttpDelete]
-        [Route("region/{id}")]
-        [ResponseType(typeof(Region))]
-        public IHttpActionResult DeleteRegion(int id)
+        [Route("accommodation/{id}")]
+        [ResponseType(typeof(Accommodation))]
+        public IHttpActionResult DeleteAccommodation(int id)
         {
-            Region region = db.Regions.Find(id);
-            if (region == null)
+            Accommodation accommodation = db.Accommodations.Find(id);
+            if (accommodation == null)
             {
                 return NotFound();
             }
 
-            db.Regions.Remove(region);
+            db.Accommodations.Remove(accommodation);
             db.SaveChanges();
 
-            return Ok(region);
+            return Ok(accommodation);
         }
 
         protected override void Dispose(bool disposing)
@@ -115,9 +115,9 @@ namespace BookingApp.Controllers
             base.Dispose(disposing);
         }
 
-        private bool RegionExists(int id)
+        private bool AccommodationExists(int id)
         {
-            return db.Regions.Count(e => e.Id == id) > 0;
+            return db.Accommodations.Count(e => e.Id == id) > 0;
         }
 
     }
