@@ -37,6 +37,7 @@ namespace BookingApp.Controllers
             return Ok(comment);
         }
 
+        [Authorize]
         [HttpPut]
         [Route("comments/{id1}/{id2}")]
         [ResponseType(typeof(void))]
@@ -73,6 +74,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [Authorize]
         [HttpPost]
         [Route("comments")]
         [ResponseType(typeof(Comment))]
@@ -89,6 +91,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Comment",id1 = comment.AccommodationId, id2 = comment.UserId }, comment);
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("comments/{id1}/{id2}")]
         [ResponseType(typeof(Comment))]

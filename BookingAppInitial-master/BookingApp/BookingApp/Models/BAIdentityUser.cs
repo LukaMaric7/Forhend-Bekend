@@ -6,12 +6,17 @@ using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Security.Cryptography;
 using System.Collections;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookingApp.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class BAIdentityUser : IdentityUser
     {   
+        [ForeignKey("appUser")]
+        public int appUserId { get; set; }
+
+        public AppUser appUser { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<BAIdentityUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
