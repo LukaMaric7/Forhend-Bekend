@@ -12,47 +12,47 @@ using System.Web.Http.Description;
 namespace BookingApp.Controllers
 {
     [RoutePrefix("api")]
-    public class CountryController : ApiController
+    public class AccommodationTypeController : ApiController
     {
         private BAContext db = new BAContext();
 
         [HttpGet]
-        [Route("countries")]
-        public IQueryable<Country> GetCountry()
+        [Route("accommodationTypes")]
+        public IQueryable<AccommodationType> GetAccommodationType()
         {
-            return db.Countries;
+            return db.AccommodationTypes;
         }
 
         [HttpGet]
-        [Route("countries")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult GetCountry([FromUri] int id)
+        [Route("accommodationTypes")]
+        [ResponseType(typeof(AccommodationType))]
+        public IHttpActionResult GetAccommodationType([FromUri] int id)
         {
-            Country country = db.Countries.Find(id);
-            if (country == null)
+            AccommodationType accommodationType = db.AccommodationTypes.Find(id);
+            if (accommodationType == null)
             {
                 return NotFound();
             }
 
-            return Ok(country);
+            return Ok(accommodationType);
         }
 
         [HttpPut]
-        [Route("countries/{id}")]
+        [Route("accommodationTypes/{id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCountry(int id, Country country)
+        public IHttpActionResult PutAccommodationType(int id, AccommodationType accommodationType)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != country.Id)
+            if (id != accommodationType.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(country).State = EntityState.Modified;
+            db.Entry(accommodationType).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!AccommodationTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -74,36 +74,36 @@ namespace BookingApp.Controllers
         }
 
         [HttpPost]
-        [Route("countries")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult PostCountry(Country country)
+        [Route("accommodationTypes")]
+        [ResponseType(typeof(AccommodationType))]
+        public IHttpActionResult PostAccommodationType(AccommodationType accommodationType)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Countries.Add(country);
+            db.AccommodationTypes.Add(accommodationType);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { controller = "Country", id = country.Id }, country);
+            return CreatedAtRoute("DefaultApi", new {controller = "AccommodationType", id = accommodationType.Id }, accommodationType);
         }
 
         [HttpDelete]
-        [Route("countries/{id}")]
-        [ResponseType(typeof(Country))]
-        public IHttpActionResult DeleteCountry(int id)
+        [Route("accommodationTypes/{id}")]
+        [ResponseType(typeof(AccommodationType))]
+        public IHttpActionResult DeleteAccommodationType(int id)
         {
-            Country country = db.Countries.Find(id);
-            if (country == null)
+            AccommodationType accommodationType = db.AccommodationTypes.Find(id);
+            if (accommodationType == null)
             {
                 return NotFound();
             }
 
-            db.Countries.Remove(country);
+            db.AccommodationTypes.Remove(accommodationType);
             db.SaveChanges();
 
-            return Ok(country);
+            return Ok(accommodationType);
         }
 
         protected override void Dispose(bool disposing)
@@ -115,9 +115,9 @@ namespace BookingApp.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CountryExists(int id)
+        private bool AccommodationTypeExists(int id)
         {
-            return db.Countries.Count(e => e.Id == id) > 0;
+            return db.AccommodationTypes.Count(e => e.Id == id) > 0;
         }
     }
 }
