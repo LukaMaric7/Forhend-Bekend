@@ -38,7 +38,7 @@ namespace BookingApp.Controllers
         }
 
         [HttpPut]
-        [Route("reservation//{idRoom}/{idUser}/{time}")]
+        [Route("reservation/{idRoom}/{idUser}/{time}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutReservation(int idRoom, int idUser, byte[] time, RoomReservation reservation)
         {
