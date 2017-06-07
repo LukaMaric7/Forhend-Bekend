@@ -1,3 +1,7 @@
 <p>
-  country-list works!
+  List of countries
 </p>
+
+<ul>
+  <li *ngFor = "let country of countries"><country [country] = "country"></country></li>
+</ul>

@@ -6,10 +6,16 @@ import { Country } from "app/country/country.model";
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.css']
 })
+
 export class CountryListComponent implements OnInit {
   countries: Country [];
-  
-  constructor() { }
+
+  constructor() { 
+    this.countries = [
+    new Country(1, "Serbia",  "RS"),
+    new Country(2, "Bosnia and Herzegovina", "BiH")
+    ];
+  }
 
   ngOnInit() {
   }
