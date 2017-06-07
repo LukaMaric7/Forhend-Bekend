@@ -1,24 +1,30 @@
 import { Injectable } from '@angular/core'
 import { Country } from "app/country/country.model";
+import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CountryListService {
 
-    countries : Country[];
-
-    constructor(){
-        this.countries = [];
+    constructor(private http : Http){
      }
 
-    getAll(){
-        return this.countries;
+    getAll() : Observable<any> {
+        return this.http.get("http://localhost:54042/api/countries");
     }
 
-    getById(id : number){
-        return this.countries.find(c => c.Id == id);
+    getById(id : number) : Observable<any> {
+        return this.http.get(`http://localhost:54042/api/countries/${id}`);
     }
 
-    add(country : Country){
-        this.countries.push(country);
+    add(country : Country) : Observable<any> {
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.post(`http://localhost:54042/api/countries`, 
+        JSON.stringify(country), opts);
     }
 }
