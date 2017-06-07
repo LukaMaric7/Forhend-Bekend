@@ -1,23 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Country } from "app/country/country.model";
+import { CountryListService } from './country-list.service'
 
 @Component({
   selector: 'country-list',
   templateUrl: './country-list.component.html',
-  styleUrls: ['./country-list.component.css']
+  styleUrls: ['./country-list.component.css'],
+  providers: [CountryListService]
 })
 
 export class CountryListComponent implements OnInit {
   countries: Country [];
+  Name: string;
+  Code: string;
 
-  constructor() { 
-    this.countries = [
-    new Country(1, "Serbia",  "RS"),
-    new Country(2, "Bosnia and Herzegovina", "BiH")
-    ];
+  constructor(private countryService : CountryListService) { 
+    this.countries = [];
   }
 
   ngOnInit() {
+    this.countries = this.countryService.getAll();
   }
 
+  onSubmit()
+  {
+    this.countryService.add(new Country(1,this.Name,this.Code));
+    this.Name = "";
+    this.Code = "";
+  }
 }
