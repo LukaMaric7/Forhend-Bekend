@@ -74,7 +74,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPost]
         [Route("countries")]
         [ResponseType(typeof(Country))]
