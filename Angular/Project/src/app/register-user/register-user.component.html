@@ -1,3 +1,27 @@
 <p>
-  register-user works!
+  Register as user
 </p>
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div>
+    <label for = "Name">User name:</label>
+    <br>
+    <input type="text" name="Name" id="Name" [(ngModel)]="AppUser.Username"/>
+  </div>
+
+  <div>
+    <label for = "email">E-mail:</label>
+    <br>
+    <input type="email" name="email" id="email" [(ngModel)]="AppUser.Email"/>
+  </div>
+
+  <div>
+    <label for = "pass">Password:</label>
+    <br>
+    <input type="password" name="pass" id="pass" [(ngModel)]="AppUser.Password"/>
+  </div>
+
+  <div>
+    <input type="submit" value="Add"/>
+  </div>
+</form>
