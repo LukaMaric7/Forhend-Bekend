@@ -1,0 +1,17 @@
+#btn-group .button {
+    background-color: #008CBA; /* Green */
+    border: 1px solid blue;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+#btn-group .button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+#btn-group .button:hover {
+    background-color: rgb(0, 0, 147);
+}
