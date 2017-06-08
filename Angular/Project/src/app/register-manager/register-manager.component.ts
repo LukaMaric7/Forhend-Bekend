@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppUser } from "app/register-manager/appUser.model";
+import { AppUserService } from './appUser.service';
 
 @Component({
   selector: 'register-manager',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterManagerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appUserService : AppUserService) { }
+
+  Username : string;
+  Password : string;
+  Email : string;
 
   ngOnInit() {
+  }
+
+  onSubmit(){
+    this.appUserService.register(new AppUser(this.Username,this.Password,this.Email,"Manager")).subscribe();
+    this.Username = "";
+    this.Password = "";
+    this.Email = "";
   }
 
 }
