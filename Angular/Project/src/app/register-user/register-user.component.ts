@@ -9,7 +9,9 @@ import { AppUser } from "app/register-manager/appUser.model";
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent implements OnInit {
-  appUser: AppUser;
+  Username : string;
+  Password : string;
+  Email : string;
 
   constructor(private registerUserService : RegisterUserService) { }
 
@@ -18,8 +20,10 @@ export class RegisterUserComponent implements OnInit {
 
    onSubmit()
   {
-    this.registerUserService.register(appUser).subscribe();
-
+    this.registerUserService.register(new AppUser(this.Username,this.Password,this.Email,"Manager")).subscribe();
+    this.Username = "";
+    this.Password = "";
+    this.Email = "";
   }
 
 }
