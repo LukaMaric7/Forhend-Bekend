@@ -12,8 +12,16 @@ export class LogoutService {
 
     logout() : Observable<any> {
         
+        let header = new Headers();
+        header.append('Content-type', 'application/x-www-form-urlencoded');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        let ret = this.http.post(`http://localhost:54042/api/Account/Logout`, "", opts);
         localStorage.removeItem(LSE.User.toString());
 
-        return this.http.post(`http://localhost:54042/api/Account/Logout`, "");
+        return ret;
     }
 }

@@ -43,8 +43,7 @@ namespace BookingApp.Providers
                 return;
             }
 
-            var baUser = userManager.Users.FirstOrDefault(u => u.UserName == context.UserName);
-            var userRole = baUser.Roles.First().RoleId;
+            var userRole = user.Roles.First().RoleId;
             var role = baContext.Roles.FirstOrDefault(r => r.Id == userRole);
 
             if (role.Name.Equals("Admin"))

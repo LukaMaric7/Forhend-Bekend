@@ -329,7 +329,8 @@ namespace BookingApp.Controllers
 
             AppUser appUser = new AppUser() { Name = model.Name, LastName = model.Lastname };
 
-            var user = new BAIdentityUser() { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email, appUser = appUser, PasswordHash = BAIdentityUser.HashPassword(model.Password)};
+            var user = new BAIdentityUser() { Id = Guid.NewGuid().ToString(), UserName = model.Username,
+                Email = model.Email, appUser = appUser, PasswordHash = BAIdentityUser.HashPassword(model.Password)};
              
             var userStore = new UserStore<BAIdentityUser>(context);
             var userManager = new UserManager<BAIdentityUser>(userStore);
