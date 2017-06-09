@@ -1,47 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="../../../bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js"></script>
-</head>
-<body>
-	<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
-	  <div>
-	    <label for = "name">Name:</label>
-	    <br>
-	    <input type="text" name="name" id="name" [(ngModel)]="Name"/>
-	  </div>
+<p>
+  Register as manager
+</p>
 
-	  <div>
-	    <label for = "lastname">Lastname:</label>
-	    <br>
-	    <input type="text" name="lastname" id="lastname" [(ngModel)]="Lastname"/>
-	  </div>
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div>
+    <label for = "name">Name:</label>
+    <br>
+    <input type="text" name="name" id="name" [(ngModel)]="Name"/>
+  </div>
 
-	  <div>
-	    <label for = "username">User name:</label>
-	    <br>
-	    <input type="text" name="username" id="username" [(ngModel)]="Username"/>
-	  </div>
+  <div>
+    <label for = "lastname">Lastname:</label>
+    <br>
+    <input type="text" name="lastname" id="lastname" [(ngModel)]="Lastname"/>
+  </div>
 
-	  <div>
-	    <label for = "email">E-mail:</label>
-	    <br>
-	    <input type="email" name="email" id="email" [(ngModel)]="Email"/>
-	  </div>
+  <div>
+    <label for = "username">User name:</label>
+    <br>
+    <input type="text" name="username" id="username" [(ngModel)]="Username"/>
+  </div>
 
-	  <div>
-	    <label for = "pass">Password:</label>
-	    <br>
+  <div>
+    <label for = "email">E-mail:</label>
+    <br>
+    <input type="email" name="email" id="email" [(ngModel)]="Email"/>
+  </div>
 
+  <div>
+    <label for = "pass">Password:</label>
+    <br>
+    <input type="password" name="pass" id="pass" [(ngModel)]="Password"/>
+  </div>
 
-	  <div>
-	    <input type="submit" value="Add"/>
-	  </div>
-	</form>
-</body>
-</html>
+  <div>
+    <input type="submit" value="Add"/>
+  </div>
+</form>
