@@ -7,3 +7,7 @@ Kreiranje klasa u C#:
   Osoba1 - Accommodation, Room, Country, AccommodationType
   Osoba2 - Comment, RoomReservation, Region, Place
 
+Kreiranje komponenti u angularu:
+  Osoba1 - Register for app user
+  Osoba2 - Register for manager user
+
