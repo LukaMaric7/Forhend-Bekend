@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   putToken(token : any){
-    localStorage.setItem(this.Username,token.access_token);
+    localStorage.setItem("username",token.access_token);
     this.Username = "";
     this.Password = "";
   }
