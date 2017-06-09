@@ -3,11 +3,15 @@ export class AppUser{
     Password : string;
     Email : string;
     Role : string;
+    Name : string;
+    Lastname : string;
 
-    constructor (username: string, password: string, email : string, role : string) {
+    constructor (username: string, password: string, email : string, role : string, lastName : string, name : string) {
         this.Username = username;
         this.Password = password;
         this.Email = email;
         this.Role = role;
+        this.Lastname = lastName;
+        this.Name = name;
     }
 }

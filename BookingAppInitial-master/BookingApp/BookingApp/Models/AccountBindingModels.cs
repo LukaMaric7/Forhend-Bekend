@@ -39,6 +39,14 @@ namespace BookingApp.Models
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Lastname")]
+        public string Lastname { get; set; }
+
+        [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 

@@ -11,14 +11,11 @@ namespace BookingApp.Models
         public int Id { get; set; }
 
         [StringLength(25)]
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [StringLength(64)]
-        public string Email { get; set; }
-
-        [Required]
-        public String Password { get; set; }
+        public string LastName { get; set; }
 
         public List<Accommodation> Accommodations { get; set; }
 

@@ -6,12 +6,15 @@ import { AppUser } from "app/register-manager/appUser.model";
 @Component({
   selector: 'register-user',
   templateUrl: './register-user.component.html',
-  styleUrls: ['./register-user.component.css']
+  styleUrls: ['./register-user.component.css'],
+  providers: [RegisterUserService]
 })
 export class RegisterUserComponent implements OnInit {
   Username : string;
   Password : string;
   Email : string;
+  Lastname : string;
+  Name : string;
 
   constructor(private registerUserService : RegisterUserService) { }
 
@@ -20,10 +23,12 @@ export class RegisterUserComponent implements OnInit {
 
    onSubmit()
   {
-    this.registerUserService.register(new AppUser(this.Username,this.Password,this.Email,"Manager")).subscribe();
+    this.registerUserService.register(new AppUser(this.Username,this.Password,this.Email,"AppUser", this.Lastname, this.Name)).subscribe();
     this.Username = "";
     this.Password = "";
     this.Email = "";
+    this.Lastname = "";
+    this.Name = "";
   }
 
 }

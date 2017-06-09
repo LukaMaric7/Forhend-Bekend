@@ -295,6 +295,10 @@
     <Compile Include="Migrations\201706061033024_byUserChange.Designer.cs">
       <DependentUpon>201706061033024_byUserChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706090707493_AppUserChanged.cs" />
+    <Compile Include="Migrations\201706090707493_AppUserChanged.Designer.cs">
+      <DependentUpon>201706090707493_AppUserChanged.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
     <Compile Include="Models\AccommodationType.cs" />
@@ -407,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706061033024_byUserChange.resx">
       <DependentUpon>201706061033024_byUserChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706090707493_AppUserChanged.resx">
+      <DependentUpon>201706090707493_AppUserChanged.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

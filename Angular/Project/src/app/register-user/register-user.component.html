@@ -4,9 +4,21 @@
 
 <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
   <div>
-    <label for = "Name">User name:</label>
+    <label for = "name">Name:</label>
     <br>
-    <input type="text" name="Name" id="Name" [(ngModel)]="Username"/>
+    <input type="text" name="name" id="name" [(ngModel)]="Name"/>
+  </div>
+
+  <div>
+    <label for = "lastname">Lastname:</label>
+    <br>
+    <input type="text" name="lastname" id="lastname" [(ngModel)]="Lastname"/>
+  </div>
+
+  <div>
+    <label for = "username">User name:</label>
+    <br>
+    <input type="text" name="username" id="username" [(ngModel)]="Username"/>
   </div>
 
   <div>

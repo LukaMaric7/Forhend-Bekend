@@ -1,20 +1,39 @@
-<form #f="ngForm" (ngSubmit)="onSubmit()">
+<p>
+  Register as manager
+</p>
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
   <div>
-    <label for = "Username">Username:</label>
+    <label for = "name">Name:</label>
     <br>
-    <input type="text" name="Username" id="Username" [(ngModel)]="Username"/>
+    <input type="text" name="name" id="name" [(ngModel)]="Name"/>
   </div>
+
   <div>
-    <label for = "Password">Code:</label>
+    <label for = "lastname">Lastname:</label>
     <br>
-    <input type="password" name="Password" id="Password" [(ngModel)]="Password"/>
+    <input type="text" name="lastname" id="lastname" [(ngModel)]="Lastname"/>
   </div>
+
   <div>
-    <label for = "Email">Code:</label>
+    <label for = "username">User name:</label>
     <br>
-    <input type="email" name="Email" id="Email" [(ngModel)]="Email"/>
+    <input type="text" name="username" id="username" [(ngModel)]="Username"/>
   </div>
+
   <div>
-    <input type="submit" value="Register"/>
+    <label for = "email">E-mail:</label>
+    <br>
+    <input type="email" name="email" id="email" [(ngModel)]="Email"/>
+  </div>
+
+  <div>
+    <label for = "pass">Password:</label>
+    <br>
+    <input type="password" name="pass" id="pass" [(ngModel)]="Password"/>
+  </div>
+
+  <div>
+    <input type="submit" value="Add"/>
   </div>
 </form>
