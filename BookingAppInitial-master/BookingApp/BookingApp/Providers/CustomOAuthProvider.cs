@@ -41,6 +41,25 @@ namespace BookingApp.Providers
                 return;
             }
 
+            bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
+
+            if (isAdmin)
+            {
+                context.OwinContext.Response.Headers.Add("Role", new[] { "Admin" });
+            }
+            else
+            {
+                bool isManager = await userManager.IsInRoleAsync(user.UserName, "Manager");
+                if (isManager)
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
+                }
+                else
+                {
+                    context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
+                }
+            }
+
             //if (!user.EmailConfirmed)
             //{
             //    context.SetError("invalid_grant", "AppUser did not confirm email.");
