@@ -10,12 +10,14 @@ import { CountryComponent } from './country/country.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { RegisterManagerComponent } from './register-manager/register-manager.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const Routes = [
   {path : "register-user", component: RegisterUserComponent},
   {path : "register-manager", component: RegisterManagerComponent},
   {path : "login", component: LoginComponent},
-  {path : "other", component: AppComponent}
+  {path : "other", component: AppComponent},
+  {path : "logout", component: LogoutComponent}
 ]
 
 @NgModule({
@@ -25,7 +27,8 @@ const Routes = [
     CountryComponent,
     LoginComponent,
     RegisterUserComponent,
-    RegisterManagerComponent
+    RegisterManagerComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

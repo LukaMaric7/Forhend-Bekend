@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    this.loginService.login(this.Username,this.Password, "password").subscribe(this.putToken);
+    this.loginService.login(this.Username,this.Password, "password").subscribe( res => { this.putToken(res.json()) });
 
   }
 

@@ -80,7 +80,7 @@ namespace BookingApp.Migrations
             if (!context.Users.Any(u => u.UserName == "appu"))
             {
                 var _appUser = context.AppUsers.FirstOrDefault(a => a.Name == "AppUser");
-                var user = new BAIdentityUser() { Id = "appu", UserName = "appu", Email = "appu@yahoo.com", PasswordHash = BAIdentityUser.HashPassword("appu"), appUserId = _appUser.Id };
+                var user = new BAIdentityUser() { Id = "appu", UserName = "appu", Email = "appu@yahoo.com", PasswordHash = BAIdentityUser.HashPassword("!G0gic0123"), appUserId = _appUser.Id };
                 userManager.Create(user);
                 userManager.AddToRole(user.Id, "AppUser");
             }

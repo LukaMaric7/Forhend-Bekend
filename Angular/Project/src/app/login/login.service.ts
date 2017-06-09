@@ -11,12 +11,12 @@ export class LoginService {
 
     login(username: string, password: string, Grant_type: string) : Observable<any> {
         let header = new Headers();
-        header.append('Content-type', 'application/x-www-from-urlencoded');
+        header.append('Content-type', 'application/x-www-form-urlencoded');
 
         let opts = new RequestOptions();
         opts.headers = header;
 
         return this.http.post(`http://localhost:54042/oauth/token`, 
-        'Username=${username}&Password=${password}&Grant_type=${Grant_type}', opts);
+        `username=${username}&password=${password}&grant_type=${Grant_type}`, opts);
     }
 }

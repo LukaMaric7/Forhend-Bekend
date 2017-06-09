@@ -16,6 +16,8 @@ using Microsoft.Owin.Security.OAuth;
 using BookingApp.Models;
 using BookingApp.Providers;
 using BookingApp.Results;
+using System.Data.Entity.Migrations;
+using System.Linq;
 
 namespace BookingApp.Controllers
 {
@@ -321,24 +323,20 @@ namespace BookingApp.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(RegisterBindingModel model)
+        public IHttpActionResult Register(RegisterBindingModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            BookingApp.Models.BAContext context = new BAContext();
+
             AppUser appUser = new AppUser() { Name = model.Name, LastName = model.Lastname };
-            var user = new BAIdentityUser() { UserName = model.Username, Email = model.Email, appUser = appUser };
 
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            var user = new BAIdentityUser() { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email, appUser = appUser, PasswordHash = BAIdentityUser.HashPassword(model.Password)};
+             
+            var userStore = new UserStore<BAIdentityUser>(context);
+            var userManager = new UserManager<BAIdentityUser>(userStore);
             
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            UserManager.AddToRole(user.Id, model.Role);
+            userManager.Create(user);
+            userManager.AddToRole(user.Id, model.Role);
+            
 
             return Ok();
         }

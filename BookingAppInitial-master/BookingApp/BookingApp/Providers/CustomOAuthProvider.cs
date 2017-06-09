@@ -29,6 +29,8 @@ namespace BookingApp.Providers
 
             var allowedOrigin = "*";
 
+            BAContext baContext = new BAContext();
+
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             ApplicationUserManager userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
@@ -41,24 +43,23 @@ namespace BookingApp.Providers
                 return;
             }
 
-            bool isAdmin = await userManager.IsInRoleAsync(user.UserName, "Admin");
+            var baUser = userManager.Users.FirstOrDefault(u => u.UserName == context.UserName);
+            var userRole = baUser.Roles.First().RoleId;
+            var role = baContext.Roles.FirstOrDefault(r => r.Id == userRole);
 
-            if (isAdmin)
+            if (role.Name.Equals("Admin"))
             {
                 context.OwinContext.Response.Headers.Add("Role", new[] { "Admin" });
             }
+            else if (role.Name.Equals("Manager"))
+            {
+                context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
+            }
             else
             {
-                bool isManager = await userManager.IsInRoleAsync(user.UserName, "Manager");
-                if (isManager)
-                {
-                    context.OwinContext.Response.Headers.Add("Role", new[] { "Manager" });
-                }
-                else
-                {
-                    context.OwinContext.Response.Headers.Add("Role", new[] { "User" });
-                }
+                context.OwinContext.Response.Headers.Add("Role", new[] { "AppUser" });
             }
+            
 
             //if (!user.EmailConfirmed)
             //{
