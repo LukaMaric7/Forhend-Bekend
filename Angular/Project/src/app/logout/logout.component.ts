@@ -15,7 +15,7 @@ export class LogoutComponent implements OnInit {
   }
 
   onSubmit(){
-    
+    this.logoutService.logout().subscribe();
   }
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { AppUser } from "app/register-manager/appUser.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { LSE } from "app/localStorageEnum.model";
 
 @Injectable()
 export class LogoutService {
@@ -9,15 +10,10 @@ export class LogoutService {
     constructor(private http : Http){
      }
 
-    logout(username: string, password: string, Grant_type: string) : Observable<any> {
-        let header = new Headers();
-        header.append('Content-type', 'application/x-www-form-urlencoded');
+    logout() : Observable<any> {
+        
+        localStorage.removeItem(LSE.User.toString());
 
-        let opts = new RequestOptions();
-        opts.headers = header;
-        localStorage.clear();
-
-        return this.http.post(`http://localhost:54042/oauth/token`, 
-        `username=${username}&password=${password}&grant_type=${Grant_type}`, opts);
+        return this.http.post(`http://localhost:54042/api/Account/Logout`, "");
     }
 }
