@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -17,6 +18,7 @@ namespace BookingApp.Controllers
         private BAContext db = new BAContext();
 
         [HttpGet]
+        [EnableQuery]
         [Route("places")]
         public IQueryable<Place> GetPlace()
         {
