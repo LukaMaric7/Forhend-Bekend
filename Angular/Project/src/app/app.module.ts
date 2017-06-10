@@ -13,10 +13,19 @@ import { LoginComponent } from './login/login.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { RegisterManagerComponent } from './register-manager/register-manager.component';
 import { LogoutComponent } from './logout/logout.component';
+import { HomeComponent } from './home/home.component';
+import { AddCountryComponent } from './add-country/add-country.component';
+import { AddRegionComponent } from './add-region/add-region.component';
+import { RegionComponent } from './region/region.component';
+import { RegionListComponent } from './region-list/region-list.component';
 
 const Routes = [
+  {path : "home", component: HomeComponent},
   {path : "register-user", component: RegisterUserComponent},
   {path : "register-manager", component: RegisterManagerComponent},
+  {path : "region", component: RegionComponent},
+  {path : "add-region", component: AddRegionComponent},
+  {path : "region-list", component: RegionListComponent},
   {path : "login", component: LoginComponent},
   {path : "other", component: AppComponent},
   {path : "logout", component: LogoutComponent}
@@ -30,7 +39,12 @@ const Routes = [
     LoginComponent,
     RegisterUserComponent,
     RegisterManagerComponent,
-    LogoutComponent
+    LogoutComponent,
+    HomeComponent,
+    AddCountryComponent,
+    AddRegionComponent,
+    RegionComponent,
+    RegionListComponent
   ],
   imports: [
     BrowserModule,
