@@ -1,3 +1,21 @@
 <p>
-  add-region works!
+  Add region
 </p>
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div>
+    <label for = "Name">Name:</label>
+    <br>
+    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+  </div>
+  <div>
+    <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
+     name="CountryID" id="CountryID" [(ngModel)]="CountryID">
+      <option md-option *ngFor = "let country of countries" value={{country.Id}} ><country [country] = "country"></country></option>
+    </select>
+  </div>
+ 
+  <div>
+    <input type="submit" value="Add"/>
+  </div>
+</form>
