@@ -11,7 +11,7 @@
   <div>
     <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
      name="CountryID" id="CountryID" [(ngModel)]="CountryID">
-      <option md-option *ngFor = "let country of countries" value={{country.Id}} ><country [country] = "country"></country></option>
+      <option md-option *ngFor = "let country of countries" value={{country.Id}} >{{country.Name}}</option>
     </select>
   </div>
  
