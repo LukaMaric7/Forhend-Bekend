@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { MaterialModule } from '@angular/material';
+import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { CountryListComponent } from './country-list/country-list.component';
@@ -34,7 +36,8 @@ const Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(Routes)
+    RouterModule.forRoot(Routes),
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
