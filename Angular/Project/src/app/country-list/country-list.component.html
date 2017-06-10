@@ -1,23 +1,6 @@
 <p>
   List of countries
 </p>
-
-<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
-  <div>
-    <label for = "Name">Name:</label>
-    <br>
-    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
-  </div>
-  <div>
-    <label for = "Code">Code:</label>
-    <br>
-    <input type="text" name="Code" id="Code" [(ngModel)]="Code"/>
-  </div>
-  <div>
-    <input type="submit" value="Add"/>
-  </div>
-</form>
-
 <ul>
   <li *ngFor = "let country of countries"><country [country] = "country"></country></li>
 </ul>

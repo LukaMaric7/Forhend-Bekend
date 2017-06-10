@@ -3,6 +3,7 @@
 
   <div align="left">
     <button md-raised-button [routerLink]="['/add-country']" class="md-button">Add country</button>
+    <button md-raised-button [routerLink]="['/country-list']" class="md-button">Existing countries</button>
   </div>
   <div align="right">
     <button *ngIf="!IsLoggedIn()" md-raised-button [routerLink]="['/login']" class="md-button">Log in</button>
@@ -12,6 +13,7 @@
 <div>
   <router-outlet></router-outlet>
 </div>
+
 
 
 

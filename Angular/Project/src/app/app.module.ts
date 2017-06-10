@@ -18,6 +18,7 @@ import { AddCountryComponent } from './add-country/add-country.component';
 import { AddRegionComponent } from './add-region/add-region.component';
 import { RegionComponent } from './region/region.component';
 import { RegionListComponent } from './region-list/region-list.component';
+import { CountryDetailViewComponent } from './country-detail-view/country-detail-view.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -26,8 +27,12 @@ const Routes = [
   {path : "region", component: RegionComponent},
   {path : "add-region", component: AddRegionComponent},
   {path : "region-list", component: RegionListComponent},
+  {path : "add-country", component: AddCountryComponent},
+  {path : "country-list", component: CountryListComponent},
   {path : "login", component: LoginComponent},
   {path : "other", component: AppComponent},
+  {path : "country", component: CountryComponent},
+  {path : "country-detail-view", component: CountryDetailViewComponent},
   {path : "logout", component: LogoutComponent}
 ]
 
@@ -44,7 +49,8 @@ const Routes = [
     AddCountryComponent,
     AddRegionComponent,
     RegionComponent,
-    RegionListComponent
+    RegionListComponent,
+    CountryDetailViewComponent
   ],
   imports: [
     BrowserModule,

@@ -11,8 +11,6 @@ import { CountryListService } from './country-list.service'
 
 export class CountryListComponent implements OnInit {
   countries: Country [];
-  Name: string;
-  Code: string;
 
   constructor(private countryService : CountryListService) { 
     this.countries = [];
@@ -20,12 +18,5 @@ export class CountryListComponent implements OnInit {
 
   ngOnInit() {
     this.countryService.getAll().subscribe(x => this.countries = x.json());
-  }
-
-  onSubmit()
-  {
-    this.countryService.add(new Country(2,this.Name,this.Code)).subscribe();
-    this.Name = "";
-    this.Code = "";
   }
 }

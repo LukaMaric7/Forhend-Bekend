@@ -23,7 +23,7 @@ export class CountryListService {
 
         let opts = new RequestOptions();
         opts.headers = header;
-
+console.log("usao");
         return this.http.post(`http://localhost:54042/api/countries`, 
         JSON.stringify(country), opts);
     }
