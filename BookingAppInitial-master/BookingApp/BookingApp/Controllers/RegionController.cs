@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -76,6 +77,7 @@ namespace BookingApp.Controllers
 
        // [Authorize]
         [HttpPost]
+        [EnableQuery]
         [Route("region")]
         [ResponseType(typeof(Region))]
         public IHttpActionResult PostRegion(Region region)

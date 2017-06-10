@@ -24,6 +24,11 @@ export class AddRegionComponent implements OnInit {
     this.countryService.getAll().subscribe(x => this.countries = x.json());
   }
 
+  a()
+  {
+    console.log("proba");
+  }
+
   onSubmit(param : any){
     console.log(param);
     this.addRegionService.add(new Region(1, this.Name, this.CountryID)).subscribe();

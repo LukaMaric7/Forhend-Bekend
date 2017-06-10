@@ -10,11 +10,13 @@
   </div>
   <div>
     <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
-     name="CountryID" id="CountryID" [(ngModel)]="CountryID">
-      <option md-option *ngFor = "let country of countries" value={{country.Id}} >{{country.Name}}</option>
+     name="CountryID" id="CountryID" [(ngModel)]="CountryID" ng-change="a()"> 
+      <option (ngClick)="a();" md-option *ngFor = "let country of countries" value={{country.Id}} >{{country.Name}}</option>
     </select>
   </div>
- 
+
+
+
   <div>
     <input type="submit" value="Add"/>
   </div>
