@@ -51,8 +51,8 @@ namespace BookingApp.Migrations
                         Text = c.String(),
                     })
                 .PrimaryKey(t => new { t.AccommodationId, t.UserId })
-                .ForeignKey("dbo.Accommodations", t => t.AccommodationId, cascadeDelete: false)
-                .ForeignKey("dbo.AppUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Accommodations", t => t.AccommodationId, cascadeDelete: true)
+                .ForeignKey("dbo.AppUsers", t => t.UserId, cascadeDelete: false)
                 .Index(t => t.AccommodationId)
                 .Index(t => t.UserId);
             
@@ -67,8 +67,8 @@ namespace BookingApp.Migrations
                         EndDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => new { t.RoomId, t.UserId, t.TimeStamp })
-                .ForeignKey("dbo.Rooms", t => t.RoomId, cascadeDelete: false)
-                .ForeignKey("dbo.AppUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Rooms", t => t.RoomId, cascadeDelete: true)
+                .ForeignKey("dbo.AppUsers", t => t.UserId, cascadeDelete: false)
                 .Index(t => t.RoomId)
                 .Index(t => t.UserId);
             
