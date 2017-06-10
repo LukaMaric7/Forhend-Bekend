@@ -19,6 +19,11 @@ import { AddRegionComponent } from './add-region/add-region.component';
 import { RegionComponent } from './region/region.component';
 import { RegionListComponent } from './region-list/region-list.component';
 import { CountryDetailViewComponent } from './country-detail-view/country-detail-view.component';
+import { RegionDetailViewComponent } from './region-detail-view/region-detail-view.component';
+import { PlaceComponent } from './place/place.component';
+import { PlaceListComponent } from './place-list/place-list.component';
+import { PlaceDetailViewComponent } from './place-detail-view/place-detail-view.component';
+import { AddPlaceComponent } from './add-place/add-place.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -33,7 +38,12 @@ const Routes = [
   {path : "other", component: AppComponent},
   {path : "country", component: CountryComponent},
   {path : "country-detail-view", component: CountryDetailViewComponent},
-  {path : "logout", component: LogoutComponent}
+  {path : "logout", component: LogoutComponent},
+  {path : "place", component: PlaceComponent},
+  {path : "place-list", component: PlaceListComponent},
+  {path : "place-detail-view", component: PlaceDetailViewComponent},
+  {path : "region-detail-view", component: RegionDetailViewComponent},
+  {path : "add-place", component: AddPlaceComponent}
 ]
 
 @NgModule({
@@ -50,7 +60,12 @@ const Routes = [
     AddRegionComponent,
     RegionComponent,
     RegionListComponent,
-    CountryDetailViewComponent
+    CountryDetailViewComponent,
+    RegionDetailViewComponent,
+    PlaceComponent,
+    PlaceListComponent,
+    PlaceDetailViewComponent,
+    AddPlaceComponent
   ],
   imports: [
     BrowserModule,

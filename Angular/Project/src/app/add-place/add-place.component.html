@@ -1,0 +1,32 @@
+<p>
+  Add place!
+</p>
+<p>You must select Country in which you want to add place</p>
+<form (ngSubmit)="getRegionsFromCountry()">
+  <div>
+      <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
+      name="CountryID" id="CountryID" [(ngModel)]="CountryId">
+        <option md-option *ngFor = "let country of countries" value={{country.Id}} >{{country.Name}}</option>
+      </select>
+  </div>
+  <input type="submit" value="Choose"/>
+</form>
+
+<form *ngIf="isCountrySelected()" #f="ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for = "Name">Name:</label>
+    <br>
+    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+  </div>
+  
+  <div>
+    <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
+     name="RegionId" id="RegionId" [(ngModel)]="RegionId">
+      <option md-option *ngFor = "let region of regions" value={{region.Id}} >{{region.Name}}</option>
+    </select>
+  </div>
+ 
+  <div>
+    <input type="submit" value="Add"/>
+  </div>
+</form>
