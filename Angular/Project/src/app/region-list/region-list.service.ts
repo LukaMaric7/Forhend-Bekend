@@ -10,7 +10,7 @@ export class RegionListService {
      }
 
     getAll() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/region");
+        return this.http.get("http://localhost:54042/api/region?$expand=Country");
     }
 
     getById(id : number) : Observable<any> {
