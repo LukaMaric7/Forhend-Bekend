@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
-import { LSE } from "app/localStorageEnum.model";
+import { LSE } from 'app/localStorageEnum.model';
 
 @Component({
   selector: 'login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   putToken(token : any){
-    localStorage.setItem(LSE.User.toString(), token.access_token);
+    localStorage.setItem(LSE.User.toString(),token.access_token);
     this.Username = "";
     this.Password = "";
   }
