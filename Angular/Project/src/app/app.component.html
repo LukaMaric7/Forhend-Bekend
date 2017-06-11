@@ -14,10 +14,8 @@
       <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-place']" class="md-button">Add place</button>
       <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-accommodation-type']" class="md-button">Add accommodation type</button>
       <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/accommodation-type-list']" class="md-button">Existing accommodation types</button>
-      <button *ngIf="isManager()" md-raised-button class="md-button">Add country</button>
-      <button *ngIf="isManager()" md-raised-button class="md-button">Existing countries</button> 
-      <button *ngIf="isManager()" md-raised-button class="md-button">Add region</button> 
-      <button *ngIf="isManager()" md-raised-button class="md-button">Add place</button> 
+      <button *ngIf="isManager()" md-raised-button [routerLink]="['/add-accommodation']" class="md-button">Add accommodation</button>
+ 
   </div>
 <div>
   <router-outlet></router-outlet>

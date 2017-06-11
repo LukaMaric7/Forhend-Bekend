@@ -1,4 +1,5 @@
 import { Place } from "app/place/place.model";
+import { AccommodationType } from "app/accommodation-type/accommodation-type.model";
 
 export class Accommodation {
     Id                  : number;
@@ -10,6 +11,7 @@ export class Accommodation {
     Longitude           : number;
     ImageURL            : string;
     Approved            : boolean;
+    Accommodation       : AccommodationType;
     AccommodationTypeId : number;
     Place               : Place;
     PlaceId             : number;
