@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CountryDetailViewService } from './country-detail-view.service'
+import { CountryService } from 'app/country/country.service'
 import { Country } from "app/country/country.model";
 import { Router, ActivatedRoute } from "@angular/router";
 
@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from "@angular/router";
   selector: 'country-detail-view',
   templateUrl: './country-detail-view.component.html',
   styleUrls: ['./country-detail-view.component.css'],
-  providers: [CountryDetailViewService]
+  providers: [CountryService]
 })
 export class CountryDetailViewComponent implements OnInit {
   Id : number;
@@ -16,7 +16,7 @@ export class CountryDetailViewComponent implements OnInit {
   Name: string;
   Code: string;
 
-  constructor(private countryService : CountryDetailViewService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private countryService : CountryService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.country = new Country();
     this.showEdit = false;
    }
