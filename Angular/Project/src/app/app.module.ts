@@ -26,7 +26,11 @@ import { PlaceDetailViewComponent } from './place-detail-view/place-detail-view.
 import { AddPlaceComponent } from './add-place/add-place.component';
 import { LoggedInGuard } from "app/guards/logged-in.guard";
 import { IsAdminGuard } from "app/guards/isAdmin.guard";
-import { LocalStorageService } from "app/localStorage.service"
+import { LocalStorageService } from "app/localStorage.service";
+import { AccommodationComponent } from './accommodation/accommodation.component';
+import { AccommodationTypeComponent } from './accommodation-type/accommodation-type.component';
+import { AddAccommodationTypeComponent } from './add-accommodation-type/add-accommodation-type.component';
+import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component'
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -65,7 +69,11 @@ const Routes = [
     PlaceComponent,
     PlaceListComponent,
     PlaceDetailViewComponent,
-    AddPlaceComponent
+    AddPlaceComponent,
+    AccommodationComponent,
+    AccommodationTypeComponent,
+    AddAccommodationTypeComponent,
+    AddAccommodationComponent
   ],
   imports: [
     BrowserModule,

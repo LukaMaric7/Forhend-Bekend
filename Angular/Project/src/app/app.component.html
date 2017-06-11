@@ -1,24 +1,21 @@
 <!--The whole content below can be removed with the new code.-->
 <div id="btn-group">
-  <div *ngIf="isAdmin()" align="left">
-      <button md-raised-button [routerLink]="['/home']" class="md-button">Home</button>
-      <button md-raised-button [routerLink]="['/add-country']" class="md-button">Add country</button>
-      <button md-raised-button [routerLink]="['/country-list']" class="md-button">Existing countries</button> 
-      <button md-raised-button [routerLink]="['/add-region']" class="md-button">Add region</button> 
-      <button md-raised-button [routerLink]="['/add-place']" class="md-button">Add place</button> 
-  </div>
-  <div *ngIf="isManager()" align="left">
-      <button md-raised-button [routerLink]="['/home']" class="md-button">Home</button>
-      <button md-raised-button class="md-button">Add country</button>
-      <button md-raised-button class="md-button">Existing countries</button> 
-      <button md-raised-button class="md-button">Add region</button> 
-      <button md-raised-button class="md-button">Add place</button> 
-  </div>
 
   <div align="right">
     <button *ngIf="!IsLoggedIn()" md-raised-button [routerLink]="['/login']" class="md-button">Log in</button>
     <button *ngIf="!IsLoggedIn()" md-raised-button [routerLink]="['/register-user']" class="md-raised md-primary">Register as user</button>
     <button *ngIf="IsLoggedIn()" md-raised-button [routerLink]="['/logout']" class="md-button">Log out</button></div>
+  </div>
+  <div align="left">
+      <button md-raised-button [routerLink]="['/home']" class="md-button">Home</button>
+      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-country']" class="md-button">Add country</button>
+      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/country-list']" class="md-button">Existing countries</button> 
+      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-region']" class="md-button">Add region</button> 
+      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-place']" class="md-button">Add place</button>
+      <button *ngIf="isManager()" md-raised-button class="md-button">Add country</button>
+      <button *ngIf="isManager()" md-raised-button class="md-button">Existing countries</button> 
+      <button *ngIf="isManager()" md-raised-button class="md-button">Add region</button> 
+      <button *ngIf="isManager()" md-raised-button class="md-button">Add place</button> 
   </div>
 <div>
   <router-outlet></router-outlet>
