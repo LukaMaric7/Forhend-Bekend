@@ -1,3 +1,4 @@
-<p>
-  accommodation-type-list works!
-</p>
+<h1>Existing accommodation types: </h1>
+<ul>
+  <li *ngFor = "let accommodationType of accommodationTypes"><accommodation-type [accommodationType] = "accommodationType"></accommodation-type></li>
+</ul>
