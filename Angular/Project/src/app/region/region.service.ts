@@ -43,4 +43,8 @@ export class RegionService {
         return this.http.put(`http://localhost:54042/api/region`, 
         JSON.stringify(region), opts);
     }
+
+     delete(id : number) : Observable<any> {
+        return this.http.delete(`http://localhost:54042/api/region/${id}`);
+    }
 }

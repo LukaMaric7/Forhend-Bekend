@@ -1,4 +1,5 @@
 <div> 
     <p>Name: {{region.Name}} </p>
     <button md-button name="details" [routerLink]="['/region-detail-view', region.Id]">Show details</button>
+    <button md-button name="delete" (click) = "deleteRegion()">Delete</button>
 </div>
