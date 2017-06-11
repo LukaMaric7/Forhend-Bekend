@@ -42,8 +42,7 @@ export class CountryService {
 
         let opts = new RequestOptions();
         opts.headers = header;
-
-        return this.http.put(`http://localhost:54042/api/countries`, 
-        id + JSON.stringify(country), opts);
+        console.log( country);
+        return this.http.put(`http://localhost:54042/api/countries`, JSON.stringify(country), opts);
     }
 }

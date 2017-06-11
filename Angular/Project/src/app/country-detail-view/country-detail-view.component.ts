@@ -24,7 +24,7 @@ export class CountryDetailViewComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {this.Id = parseInt(params["Id"])});
     console.log(this.Id);
-    this.countryService.getById(this.Id).subscribe(o => {this.country = (o[0] as Country); console.log(this.country)});
+    this.countryService.getByIdOData(this.Id).subscribe(o => {this.country = (o[0] as Country); console.log(this.country)});
   }
 
   isShowEditPress() {

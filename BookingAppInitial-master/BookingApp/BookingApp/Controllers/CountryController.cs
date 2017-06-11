@@ -41,20 +41,15 @@ namespace BookingApp.Controllers
 
         //[Authorize]
         [HttpPut]
-        [Route("countries/{id}/{country}")]
+        [Route("countries")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCountry(int id, Country country)
+        public IHttpActionResult PutCountry(Country country)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != country.Id)
-            {
-                return BadRequest();
-            }
-
+ 
             db.Entry(country).State = EntityState.Modified;
 
             try
@@ -63,7 +58,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CountryExists(id))
+                if (!CountryExists(country.Id))
                 {
                     return NotFound();
                 }
