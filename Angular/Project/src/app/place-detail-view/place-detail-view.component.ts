@@ -11,5 +11,4 @@ export class PlaceDetailViewComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

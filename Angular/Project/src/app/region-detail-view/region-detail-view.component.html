@@ -1,4 +1,20 @@
 <h1>Region Name: {{region.Name}} </h1>
+
+<button  md-button name="delete" (click) = "changeShowEdit()">Edit</button>
+
+<div *ngIf="isShowEditPress()">
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div>
+    <label for = "Name">Name:</label>
+    <br>
+    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+  </div>
+  <div>
+   <button  md-button name="edit" >Apply</button>
+  </div>
+</form>
+</div>
+
 <h2>Places: </h2>
 
 <ul>

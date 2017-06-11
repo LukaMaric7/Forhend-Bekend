@@ -39,20 +39,15 @@ namespace BookingApp.Controllers
             return Ok(region);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
-        [Route("region/{id}")]
+        [Route("region")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRegion(int id, Region region)
+        public IHttpActionResult PutRegion(Region region)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != region.Id)
-            {
-                return BadRequest();
             }
 
             db.Entry(region).State = EntityState.Modified;
@@ -63,7 +58,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RegionExists(id))
+                if (!RegionExists(region.Id))
                 {
                     return NotFound();
                 }
