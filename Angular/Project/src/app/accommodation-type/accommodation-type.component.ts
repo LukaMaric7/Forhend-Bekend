@@ -1,15 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AccommodationType } from './accommodation-type.model';
+import { AccommodationTypeService } from './accommodation-type.service';
 
 @Component({
-  selector: 'app-accommodation-type',
+  selector: 'accommodation-type',
   templateUrl: './accommodation-type.component.html',
-  styleUrls: ['./accommodation-type.component.css']
+  styleUrls: ['./accommodation-type.component.css'],
+  providers: [AccommodationTypeService]
 })
 export class AccommodationTypeComponent implements OnInit {
-
-  constructor() { }
+  @Input() accommodationType : AccommodationType;
+  showEdit : Boolean;
+  Name : string;
+  constructor(private accommodationTypeService : AccommodationTypeService) {
+    this.showEdit = false;
+   }
 
   ngOnInit() {
   }
 
+  isShowEditPress() {
+    return this.showEdit;
+  }
+
+  changeShowEdit()
+  {
+    if(this.showEdit)
+    {
+       this.showEdit = false;
+    }
+    else
+    {
+      this.showEdit = true;
+    }
+  }
+   onSubmit(){
+    this.showEdit = false;
+    this.accommodationTypeService.edit(new AccommodationType(this.accommodationType.Id, this.Name)).subscribe();
+  }
+
+  deleteAccommodationType()
+  {
+    this.accommodationTypeService.delete(this.accommodationType.Id).subscribe();
+  }
 }

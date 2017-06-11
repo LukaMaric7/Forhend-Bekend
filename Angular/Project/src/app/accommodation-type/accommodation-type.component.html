@@ -1,3 +1,12 @@
 <p>
-  accommodation-type works!
+  Name : {{accommodationType.Name}}
 </p>
+<button  md-button name="edit" (click) = "changeShowEdit()">Edit</button>
+
+<button  md-button name="delete" (click) = "deleteAccommodationType()">Delete</button>
+
+<form *ngIf="isShowEditPress()" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+    <label for = "Name">New name:</label>
+    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+    <button  md-button name="edit" >Apply</button>
+</form>
