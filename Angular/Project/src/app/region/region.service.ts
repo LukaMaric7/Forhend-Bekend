@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class RegionService {
 
+    json : String;
     constructor(private http : Http){
      }
 
@@ -30,5 +31,16 @@ export class RegionService {
 
      getByIdOData(Id : number) : Observable<any> {
         return this.http.get(`http://localhost:54042/api/region?$filter=Id eq ${Id} &$expand=Places`).map(res => res.json());
+    }
+
+    edit(Id : number, region : Region){
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.put(`http://localhost:54042/api/region`, 
+        JSON.stringify(region), opts);
     }
 }
