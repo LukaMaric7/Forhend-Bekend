@@ -17,5 +17,23 @@ export class LocalStorageService {
 
         return true;
     }
+
+    isAdmin() : boolean {
+        if ( localStorage.getItem(LSE.Role.toString()) == "Admin")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    isManager() : boolean {
+        if ( localStorage.getItem(LSE.Role.toString()) == "Manager")
+        {
+            return true;
+        }
+
+        return false;
+    }
     
 }
