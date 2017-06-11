@@ -24,26 +24,28 @@ import { PlaceComponent } from './place/place.component';
 import { PlaceListComponent } from './place-list/place-list.component';
 import { PlaceDetailViewComponent } from './place-detail-view/place-detail-view.component';
 import { AddPlaceComponent } from './add-place/add-place.component';
+import { LoggedInGuard } from "app/guards/logged-in.guard";
+import { LocalStorageService } from "app/localStorage.service"
 
 const Routes = [
   {path : "home", component: HomeComponent},
   {path : "register-user", component: RegisterUserComponent},
   {path : "register-manager", component: RegisterManagerComponent},
   {path : "region", component: RegionComponent},
-  {path : "add-region", component: AddRegionComponent},
-  {path : "region-list", component: RegionListComponent},
-  {path : "add-country", component: AddCountryComponent},
-  {path : "country-list", component: CountryListComponent},
+  {path : "add-region", component: AddRegionComponent, canActivate: [LoggedInGuard]},
+  {path : "region-list", component: RegionListComponent, canActivate: [LoggedInGuard]},
+  {path : "add-country", component: AddCountryComponent, canActivate: [LoggedInGuard]},
+  {path : "country-list", component: CountryListComponent, canActivate: [LoggedInGuard]},
   {path : "login", component: LoginComponent},
   {path : "other", component: AppComponent},
   {path : "country", component: CountryComponent},
-  {path : "country-detail-view/:Id", component: CountryDetailViewComponent},
-  {path : "logout", component: LogoutComponent},
+  {path : "country-detail-view/:Id", component: CountryDetailViewComponent, canActivate: [LoggedInGuard]},
+  {path : "logout", component: LogoutComponent, canActivate: [LoggedInGuard]},
   {path : "place", component: PlaceComponent},
-  {path : "place-list", component: PlaceListComponent},
-  {path : "place-detail-view", component: PlaceDetailViewComponent},
-  {path : "region-detail-view/:Id", component: RegionDetailViewComponent},
-  {path : "add-place", component: AddPlaceComponent}
+  {path : "place-list", component: PlaceListComponent, canActivate: [LoggedInGuard]},
+  {path : "place-detail-view", component: PlaceDetailViewComponent, canActivate: [LoggedInGuard]},
+  {path : "region-detail-view/:Id", component: RegionDetailViewComponent, canActivate: [LoggedInGuard]},
+  {path : "add-place", component: AddPlaceComponent, canActivate: [LoggedInGuard]}
 ]
 
 @NgModule({
@@ -74,7 +76,8 @@ const Routes = [
     RouterModule.forRoot(Routes),
     MaterialModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [LocalStorageService, LoggedInGuard],
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
