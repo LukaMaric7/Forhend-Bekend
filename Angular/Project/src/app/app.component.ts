@@ -16,6 +16,15 @@ export class AppComponent {
   IsLoggedIn() : boolean {
     return this.localStorageService.IsLoggedIn();
   }
+
+
+  isAdmin() : Boolean {
+    return this.localStorageService.isAdmin();
+  }
+
+  isManager() : Boolean {
+    return this.localStorageService.isManager();
+  }
 }
 
 

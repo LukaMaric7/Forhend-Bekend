@@ -21,6 +21,7 @@ export class LogoutService {
 
         let ret = this.http.post(`http://localhost:54042/api/Account/Logout`, "", opts);
         localStorage.removeItem(LSE.User.toString());
+        localStorage.removeItem(LSE.Role.toString());
 
         return ret;
     }
