@@ -39,20 +39,15 @@ namespace BookingApp.Controllers
             return Ok(product);
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPut]
-        [Route("places/{id}")]
+        [Route("places")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPlace(int id, Place product)
+        public IHttpActionResult PutPlace(Place product)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != product.Id)
-            {
-                return BadRequest();
             }
 
             db.Entry(product).State = EntityState.Modified;
@@ -63,7 +58,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlaceExists(id))
+                if (!PlaceExists(product.Id))
                 {
                     return NotFound();
                 }

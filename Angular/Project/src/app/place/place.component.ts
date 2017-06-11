@@ -10,6 +10,9 @@ import { PlaceService } from './place.service'
 })
 export class PlaceComponent implements OnInit {
   @Input () place : Place;
+  showEdit : boolean;
+  Name : string;
+
   constructor(private placeService : PlaceService) { }
 
   ngOnInit() {
@@ -19,5 +22,26 @@ export class PlaceComponent implements OnInit {
   {
      this.placeService.delete(this.place.Id).subscribe();
   }
+    isShowEditPress() {
+    return this.showEdit;
+  }
+
+  changeShowEdit()
+  {
+    if(this.showEdit)
+    {
+       this.showEdit = false;
+    }
+    else
+    {
+      this.showEdit = true;
+    }
+  }
+
+  onSubmit(){
+    this.showEdit = false;
+    this.placeService.edit(new Place(this.place.Id, this.Name, this.place.RegionId)).subscribe();
+  }
+
 
 }

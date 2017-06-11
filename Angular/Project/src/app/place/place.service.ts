@@ -23,4 +23,14 @@ export class PlaceService {
      delete(id : number) : Observable<any> {
         return this.http.delete(`http://localhost:54042/api/places/${id}`);
     }
+
+       edit(place: Place) : Observable<any> {
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.put(`http://localhost:54042/api/places`, JSON.stringify(place), opts);
+    }
 }

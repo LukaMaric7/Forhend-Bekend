@@ -19,12 +19,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
-    this.loginService.login(this.Username,this.Password, "password").subscribe( res => { this.putToken(res.json()) });
+    this.loginService.login(this.Username,this.Password, "password").subscribe( res => { this.putToken(res as Response) });
 
   }
 
-  putToken(token : any){
-    localStorage.setItem(LSE.User.toString(),token.access_token);
+  putToken(token : Response){
+    localStorage.setItem(LSE.User.toString(),token.json()['access_token']);
+    localStorage.setItem(LSE.Role.toString(), token.headers.get("Role"));
     this.route.navigate(['/home']);
     this.Username = "";
     this.Password = "";

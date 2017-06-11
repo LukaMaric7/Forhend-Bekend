@@ -45,7 +45,7 @@ export class CountryDetailViewComponent implements OnInit {
 
   onSubmit()
     {
-      this.countryService.edit(this.country.Id, new Country(this.Id, this.Name, this.Code)).subscribe();
+      this.countryService.edit(new Country(this.Id, this.Name, this.Code)).subscribe();
       this.Name = "";
       this.Code = "";
     }

@@ -1,2 +1,12 @@
-<p>Name : {{place.Name}}  <button  md-button name="delete" (click) = "deletePlace()">Delete</button></p>
+
+Name : {{place.Name}}  
+<button  md-button name="delete" (click) = "changeShowEdit()">Edit</button>
+
+<button  md-button name="delete" (click) = "deletePlace()">Delete</button>
+
+<form *ngIf="isShowEditPress()" #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+    <label for = "Name">New name:</label>
+    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+    <button  md-button name="edit" >Apply</button>
+</form>
 

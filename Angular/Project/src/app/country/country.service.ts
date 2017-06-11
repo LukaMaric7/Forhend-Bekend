@@ -36,13 +36,13 @@ export class CountryService {
         return this.http.get(`http://localhost:54042/api/countries?$filter=Id eq ${Id} &$expand=Regions`).map(res => res.json());
     }
 
-    edit(id: number, country: Country) : Observable<any> {
+    edit(country: Country) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
 
         let opts = new RequestOptions();
         opts.headers = header;
-        console.log( country);
+
         return this.http.put(`http://localhost:54042/api/countries`, JSON.stringify(country), opts);
     }
 }
