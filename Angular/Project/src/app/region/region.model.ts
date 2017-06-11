@@ -9,9 +9,10 @@ export class Region {
     CountryId: number;
     Places: Place[];
 
-    constructor (id: number, name: string, countryId: number) {
+    constructor (id?: number, name?: string, countryId?: number, place?: Place[]) {
         this.Id = id;
         this.Name = name;
         this.CountryId = countryId;
+        this.Places = place;
     }
 }
