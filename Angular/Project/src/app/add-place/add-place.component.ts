@@ -14,18 +14,18 @@ import { RegionService } from "app/region/region.service";
 })
 export class AddPlaceComponent implements OnInit {
 
-  regions : SVGNumberList[];
+  regions : Region[];
   Name : string;
   RegionId : number;
 
   constructor(private countryService: CountryService, private PlaceService: PlaceService, 
-  private regionListService : RegionService) {
+  private regionService : RegionService) {
     this.regions = [];
    }
   
 
   ngOnInit() {
-    this.regionListService.getAll().subscribe(x => {this.regions = x.json(); console.log(this.regions);});
+    this.regionService.getAll().subscribe(x => {this.regions = x.json(); console.log(this.regions); console.log(x);});
   }
 
   onSubmit(){

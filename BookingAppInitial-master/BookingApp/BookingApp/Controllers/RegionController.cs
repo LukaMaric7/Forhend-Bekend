@@ -18,6 +18,7 @@ namespace BookingApp.Controllers
         BAContext db = new BAContext();
 
         [HttpGet]
+        [EnableQuery]
         [Route("region")]
         public IQueryable<Region> GetRegions()
         {
