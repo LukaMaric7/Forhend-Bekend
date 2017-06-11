@@ -27,4 +27,8 @@ console.log("usao");
         return this.http.post(`http://localhost:54042/api/countries`, 
         JSON.stringify(country), opts);
     }
+
+    delete(id : number) : Observable<any> {
+        return this.http.delete(`http://localhost:54042/api/countries/${id}`);
+    }
 }

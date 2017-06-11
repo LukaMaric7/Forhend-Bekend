@@ -1,7 +1,28 @@
 
+<h1>Country</h1>
 <h1>Name: {{country.Name}} </h1>
 <h2>Code: {{country.Code}} </h2>
+<button  md-button name="delete" (click) = "changeShowEdit()">Edit</button>
 
+<div *ngIf="isShowEditPress()">
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div>
+    <label for = "Name">Name:</label>
+    <br>
+    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+  </div>
+  <div>
+    <label for = "Code">Code:</label>
+    <br>
+    <input type="text" name="Code" id="Code" [(ngModel)]="Code"/>
+  </div>
+  <div>
+   <button  md-button name="edit" >Apply</button>
+  </div>
+</form>
+</div>
+
+<h2>Regions: </h2>
 <ul>
   <li *ngFor = "let r of country.Regions"><region [region] = "r"></region></li>
 </ul>

@@ -18,7 +18,6 @@ namespace BookingApp.Controllers
         BAContext db = new BAContext();
 
         [HttpGet]
-        [EnableQuery]
         [Route("region")]
         public IQueryable<Region> GetRegions()
         {
@@ -94,7 +93,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Region", id = region.Id }, region);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("region/{id}")]
         [ResponseType(typeof(Region))]

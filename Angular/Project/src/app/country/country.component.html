@@ -2,4 +2,5 @@
     <p>Name: {{country.Name}} </p>
     <p>Code: {{country.Code}} </p>
     <button md-button name="details" [routerLink]="['/country-detail-view/', country.Id]">Show details</button>
+    <button md-button name="delete" (click) = "deleteCountry()">Delete</button>
 </div>

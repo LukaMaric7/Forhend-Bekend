@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Country } from "app/country/country.model";
+import { CountryListService } from "app/country-list/country-list.service"
 
 @Component({
   selector: 'country',
@@ -10,9 +11,14 @@ import { Country } from "app/country/country.model";
 export class CountryComponent implements OnInit {
   @Input () country: Country;
 
-  constructor() { }
+  constructor(private countryService : CountryListService) { }
 
   ngOnInit() {
+  }
+
+  deleteCountry()
+  {
+    this.countryService.delete(this.country.Id).subscribe();
   }
 
 }
