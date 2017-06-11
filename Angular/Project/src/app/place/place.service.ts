@@ -19,4 +19,8 @@ export class PlaceService {
         return this.http.post(`http://localhost:54042/api/places`, 
         JSON.stringify(place), opts);
     }
+
+     delete(id : number) : Observable<any> {
+        return this.http.delete(`http://localhost:54042/api/places/${id}`);
+    }
 }

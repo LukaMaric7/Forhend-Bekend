@@ -93,7 +93,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Place", id = product.Id }, product);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("places/{id}")]
         [ResponseType(typeof(Place))]
