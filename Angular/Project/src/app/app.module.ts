@@ -30,7 +30,8 @@ import { LocalStorageService } from "app/localStorage.service";
 import { AccommodationComponent } from './accommodation/accommodation.component';
 import { AccommodationTypeComponent } from './accommodation-type/accommodation-type.component';
 import { AddAccommodationTypeComponent } from './add-accommodation-type/add-accommodation-type.component';
-import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component'
+import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component';
+import { AccommodationTypeListComponent } from './accommodation-type-list/accommodation-type-list.component'
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -47,7 +48,9 @@ const Routes = [
   {path : "place-list", component: PlaceListComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "place-detail-view", component: PlaceDetailViewComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "region-detail-view/:Id", component: RegionDetailViewComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path : "add-place", component: AddPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
+  {path : "add-place", component: AddPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
+  {path : "add-accommodation-type", component: AddAccommodationTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
+  {path : "accommodation-type-list", component: AccommodationTypeListComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
 ]
 
 @NgModule({
@@ -73,7 +76,8 @@ const Routes = [
     AccommodationComponent,
     AccommodationTypeComponent,
     AddAccommodationTypeComponent,
-    AddAccommodationComponent
+    AddAccommodationComponent,
+    AccommodationTypeListComponent
   ],
   imports: [
     BrowserModule,

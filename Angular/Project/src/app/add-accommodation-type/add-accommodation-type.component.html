@@ -1,3 +1,15 @@
 <p>
-  add-accommodation-type works!
+  Add accommodation type!
 </p>
+
+<form #f="ngForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for = "Name">Name:</label>
+    <br>
+    <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+  </div>
+ 
+  <div>
+    <input type="submit" value="Add"/>
+  </div>
+</form>
