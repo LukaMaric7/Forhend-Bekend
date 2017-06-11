@@ -9,7 +9,7 @@ export class CountryService {
     constructor(private http : Http){
      }
 
-     getAll() : Observable<any> {
+    getAll() : Observable<any> {
         return this.http.get("http://localhost:54042/api/countries");
     }
 
@@ -23,7 +23,7 @@ export class CountryService {
 
         let opts = new RequestOptions();
         opts.headers = header;
-console.log("usao");
+
         return this.http.post(`http://localhost:54042/api/countries`, 
         JSON.stringify(country), opts);
     }
@@ -34,5 +34,16 @@ console.log("usao");
 
     getByIdOData(Id : number) : Observable<any> {
         return this.http.get(`http://localhost:54042/api/countries?$filter=Id eq ${Id} &$expand=Regions`).map(res => res.json());
+    }
+
+    edit(id: number, country: Country) : Observable<any> {
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.put(`http://localhost:54042/api/countries`, 
+        id + JSON.stringify(country), opts);
     }
 }

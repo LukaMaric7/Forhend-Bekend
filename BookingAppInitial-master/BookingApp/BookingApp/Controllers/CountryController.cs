@@ -39,9 +39,9 @@ namespace BookingApp.Controllers
             return Ok(country);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
-        [Route("countries/{id}")]
+        [Route("countries/{id}/{country}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCountry(int id, Country country)
         {
