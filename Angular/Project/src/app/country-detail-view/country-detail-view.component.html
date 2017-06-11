@@ -1,3 +1,7 @@
-<p>
-  country-detail-view works!
-</p>
+
+<h1>Name: {{country.Name}} </h1>
+<h2>Code: {{country.Code}} </h2>
+
+<ul>
+  <li *ngFor = "let r of country.Regions"><region [region] = "r"></region></li>
+</ul>

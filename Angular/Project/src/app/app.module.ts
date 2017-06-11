@@ -37,7 +37,7 @@ const Routes = [
   {path : "login", component: LoginComponent},
   {path : "other", component: AppComponent},
   {path : "country", component: CountryComponent},
-  {path : "country-detail-view", component: CountryDetailViewComponent},
+  {path : "country-detail-view/:Id", component: CountryDetailViewComponent},
   {path : "logout", component: LogoutComponent},
   {path : "place", component: PlaceComponent},
   {path : "place-list", component: PlaceListComponent},
