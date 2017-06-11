@@ -19,7 +19,7 @@ export class AddPlaceService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.post(`http://localhost:54042/api/place`, 
+        return this.http.post(`http://localhost:54042/api/places`, 
         JSON.stringify(place), opts);
     }
 }

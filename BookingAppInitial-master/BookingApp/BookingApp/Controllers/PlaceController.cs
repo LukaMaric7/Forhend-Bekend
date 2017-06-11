@@ -76,7 +76,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("places")]
         [ResponseType(typeof(Place))]
