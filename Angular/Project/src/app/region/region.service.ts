@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core'
-import { Country } from "app/country/country.model";
 import { Region } from "app/region/region.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class AddRegionService {
+export class RegionService {
 
     constructor(private http : Http){
      }
 
-
-    add(region : Region) : Observable<any> {
+     add(region : Region) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
 
@@ -20,5 +18,17 @@ export class AddRegionService {
 
         return this.http.post(`http://localhost:54042/api/region`, 
         JSON.stringify(region), opts);
+    }
+
+     getAll() : Observable<any> {
+        return this.http.get("http://localhost:54042/api/region?$expand=Country");
+    }
+
+    getById(id : number) : Observable<any> {
+        return this.http.get(`http://localhost:54042/api/region/${id}`);
+    }
+
+     getByIdOData(Id : number) : Observable<any> {
+        return this.http.get(`http://localhost:54042/api/region?$filter=Id eq ${Id} &$expand=Places`).map(res => res.json());
     }
 }

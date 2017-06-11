@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core'
-import { Country } from "app/country/country.model";
-import { Region } from "app/region/region.model";
 import { Place } from "app/place/place.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class AddPlaceService {
+export class PlaceService {
 
     constructor(private http : Http){
      }
 
-
-    add(place : Place) : Observable<any> {
+     add(place : Place) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
 

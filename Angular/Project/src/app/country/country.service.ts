@@ -4,12 +4,12 @@ import { Http, Response, Headers, Request, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class CountryListService {
+export class CountryService {
 
     constructor(private http : Http){
      }
 
-    getAll() : Observable<any> {
+     getAll() : Observable<any> {
         return this.http.get("http://localhost:54042/api/countries");
     }
 
@@ -30,5 +30,9 @@ console.log("usao");
 
     delete(id : number) : Observable<any> {
         return this.http.delete(`http://localhost:54042/api/countries/${id}`);
+    }
+
+    getByIdOData(Id : number) : Observable<any> {
+        return this.http.get(`http://localhost:54042/api/countries?$filter=Id eq ${Id} &$expand=Regions`).map(res => res.json());
     }
 }

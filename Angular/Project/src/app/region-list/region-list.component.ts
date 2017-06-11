@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Region } from "app/region/region.model";
-import { RegionListService } from './region-list.service'
+import { RegionService } from 'app/region/region.service'
 
 @Component({
   selector: 'region-list',
@@ -10,7 +10,7 @@ import { RegionListService } from './region-list.service'
 export class RegionListComponent implements OnInit {
   regions : Region[];
  
-  constructor(private regionService: RegionListService) { 
+  constructor(private regionService: RegionService) { 
     this.regions = [];
   }
 

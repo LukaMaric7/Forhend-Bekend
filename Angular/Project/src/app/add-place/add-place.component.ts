@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AddPlaceService } from './add-place.service'
-import { CountryListService } from "app/country-list/country-list.service";
+import { PlaceService } from 'app/place/place.service'
+import { CountryService } from "app/country/country.service";
 import { Country } from "app/country/country.model";
 import { Region} from "app/region/region.model";
 import { Place } from "app/place/place.model";
-import { RegionListService } from "app/region-list/region-list.service";
+import { RegionService } from "app/region/region.service";
 
 @Component({
   selector: 'app-add-place',
   templateUrl: './add-place.component.html',
   styleUrls: ['./add-place.component.css'],
-  providers: [AddPlaceService, CountryListService, RegionListService]
+  providers: [PlaceService, CountryService, RegionService]
 })
 export class AddPlaceComponent implements OnInit {
 
@@ -18,8 +18,8 @@ export class AddPlaceComponent implements OnInit {
   Name : string;
   RegionId : number;
 
-  constructor(private countryService: CountryListService, private addPlaceService: AddPlaceService, 
-  private regionListService : RegionListService) {
+  constructor(private countryService: CountryService, private PlaceService: PlaceService, 
+  private regionListService : RegionService) {
     this.regions = [];
    }
   
@@ -29,7 +29,7 @@ export class AddPlaceComponent implements OnInit {
   }
 
   onSubmit(){
-    this.addPlaceService.add(new Place(1,this.Name,this.RegionId)).subscribe();
+    this.PlaceService.add(new Place(1,this.Name,this.RegionId)).subscribe();
     this.Name = "";
     this.RegionId = null;
 
