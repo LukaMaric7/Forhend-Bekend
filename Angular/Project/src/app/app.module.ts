@@ -42,7 +42,7 @@ const Routes = [
   {path : "place", component: PlaceComponent},
   {path : "place-list", component: PlaceListComponent},
   {path : "place-detail-view", component: PlaceDetailViewComponent},
-  {path : "region-detail-view", component: RegionDetailViewComponent},
+  {path : "region-detail-view/:Id", component: RegionDetailViewComponent},
   {path : "add-place", component: AddPlaceComponent}
 ]
 
