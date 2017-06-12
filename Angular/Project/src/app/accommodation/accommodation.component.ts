@@ -15,7 +15,6 @@ export class AccommodationComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.accommodation);
   }
 
 

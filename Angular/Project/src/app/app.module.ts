@@ -34,7 +34,7 @@ import { AddAccommodationComponent } from './add-accommodation/add-accommodation
 import { AccommodationTypeListComponent } from './accommodation-type-list/accommodation-type-list.component';
 
 const Routes = [
-  {path : "home", component: HomeComponent},
+  {path : "home/:acc", component: HomeComponent},
   {path : "register-user", component: RegisterUserComponent},
   {path : "register-manager", component: RegisterManagerComponent},
   {path : "add-region", component: AddRegionComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
