@@ -4,6 +4,67 @@
     <br>
     <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
   </div>
+
+  <div>
+    <label for = "Name">Address:</label>
+    <br>
+    <input type="text" name="Address" id="Address" [(ngModel)]="Address"/>
+  </div>
+
+  <div>
+    <label for = "Name">AccommodationType:</label>
+    <br>
+    <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
+     name="AccommodationTypeId" id="AccommodationTypeId" [(ngModel)]="AccommodationTypeId"> 
+      <option md-option *ngFor = "let type of types" value={{type.Id}} >{{type.Name}}</option>
+    </select>
+  </div>
+  
+  <div>
+    <label for = "Name">Country:</label>
+    <br>
+    <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
+     name="CountryId" id="CountryId" [(ngModel)]="CountryId" (change)="CountrySelected()"> 
+      <option md-option *ngFor = "let country of countries" value={{country.Id}} >{{country.Name}}</option>
+    </select>
+  </div>
+
+  <div *ngIf="IsSelectedCountry()">
+    <label for = "Name">Region:</label>
+    <br>
+    <select  md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
+     name="RegionId" id="RegionId" [(ngModel)]="RegionId" (change)="RegionSelected()"> 
+      <option md-option *ngFor = "let region of regions" value={{region.Id}} >{{region.Name}}</option>
+    </select>
+  </div>
+
+  <div *ngIf="IsSelectedRegion()">
+    <label for = "Name">Place:</label>
+    <br>
+    <select md-select ng-model="armor" placeholder="Armor" class="md-no-underline" required md-no-asterisk="false"
+     name="PlaceId" id="PlaceId" [(ngModel)]="PlaceId"> 
+      <option md-option *ngFor = "let place of places" value={{place.Id}} >{{place.Name}}</option>
+    </select>
+  </div>
+
+  <div>
+    <label for = "Name">Latitude:</label>
+    <br>
+    <input type="text" name="Latitude" id="Latitude" [(ngModel)]="Latitude"/>
+  </div>
+
+  <div>
+    <label for = "Name">Longitude:</label>
+    <br>
+    <input type="text" name="Longitude" id="Longitude" [(ngModel)]="Longitude"/>
+  </div>
+
+  <div>
+    <label for = "Name">Description:</label>
+    <br>
+    <input type="text" name="Description" id="Description" [(ngModel)]="Description"/>
+  </div>
+
   <div>
     <button  md-button name="add" >Add</button>
   </div>
