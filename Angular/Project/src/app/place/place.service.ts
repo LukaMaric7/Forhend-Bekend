@@ -9,6 +9,10 @@ export class PlaceService {
     constructor(private http : Http){
      }
 
+    getAll() : Observable<any> {
+        return this.http.get("http://localhost:54042/api/places");
+    }
+
      add(place : Place) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');

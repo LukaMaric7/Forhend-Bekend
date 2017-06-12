@@ -2,13 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Accommodation } from "app/accommodation/accommodation.model";
 import { AccommodationService } from "app/accommodation/accommodation.service";
 import { AccommodationType } from "app/accommodation-type/accommodation-type.model";
+import { AccommodationTypeService } from "app/accommodation-type/accommodation-type.service";
 import { Place } from "app/place/place.model";
+import { PlaceService } from "app/place/place.service";
+import { Region } from "app/region/region.model";
+import { RegionService } from "app/region/region.service";
+import { Country }  from "app/country/country.model";
+import { CountryService } from "app/country/country.service";
 
 @Component({
   selector: 'app-add-accommodation',
   templateUrl: './add-accommodation.component.html',
   styleUrls: ['./add-accommodation.component.css'],
-  providers: [AccommodationService]
+  providers: [AccommodationService, PlaceService, AccommodationTypeService, RegionService, CountryService]
 })
 export class AddAccommodationComponent implements OnInit {
     Id                  : number;
@@ -20,19 +26,75 @@ export class AddAccommodationComponent implements OnInit {
     Longitude           : number;
     ImageURL            : string;
     Approved            : boolean;
-    Accommodation       : AccommodationType;
+    AccommodationType   : AccommodationType;
     AccommodationTypeId : number;
     Place               : Place;
     PlaceId             : number;
     UserId              : number;
-  constructor() { }
+    
+    Country             : Country;
+    CountryId           : number;
+
+    Region              : Region;
+    RegionId            : number;
+
+    types               : AccommodationType[];
+    places              : Place[];
+    regions             : Region[];
+    countries           : Country[];
+
+  constructor(private accommodationTypeService : AccommodationTypeService, private accommodationService : AccommodationService, 
+              private placeService : PlaceService, private regionService : RegionService, private countryService : CountryService) {
+    this.types = [];
+    this.places = [];
+    this.regions = [];
+    this.countries = [];
+   }
 
   ngOnInit() {
+    this.accommodationTypeService.getAll().subscribe(o => this.types = o.json());
+    //this.placeService.getAll().subscribe(o => this.places = o.json());
+    this.countryService.getAll().subscribe(o => this.countries = o.json());
+    this.Country = null;
+    this.Region = null;
+    this.Place = null;
   }
 
   onSubmit()
   {
-    
+    this.accommodationService.add(new Accommodation())
+  }
+
+  CountrySelected()
+  {
+    this.countryService.getByIdOData(this.CountryId).subscribe(
+      o => {
+        this.Country = o[0] as Country; 
+        this.regions = this.Country.Regions;
+      });
+  }
+
+  IsSelectedCountry() : boolean
+  {
+    if( this.Country == null )
+      return false;
+    return true;
+  }
+
+  RegionSelected()
+  {
+    this.regionService.getByIdOData(this.RegionId).subscribe(
+      o => {
+        this.Region = o[0] as Region; 
+        this.places = this.Region.Places;
+      });
+  }
+
+  IsSelectedRegion() : boolean
+  {
+    if( this.Region == null )
+      return false;
+    return true;
   }
 
 }

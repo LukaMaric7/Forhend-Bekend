@@ -11,12 +11,20 @@ export class Accommodation {
     Longitude           : number;
     ImageURL            : string;
     Approved            : boolean;
-    Accommodation       : AccommodationType;
+    AccommodationType   : AccommodationType;
     AccommodationTypeId : number;
     Place               : Place;
     PlaceId             : number;
     UserId              : number;
 
-    constructor () {
+    constructor (id? : number, name? : string, description? : string, latitude? : number, longitude? : number,
+                 typeId? : number, address? : string, placeId? : number) {
+        this.Name = name;
+        this.Description = description;
+        this.Latitude = latitude;
+        this.Longitude = longitude;
+        this.AccommodationTypeId = typeId;
+        this.Address = address;
+        this.PlaceId = placeId;
     }
 }

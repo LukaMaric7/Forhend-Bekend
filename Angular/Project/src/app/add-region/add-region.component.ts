@@ -25,7 +25,6 @@ export class AddRegionComponent implements OnInit {
   }
 
   onSubmit(param : any){
-    console.log(param);
     this.addRegionService.add(new Region(1, this.Name, this.CountryID)).subscribe();
     this.Name = "";
     this.Country = null;
