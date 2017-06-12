@@ -19,5 +19,8 @@
 <h2>Places: </h2>
 
 <ul>
-  <li *ngFor = "let p of region.Places"><place [place] = "p"></place></li>
+  <li *ngFor = "let p of region.Places">
+    <place [place] = "p"
+    (deletePlaceEvent)="deletePlace($event)">
+      </place></li>
 </ul>

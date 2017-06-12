@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Region } from "app/region/region.model";
 import { Router, ActivatedRoute } from "@angular/router";
 import { RegionService } from 'app/region/region.service';
+import { Place } from 'app/place/place.model';
 
 @Component({
   selector: 'region-detail-view',
@@ -44,6 +45,11 @@ export class RegionDetailViewComponent implements OnInit {
   onSubmit(){
     this.showEdit = false;
     this.regionService.edit(this.Id, new Region(this.region.Id, this.Name, this.region.CountryId)).subscribe();
+  }
+
+  deletePlace(place : Place) : void{
+    let index = this.region.Places.indexOf(place);
+    this.region.Places.splice(index,1);
   }
 
 }
