@@ -3,6 +3,7 @@ import { Country } from "app/country/country.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AccommodationType } from './accommodation-type.model';
+import { SocketService } from 'app/socket.service';
 
 @Injectable()
 export class AccommodationTypeService {
@@ -11,7 +12,7 @@ export class AccommodationTypeService {
      }
 
     getAll() : |Observable<any> {
-        return this.http.get("http://localhost:54042/api/accommodationTypes");
+        return this.http.get(SocketService.socket + "api/accommodationTypes");
     }
     
     add(accommodationType : AccommodationType) : Observable<any> {
@@ -21,12 +22,12 @@ export class AccommodationTypeService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.post(`http://localhost:54042/api/accommodationTypes`, 
+        return this.http.post(SocketService.socket + `api/accommodationTypes`, 
         JSON.stringify(accommodationType), opts);
     }
 
     delete(id : number) : Observable<any> {
-        return this.http.delete(`http://localhost:54042/api/accommodationTypes/${id}`);
+        return this.http.delete(SocketService.socket + `api/accommodationTypes/${id}`);
     }
 
     edit(accommodationType: AccommodationType) : Observable<any> {
@@ -36,6 +37,6 @@ export class AccommodationTypeService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.put(`http://localhost:54042/api/accommodationTypes`, JSON.stringify(accommodationType), opts);
+        return this.http.put(SocketService.socket + `api/accommodationTypes`, JSON.stringify(accommodationType), opts);
     }
 }

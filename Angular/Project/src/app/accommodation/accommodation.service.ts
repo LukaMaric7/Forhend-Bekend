@@ -3,6 +3,7 @@ import { Country } from "app/country/country.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Accommodation } from './accommodation.model';
+import { SocketService } from 'app/socket.service';
 
 @Injectable()
 export class AccommodationService {
@@ -11,11 +12,11 @@ export class AccommodationService {
      }
     
     getAll() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/accommodation");
+        return this.http.get(SocketService.socket + "api/accommodation");
     }
 
     getAllOData() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/accommodation?$expand=AccommodationType");
+        return this.http.get(SocketService.socket + "api/accommodation?$expand=AccommodationType");
     }
 
     add(accommodation : Accommodation, file : File) : Observable<any> {
@@ -31,7 +32,7 @@ export class AccommodationService {
         headers.append('Accept', 'application/json');
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(`http://localhost:54042/api/accommodation`, formData, options);
+        return this.http.post(SocketService.socket + `api/accommodation`, formData, options);
            
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'app/localStorage.service';
 import { Accommodation } from "app/accommodation/accommodation.model";
 import { AccommodationService } from "app/accommodation/accommodation.service";
+import { SocketService } from 'app/socket.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accommodationService.getAllOData().subscribe(o => {this.accommodations = o.json();console.log(this.accommodations);});
+    this.accommodationService.getAllOData().subscribe(o => {this.accommodations = o.json();
+      this.changeImageUrl();
+      });
     
   }
+
+  changeImageUrl() : void {
+    for(let entry of this.accommodations){
+      entry.ImageURL = SocketService.socket + entry.ImageURL;
+    }
+  }
+
 }

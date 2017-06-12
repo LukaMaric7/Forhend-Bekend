@@ -112,7 +112,7 @@ namespace BookingApp.Controllers
                     else
                     {
                         var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName);
-                        accommodation.ImageURL = filePath;
+                        accommodation.ImageURL = "Content/AccommodationPictures/" + postedFile.FileName;
                         postedFile.SaveAs(filePath);
                     }
                 }

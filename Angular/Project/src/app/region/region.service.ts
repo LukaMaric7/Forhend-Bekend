@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Region } from "app/region/region.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { SocketService } from 'app/socket.service';
 
 @Injectable()
 export class RegionService {
@@ -17,20 +18,20 @@ export class RegionService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.post(`http://localhost:54042/api/region`, 
+        return this.http.post(SocketService.socket + `api/region`, 
         JSON.stringify(region), opts);
     }
 
      getAll() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/region?$expand=Country");
+        return this.http.get(SocketService.socket + "api/region?$expand=Country");
     }
 
     getById(id : number) : Observable<any> {
-        return this.http.get(`http://localhost:54042/api/region/${id}`);
+        return this.http.get(SocketService.socket + `api/region/${id}`);
     }
 
      getByIdOData(Id : number) : Observable<any> {
-        return this.http.get(`http://localhost:54042/api/region?$filter=Id eq ${Id} &$expand=Places`).map(res => res.json());
+        return this.http.get(SocketService.socket + `api/region?$filter=Id eq ${Id} &$expand=Places`).map(res => res.json());
     }
 
     edit(Id : number, region : Region){
@@ -40,11 +41,11 @@ export class RegionService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.put(`http://localhost:54042/api/region`, 
+        return this.http.put(SocketService.socket + `api/region`, 
         JSON.stringify(region), opts);
     }
 
      delete(id : number) : Observable<any> {
-        return this.http.delete(`http://localhost:54042/api/region/${id}`);
+        return this.http.delete(SocketService.socket + `api/region/${id}`);
     }
 }

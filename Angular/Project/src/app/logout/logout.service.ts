@@ -3,6 +3,7 @@ import { AppUser } from "app/register-manager/appUser.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { LSE } from "app/localStorageEnum.model";
+import { SocketService } from 'app/socket.service';
 
 @Injectable()
 export class LogoutService {
@@ -19,7 +20,7 @@ export class LogoutService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        let ret = this.http.post(`http://localhost:54042/api/Account/Logout`, "", opts);
+        let ret = this.http.post(SocketService.socket + `api/Account/Logout`, "", opts);
         localStorage.removeItem(LSE.User.toString());
         localStorage.removeItem(LSE.Role.toString());
 

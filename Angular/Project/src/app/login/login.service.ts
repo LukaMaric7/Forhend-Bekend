@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { AppUser } from "app/register-manager/appUser.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { SocketService } from 'app/socket.service';
 
 @Injectable()
 export class LoginService {
@@ -16,7 +17,7 @@ export class LoginService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.post(`http://localhost:54042/oauth/token`, 
+        return this.http.post(SocketService.socket + `oauth/token`, 
         `username=${username}&password=${password}&grant_type=${Grant_type}`, opts);
     }
 }

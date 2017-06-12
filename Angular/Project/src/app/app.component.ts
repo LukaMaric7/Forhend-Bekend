@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LocalStorageService } from './localStorage.service';
+import { SocketService } from 'app/socket.service';
 
 
 @Component({
@@ -11,7 +12,9 @@ import { LocalStorageService } from './localStorage.service';
 export class AppComponent {
   title = 'app';
 
-  constructor(private localStorageService : LocalStorageService) { }
+  constructor(private localStorageService : LocalStorageService) {
+    SocketService.socket = "http://localhost:54042/";
+   }
 
   IsLoggedIn() : boolean {
     return this.localStorageService.IsLoggedIn();

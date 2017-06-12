@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Country } from "app/country/country.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { SocketService } from 'app/socket.service';
 
 @Injectable()
 export class CountryService {
@@ -10,11 +11,11 @@ export class CountryService {
      }
 
     getAll() : Observable<any> {
-        return this.http.get("http://localhost:54042/api/countries");
+        return this.http.get(SocketService.socket + "api/countries");
     }
 
     getById(id : number) : Observable<any> {
-        return this.http.get(`http://localhost:54042/api/countries/${id}`);
+        return this.http.get(SocketService.socket + `api/countries/${id}`);
     }
 
     add(country : Country) : Observable<any> {
@@ -24,16 +25,16 @@ export class CountryService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.post(`http://localhost:54042/api/countries`, 
+        return this.http.post(SocketService.socket + `api/countries`, 
         JSON.stringify(country), opts);
     }
 
     delete(id : number) : Observable<any> {
-        return this.http.delete(`http://localhost:54042/api/countries/${id}`);
+        return this.http.delete(SocketService.socket + `api/countries/${id}`);
     }
 
     getByIdOData(Id : number) : Observable<any> {
-        return this.http.get(`http://localhost:54042/api/countries?$filter=Id eq ${Id} &$expand=Regions`).map(res => res.json());
+        return this.http.get(SocketService.socket + `api/countries?$filter=Id eq ${Id} &$expand=Regions`).map(res => res.json());
     }
 
     edit(country: Country) : Observable<any> {
@@ -43,6 +44,6 @@ export class CountryService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.put(`http://localhost:54042/api/countries`, JSON.stringify(country), opts);
+        return this.http.put(SocketService.socket + `api/countries`, JSON.stringify(country), opts);
     }
 }
