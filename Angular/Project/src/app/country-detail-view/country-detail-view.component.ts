@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CountryService } from 'app/country/country.service'
 import { Country } from "app/country/country.model";
 import { Router, ActivatedRoute } from "@angular/router";
+import { Region } from 'app/region/region.model';
 
 @Component({
   selector: 'country-detail-view',
@@ -50,4 +51,8 @@ export class CountryDetailViewComponent implements OnInit {
       this.Code = "";
     }
 
+  deleteRegion(region : Region) : void{
+    let index = this.country.Regions.indexOf(region);
+    this.country.Regions.splice(index,1);
+  }
 }

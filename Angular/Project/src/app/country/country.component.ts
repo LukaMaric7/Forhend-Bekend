@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Country } from "app/country/country.model";
 import { CountryService } from "app/country/country.service"
 
@@ -11,15 +11,18 @@ import { CountryService } from "app/country/country.service"
 
 export class CountryComponent implements OnInit {
   @Input () country: Country;
+  @Output () deleteCountryEvent : EventEmitter<Country>;
 
-  constructor(private countryService : CountryService) { }
+  constructor(private countryService : CountryService) {
+    this.deleteCountryEvent = new EventEmitter();
+   }
 
   ngOnInit() {
   }
 
   deleteCountry()
   {
-    this.countryService.delete(this.country.Id).subscribe();
+    this.countryService.delete(this.country.Id).subscribe(x => {this.deleteCountryEvent.emit(this.country);});
   }
 
 }

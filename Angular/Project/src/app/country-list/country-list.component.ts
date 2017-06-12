@@ -19,4 +19,9 @@ export class CountryListComponent implements OnInit {
   ngOnInit() {
     this.countryService.getAll().subscribe(x => this.countries = x.json());
   }
+
+  deleteCountry(country : Country) : void{
+    let index = this.countries.indexOf(country);
+    this.countries.splice(index,1);
+  }
 }

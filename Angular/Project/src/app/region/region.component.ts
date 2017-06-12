@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Region } from "app/region/region.model";
 import { RegionService } from './region.service';
 
@@ -10,12 +10,16 @@ import { RegionService } from './region.service';
 })
 export class RegionComponent implements OnInit {
   @Input () region: Region;
-  constructor(private regionService : RegionService) { }
+  @Output () deleteRegionEvent : EventEmitter<Region>;
+
+  constructor(private regionService : RegionService) {
+    this.deleteRegionEvent = new EventEmitter();
+   }
 
   ngOnInit() {
   }
   
   deleteRegion(){
-      this.regionService.delete(this.region.Id).subscribe();
+      this.regionService.delete(this.region.Id).subscribe(x => {this.deleteRegionEvent.emit(this.region);});
   }
 }

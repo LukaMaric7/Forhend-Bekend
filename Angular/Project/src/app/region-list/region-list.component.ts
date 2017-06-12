@@ -17,5 +17,4 @@ export class RegionListComponent implements OnInit {
   ngOnInit() {
     this.regionService.getAll().subscribe(x => this.regions = x.json());
   }
-
 }

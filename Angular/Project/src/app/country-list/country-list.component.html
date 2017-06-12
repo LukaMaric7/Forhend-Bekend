@@ -2,5 +2,8 @@
   List of countries
 </p>
 <ul>
-  <li *ngFor = "let country of countries"><country [country] = "country"></country></li>
+  <li *ngFor = "let country of countries">
+  <country [country] = "country"
+  (deleteCountryEvent)="deleteCountry($event)">
+  </country></li>
 </ul>

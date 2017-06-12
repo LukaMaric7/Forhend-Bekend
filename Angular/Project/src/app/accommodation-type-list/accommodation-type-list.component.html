@@ -1,4 +1,10 @@
 <h1>Existing accommodation types: </h1>
 <ul>
-  <li *ngFor = "let accommodationType of accommodationTypes"><accommodation-type [accommodationType] = "accommodationType"></accommodation-type></li>
+  <li 
+    *ngFor = "let accommodationType of accommodationTypes">
+    <accommodation-type [accommodationType] = "accommodationType"
+    (deleteType) = "deleteAccommodationType($event)">
+    
+    </accommodation-type>
+  </li>
 </ul>

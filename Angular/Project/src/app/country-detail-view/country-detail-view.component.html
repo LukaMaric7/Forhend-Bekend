@@ -24,5 +24,8 @@
 
 <h2>Regions: </h2>
 <ul>
-  <li *ngFor = "let r of country.Regions"><region [region] = "r"></region></li>
+  <li *ngFor = "let r of country.Regions">
+    <region [region] = "r"
+    (deleteRegionEvent)="deleteRegion($event)">
+      </region></li>
 </ul>

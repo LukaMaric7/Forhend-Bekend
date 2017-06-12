@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccommodationType } from './accommodation-type.model';
 import { AccommodationTypeService } from './accommodation-type.service';
 
@@ -10,10 +10,12 @@ import { AccommodationTypeService } from './accommodation-type.service';
 })
 export class AccommodationTypeComponent implements OnInit {
   @Input() accommodationType : AccommodationType;
+  @Output() deleteType : EventEmitter<AccommodationType>;
   showEdit : Boolean;
   Name : string;
   constructor(private accommodationTypeService : AccommodationTypeService) {
     this.showEdit = false;
+    this.deleteType = new EventEmitter();
    }
 
   ngOnInit() {
@@ -41,6 +43,6 @@ export class AccommodationTypeComponent implements OnInit {
 
   deleteAccommodationType()
   {
-    this.accommodationTypeService.delete(this.accommodationType.Id).subscribe();
+    this.accommodationTypeService.delete(this.accommodationType.Id).subscribe(x => {this.deleteType.emit(this.accommodationType);});
   }
 }

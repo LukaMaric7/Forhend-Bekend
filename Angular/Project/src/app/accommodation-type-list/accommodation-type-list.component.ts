@@ -18,4 +18,9 @@ export class AccommodationTypeListComponent implements OnInit {
     this.accommodationTypeService.getAll().subscribe(x => this.accommodationTypes = x.json());
   }
 
+  deleteAccommodationType(accommodationType : AccommodationType) : void{
+    let index = this.accommodationTypes.indexOf(accommodationType);
+    this.accommodationTypes.splice(index,1);
+  }
+
 }
