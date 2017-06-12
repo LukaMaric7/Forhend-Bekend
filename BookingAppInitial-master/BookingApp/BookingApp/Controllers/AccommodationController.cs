@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -74,7 +75,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("accommodation")]
         [ResponseType(typeof(Accommodation))]
@@ -85,11 +86,38 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
+            var httpRequest = HttpContext.Current.Request;
+
+            foreach (string file in httpRequest.Files)
+            {
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
+
+                var postedFile = httpRequest.Files[file];
+                if (postedFile != null && postedFile.ContentLength > 0)
+                {
+
+                    IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+                    var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+                    var extension = ext.ToLower();
+                    if (!AllowedFileExtensions.Contains(extension))
+                    {
+                        return BadRequest();
+                    }
+                    else
+                    {
+                        var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName + extension);
+                        accommodation.ImageURL = filePath;
+                        postedFile.SaveAs(filePath);
+                    }
+                }
+            }
+
             db.Accommodations.Add(accommodation);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
-            }
+
+        }
 
         [Authorize]
         [HttpDelete]

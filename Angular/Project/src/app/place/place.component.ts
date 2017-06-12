@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Place } from "app/place/place.model";
 import { PlaceService } from './place.service'
 
@@ -10,17 +10,20 @@ import { PlaceService } from './place.service'
 })
 export class PlaceComponent implements OnInit {
   @Input () place : Place;
+  @Output () deletePlaceEvent : EventEmitter<Place>
   showEdit : boolean;
   Name : string;
 
-  constructor(private placeService : PlaceService) { }
+  constructor(private placeService : PlaceService) {
+    this.deletePlaceEvent = new EventEmitter();
+   }
 
   ngOnInit() {
   }
 
   deletePlace()
   {
-     this.placeService.delete(this.place.Id).subscribe();
+     this.placeService.delete(this.place.Id).subscribe(x => {this.deletePlaceEvent.emit(this.place);});
   }
     isShowEditPress() {
     return this.showEdit;
