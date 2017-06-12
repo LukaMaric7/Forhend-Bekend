@@ -1,9 +1,9 @@
 <div>
   <div>
-    <h2> {{accommodation}} </h2>
+    <h2> {{accommodation?.Name}} </h2>
   </div>
   <div>
-    
+    <img [src]="accommodation.ImageURL" alt="picture of accommodation" height="100" width="100">
   </div>
   <div>
     Type : {{accommodation.AccomodationType.Name}}
