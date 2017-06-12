@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accommodationService.getAll().subscribe(o => this.accommodations = o.json());
+    this.accommodationService.getAllOData().subscribe(o => {this.accommodations = o.json();console.log(this.accommodations);});
+    
   }
 }

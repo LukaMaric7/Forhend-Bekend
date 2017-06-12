@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   putToken(token : Response){
     localStorage.setItem(LSE.User.toString(),token.json()['access_token']);
     localStorage.setItem(LSE.Role.toString(), token.headers.get("Role"));
+    localStorage.setItem(LSE.Id.toString(), token.headers.get("Id"));
     this.route.navigate(['/home']);
     this.Username = "";
     this.Password = "";

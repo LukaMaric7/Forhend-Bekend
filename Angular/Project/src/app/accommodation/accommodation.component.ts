@@ -10,9 +10,13 @@ import { Accommodation }  from './accommodation.model';
 export class AccommodationComponent implements OnInit {
   @Input () accommodation : Accommodation;
 
-  constructor() { }
+  constructor() {
+
+   }
 
   ngOnInit() {
+    console.log(this.accommodation);
   }
+
 
 }

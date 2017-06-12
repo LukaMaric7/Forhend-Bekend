@@ -1,4 +1,5 @@
 export enum LSE {
     User = 1,
-    Role 
+    Role ,
+    Id
 }

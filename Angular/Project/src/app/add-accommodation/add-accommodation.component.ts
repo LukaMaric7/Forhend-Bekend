@@ -9,6 +9,7 @@ import { Region } from "app/region/region.model";
 import { RegionService } from "app/region/region.service";
 import { Country }  from "app/country/country.model";
 import { CountryService } from "app/country/country.service";
+import { LSE } from "app/localStorageEnum.model";
 
 @Component({
   selector: 'app-add-accommodation',
@@ -72,7 +73,7 @@ export class AddAccommodationComponent implements OnInit {
   onSubmit()
   {
     this.accommodationService.add(new Accommodation(1, this.Name, this.Description, this.Latitude, this.Longitude, this.AccommodationTypeId,
-    this.Address, this.PlaceId), file).subscribe();
+    this.Address, this.PlaceId, parseInt(localStorage.getItem(LSE.Id.toString()))), this.file).subscribe();
   }
 
   CountrySelected()

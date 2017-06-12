@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Newtonsoft.Json;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -18,6 +20,7 @@ namespace BookingApp.Controllers
         BAContext db = new BAContext();
 
         [HttpGet]
+        [EnableQuery]
         [Route("accommodation")]
         public IQueryable<Accommodation> GetAccommodations()
         {
@@ -79,14 +82,17 @@ namespace BookingApp.Controllers
         [HttpPost]
         [Route("accommodation")]
         [ResponseType(typeof(Accommodation))]
-        public IHttpActionResult PostAccommodation(Accommodation accommodation)
+        public IHttpActionResult PostAccommodation()
         {
+            Accommodation accommodation = new Accommodation();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            
             var httpRequest = HttpContext.Current.Request;
+            accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
 
             foreach (string file in httpRequest.Files)
             {
@@ -105,18 +111,17 @@ namespace BookingApp.Controllers
                     }
                     else
                     {
-                        var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName + extension);
+                        var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName);
                         accommodation.ImageURL = filePath;
                         postedFile.SaveAs(filePath);
                     }
                 }
             }
-
+            
             db.Accommodations.Add(accommodation);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
-
         }
 
         [Authorize]

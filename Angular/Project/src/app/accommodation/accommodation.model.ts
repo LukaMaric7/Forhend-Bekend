@@ -17,8 +17,9 @@ export class Accommodation {
     PlaceId             : number;
     UserId              : number;
 
+
     constructor (id? : number, name? : string, description? : string, latitude? : number, longitude? : number,
-                 typeId? : number, address? : string, placeId? : number) {
+                 typeId? : number, address? : string, placeId? : number, userId? : number) {
         this.Name = name;
         this.Description = description;
         this.Latitude = latitude;
@@ -26,5 +27,6 @@ export class Accommodation {
         this.AccommodationTypeId = typeId;
         this.Address = address;
         this.PlaceId = placeId;
+        this.UserId = userId;
     }
 }
