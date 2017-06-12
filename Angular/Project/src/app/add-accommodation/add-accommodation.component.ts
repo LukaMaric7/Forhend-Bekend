@@ -24,7 +24,7 @@ export class AddAccommodationComponent implements OnInit {
     AverageGrade        : number;
     Latitude            : number;
     Longitude           : number;
-    ImageURL            : string;
+    ImageURL            : File;
     Approved            : boolean;
     AccommodationType   : AccommodationType;
     AccommodationTypeId : number;
@@ -42,6 +42,7 @@ export class AddAccommodationComponent implements OnInit {
     places              : Place[];
     regions             : Region[];
     countries           : Country[];
+    file                : File;
 
   constructor(private accommodationTypeService : AccommodationTypeService, private accommodationService : AccommodationService, 
               private placeService : PlaceService, private regionService : RegionService, private countryService : CountryService) {
@@ -50,6 +51,14 @@ export class AddAccommodationComponent implements OnInit {
     this.regions = [];
     this.countries = [];
    }
+
+  onChange(event: EventTarget) {
+        let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
+        let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+        let files: FileList = target.files;
+        this.file = files[0];
+        console.log(this.file);
+    }
 
   ngOnInit() {
     this.accommodationTypeService.getAll().subscribe(o => this.types = o.json());
@@ -62,7 +71,8 @@ export class AddAccommodationComponent implements OnInit {
 
   onSubmit()
   {
-    this.accommodationService.add(new Accommodation())
+    this.accommodationService.add(new Accommodation(1, this.Name, this.Description, this.Latitude, this.Longitude, this.AccommodationTypeId,
+    this.Address, this.PlaceId), file).subscribe();
   }
 
   CountrySelected()

@@ -14,14 +14,18 @@ export class AccommodationService {
         return this.http.get("http://localhost:54042/api/accommodation");
     }
 
-    add(accommodation : Accommodation) : Observable<any> {
-        let header = new Headers();
-        header.append('Content-type', 'application/json');
-
-        let opts = new RequestOptions();
-        opts.headers = header;
-
-        return this.http.post(`http://localhost:54042/api/accommodation`, 
-        JSON.stringify(accommodation), opts);
+    add(accommodation : Accommodation, file : File) : Observable<any> {
+      
+  
+        let formData:FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+        formData.append('accommodation', JSON.stringify(accommodation));
+        let headers = new Headers();
+        headers.append('Content-Type', 'multipart/form-data');
+        headers.append('Accept', 'application/json');
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post(`http://localhost:54042/api/accommodation`, formData, options);
+           
     }
 }
