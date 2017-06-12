@@ -1,4 +1,3 @@
-<!--The whole content below can be removed with the new code.-->
 <div id="btn-group">
 
   <div align="right">
@@ -7,7 +6,7 @@
     <button *ngIf="IsLoggedIn()" md-raised-button [routerLink]="['/logout']" class="md-button">Log out</button></div>
   </div>
   <div align="left">
-      <button md-raised-button (click)="initialHomeComponent()" class="md-button">Home</button>
+      <button md-raised-button [routerLink]="['/home']" class="md-button">Home</button>
       <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-country']" class="md-button">Add country</button>
       <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/country-list']" class="md-button">Existing countries</button> 
       <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-region']" class="md-button">Add region</button> 
@@ -20,7 +19,3 @@
 <div>
   <router-outlet></router-outlet>
 </div>
-
-
-
-
