@@ -56,7 +56,7 @@ const Routes = [
   {path : "add-accommodation-type", component: AddAccommodationTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "accommodation-type-list", component: AccommodationTypeListComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "add-accommodation", component: AddAccommodationComponent, canActivate: [LoggedInGuard]},
-  {path : "accommodation-detail-view/:Id", component: AccommodationDetailViewComponent, canActivate: [LoggedInGuard]},
+  {path : "accommodation-detail-view/:Id", component: AccommodationDetailViewComponent},
   {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard/*dodati za menadzera guard*/]}
 ]
 

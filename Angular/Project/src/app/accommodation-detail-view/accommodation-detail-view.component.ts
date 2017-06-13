@@ -21,12 +21,20 @@ export class AccommodationDetailViewComponent implements OnInit {
 
   ngOnInit() {
      this.activatedRoute.params.subscribe(params => {this.Id = parseInt(params["Id"])});
-     this.accommodationService.getByIdOData(this.Id).subscribe(o =>{ this.accommodation = (o[0] as Accommodation); console.log(this.accommodation); this.changeImageUrl();});
+     this.accommodationService.getByIdOData(this.Id).subscribe(o =>{ this.accommodation = (o[0] as Accommodation);this.changeImageUrl();});
      
   }
 
   changeImageUrl() : void {
       this.accommodation.ImageURL = SocketService.socket + this.accommodation.ImageURL;
+  }
+
+  isImageNull() : boolean {
+    if(this.accommodation.ImageURL == null)
+    {
+      return true;
+    }
+    return false;
   }
 
 }

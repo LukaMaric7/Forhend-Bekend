@@ -1,3 +1,36 @@
-<p>
-  room works!
-</p>
+<div> 
+    <p>Room Number: {{room.RoomNumber}} </p>
+    <p>Bad count: {{room.BadCount}} </p>
+    <p>Description: {{room.Description}} </p>
+    <p>Price per night: {{room.PricePerNight}} </p>
+    <button  md-button name="edit" (click) = "changeShowEdit()">Edit</button>
+
+    <div *ngIf="isShowEditPress()">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div>
+        <label for = "RoomNumber">Room number:</label>
+        <br>
+        <input type="text" name="RoomNumber" id="RoomNumber" [(ngModel)]="RoomNumber"/>
+      </div>
+      <div>
+        <label for = "BadCount">Bad count:</label>
+        <br>
+        <input type="text" name="BadCount" id="BadCount" [(ngModel)]="BadCount"/>
+      </div>
+      <div>
+        <label for = "Description">Description:</label>
+        <br>
+        <input type="text" name="Description" id="Description" [(ngModel)]="Description"/>
+      </div>
+      <div>
+        <label for = "PricePerNight">Price Per Night:</label>
+        <br>
+        <input type="text" name="PricePerNight" id="PricePerNight" [(ngModel)]="PricePerNight"/>
+      </div>
+      <div>
+        <button  md-button name="edit" >Apply</button>
+      </div>
+    </form>
+    </div>
+    <button md-button name="delete" (click) = "deleteRoom()">Delete</button>
+</div>

@@ -39,18 +39,13 @@ namespace BookingApp.Controllers
 
         //[Authorize]
         [HttpPut]
-        [Route("room/{id}")]
+        [Route("room")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRoom(int id, Room room)
+        public IHttpActionResult PutRoom(Room room)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != room.Id)
-            {
-                return BadRequest();
             }
 
             db.Entry(room).State = EntityState.Modified;
@@ -61,7 +56,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RoomExists(id))
+                if (!RoomExists(room.Id))
                 {
                     return NotFound();
                 }
