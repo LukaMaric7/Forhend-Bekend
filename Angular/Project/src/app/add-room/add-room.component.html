@@ -1,0 +1,33 @@
+<p>
+  Add room
+</p>
+RoomNumber: number;
+  BadCount: number;
+  Description: string;
+  PrivePerNight: number;
+<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+  <div>
+    <label for = "RoomNumber">RoomNumber:</label>
+    <br>
+    <input type="text" name="RoomNumber" id="RoomNumber" [(ngModel)]="RoomNumber"/>
+  </div>
+  <div>
+    <label for = "BadCount">BadCount:</label>
+    <br>
+    <input type="text" name="BadCount" id="BadCount" [(ngModel)]="BadCount"/>
+  </div>
+  <div>
+    <label for = "Description">Description:</label>
+    <br>
+    <input type="text" name="Description" id="Description" [(ngModel)]="Description"/>
+  </div>
+  <div>
+    <label for = "PrivePerNight">PrivePerNight:</label>
+    <br>
+    <input type="text" name="PrivePerNight" id="PrivePerNight" [(ngModel)]="PrivePerNight"/>
+  </div>
+
+  <div>
+    <input type="submit" value="Add"/>
+  </div>
+</form>

@@ -34,6 +34,8 @@ import { AddAccommodationTypeComponent } from './add-accommodation-type/add-acco
 import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component';
 import { AccommodationTypeListComponent } from './accommodation-type-list/accommodation-type-list.component';
 import { AccommodationDetailViewComponent } from './accommodation-detail-view/accommodation-detail-view.component';
+import { AddRoomComponent } from './add-room/add-room.component';
+import { RoomComponent } from './room/room.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -54,7 +56,8 @@ const Routes = [
   {path : "add-accommodation-type", component: AddAccommodationTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "accommodation-type-list", component: AccommodationTypeListComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "add-accommodation", component: AddAccommodationComponent, canActivate: [LoggedInGuard]},
-  {path : "accommodation-detail-view/:Id", component: AccommodationDetailViewComponent, canActivate: [LoggedInGuard]}
+  {path : "accommodation-detail-view/:Id", component: AccommodationDetailViewComponent, canActivate: [LoggedInGuard]},
+  {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard/*dodati za menadzera guard*/]}
 ]
 
 @NgModule({
@@ -82,7 +85,9 @@ const Routes = [
     AddAccommodationTypeComponent,
     AddAccommodationComponent,
     AccommodationTypeListComponent,
-    AccommodationDetailViewComponent
+    AccommodationDetailViewComponent,
+    AddRoomComponent,
+    RoomComponent
     
   ],
   imports: [
