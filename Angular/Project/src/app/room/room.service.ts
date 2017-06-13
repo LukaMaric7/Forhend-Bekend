@@ -32,7 +32,7 @@ export class RoomService {
     edit(room: Room) : Observable<any> {
     let header = new Headers();
     header.append('Content-type', 'application/json');
-
+    console.log(JSON.stringify(room));
     let opts = new RequestOptions();
     opts.headers = header;
 
