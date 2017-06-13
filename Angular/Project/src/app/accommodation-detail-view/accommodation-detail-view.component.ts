@@ -21,6 +21,7 @@ export class AccommodationDetailViewComponent implements OnInit {
   Name          : string; 
   Description   : string;
   Address       : string;
+  ImageURL      : string;
   
 
   constructor(private accommodationService :AccommodationService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -39,13 +40,16 @@ export class AccommodationDetailViewComponent implements OnInit {
         self.changeImageUrl();
         self.mapInfo = new MapInfo(this.accommodation.Latitude, this.accommodation.Longitude, "",
            this.accommodation.Name , "" , "");
-        
+        this.Name = this.accommodation.Name;
+        this.Description = this.accommodation.Description;
+        this.Address = this.accommodation.Address;
     });
      
   }
 
 
   changeImageUrl() : void {
+      this.ImageURL = this.accommodation.ImageURL;
       this.accommodation.ImageURL = SocketService.socket + this.accommodation.ImageURL;
   }
 
@@ -67,7 +71,9 @@ export class AccommodationDetailViewComponent implements OnInit {
 
   onSubmit()
   {
-      
+      this.accommodationService.edit(new Accommodation(this.accommodation.Id, this.Name, this.Description, this.accommodation.Latitude, this.accommodation.Longitude,
+             this.accommodation.AccommodationTypeId, this.Address, this.accommodation.PlaceId, this.accommodation.UserId, 
+             this.accommodation.Approved, this.ImageURL)).subscribe();
   }
 
 }
