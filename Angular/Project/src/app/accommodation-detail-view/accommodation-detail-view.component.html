@@ -53,7 +53,8 @@
       <font style="color:white; size:16">ROOMS</font> <br>
       <ul>
         <li *ngFor = "let r of accommodation.Rooms">
-        <room [room] = "r"></room>
+        <room [room] = "r"
+        (deleteRoomEvent)="deleteRoom($event)"></room>
         </li>
       </ul>
       <br>

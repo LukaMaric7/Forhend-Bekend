@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Accommodation } from "app/accommodation/accommodation.model";
 import { AccommodationService } from "app/accommodation/accommodation.service";
 import { SocketService } from 'app/socket.service';
+import { Room } from 'app/room/room.model';
 import {MapInfo} from "app/map/map-info.model";
 
 
@@ -74,6 +75,11 @@ export class AccommodationDetailViewComponent implements OnInit {
       this.accommodationService.edit(new Accommodation(this.accommodation.Id, this.Name, this.Description, this.accommodation.Latitude, this.accommodation.Longitude,
              this.accommodation.AccommodationTypeId, this.Address, this.accommodation.PlaceId, this.accommodation.UserId, 
              this.accommodation.Approved, this.ImageURL)).subscribe();
+  }
+
+  deleteRoom(room : Room) : void{
+    let index = this.accommodation.Rooms.indexOf(room);
+    this.accommodation.Rooms.splice(index,1);
   }
 
 }

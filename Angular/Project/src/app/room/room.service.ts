@@ -26,7 +26,7 @@ export class RoomService {
     }
 
      delete(id : number) : Observable<any> {
-        return this.http.delete(SocketService.socket + `api/places/${id}`);
+        return this.http.delete(SocketService.socket + `api/room/${id}`);
     }
 
     edit(room: Room) : Observable<any> {
