@@ -56,4 +56,8 @@ export class AccommodationService {
 
         return this.http.put(SocketService.socket + `api/accommodation`, JSON.stringify(accommodation), opts);
     }
+
+     delete(id : number) : Observable<any> {
+        return this.http.delete(SocketService.socket + `api/accommodation/${id}`);
+    }
 }

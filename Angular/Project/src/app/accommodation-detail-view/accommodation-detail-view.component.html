@@ -1,6 +1,6 @@
 <div style="height:100%; margin-top:20px; margin-left:10%; margin-right:10%; ">
   <div style="width:100%">
-      <span style="float:left;">
+      <span style="float:left; width:50%">
         <div>
           <font style="color:white">Name: {{accommodation.Name}} </font> <br>
           <font style="color:white">Address: {{accommodation.Address}} </font><br>
@@ -11,6 +11,8 @@
 
         <div>
           <button class="btn btn-secondary" name="edit" (click) = "changeShowEdit()">Edit</button>
+          <button class="btn btn-secondary" name="delete" (click) = "deleteAccommodation()">Delete</button>
+
           <div *ngIf="isShowEditPress()">
           <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
             <div>
@@ -43,9 +45,9 @@
          </div>
       </span>
 
-      <span style="float:right;">
-       
-<img [src]= "accommodation.ImageURL ? accommodation.ImageURL: ''" alt="picture of accommodation" height="500px" width="500px">      </span>
+      <span style="float:right; width:50%">
+        <img [src]= "accommodation.ImageURL ? accommodation.ImageURL: ''" alt="picture of accommodation" height="455px" width="100%">      
+      </span>
   </div>
 
   <div style=" float:left; width:100%">

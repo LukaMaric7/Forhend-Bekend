@@ -4,7 +4,7 @@ import { Accommodation } from "app/accommodation/accommodation.model";
 import { AccommodationService } from "app/accommodation/accommodation.service";
 import { SocketService } from 'app/socket.service';
 import { Room } from 'app/room/room.model';
-import {MapInfo} from "app/map/map-info.model";
+import { MapInfo } from "app/map/map-info.model";
 
 
 @Component({
@@ -80,6 +80,13 @@ export class AccommodationDetailViewComponent implements OnInit {
   deleteRoom(room : Room) : void{
     let index = this.accommodation.Rooms.indexOf(room);
     this.accommodation.Rooms.splice(index,1);
+  }
+
+  deleteAccommodation(){
+    this.accommodationService.delete(this.accommodation.Id).subscribe(o => {
+      this.router.navigate(['/home']);
+    } );
+
   }
 
 }
