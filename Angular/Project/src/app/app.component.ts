@@ -3,10 +3,11 @@ import { LocalStorageService } from './localStorage.service';
 import { SocketService } from 'app/socket.service';
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ["./bootstrap-4.0.0-alpha.6-dist/css/bootstrap.css"],
   providers: [LocalStorageService]
 })
 export class AppComponent {
