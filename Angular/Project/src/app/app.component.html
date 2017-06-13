@@ -1,72 +1,61 @@
-<div id="btn-group">
-
-  <div align="right">
-    <button *ngIf="!IsLoggedIn()" md-raised-button [routerLink]="['/login']" class="md-button">Log in</button>
-    <button *ngIf="!IsLoggedIn()" md-raised-button [routerLink]="['/register-user']" class="md-raised md-primary">Register as user</button>
-    <button *ngIf="IsLoggedIn()" md-raised-button [routerLink]="['/logout']" class="md-button">Log out</button></div>
-  </div>
-  <div align="left">
-      <button md-raised-button [routerLink]="['/home']" class="md-button">Home</button>
-      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-country']" class="md-button">Add country</button>
-      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/country-list']" class="md-button">Existing countries</button> 
-      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-region']" class="md-button">Add region</button> 
-      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-place']" class="md-button">Add place</button>
-      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/add-accommodation-type']" class="md-button">Add accommodation type</button>
-      <button *ngIf="isAdmin()" md-raised-button [routerLink]="['/accommodation-type-list']" class="md-button">Existing accommodation types</button>
-      <button *ngIf="isManager()" md-raised-button [routerLink]="['/add-accommodation']" class="md-button">Add accommodation</button>
- 
-  </div>
-<div>
-  <router-outlet></router-outlet>
-</div>
-
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">Navbar</a>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+        <button [routerLink]="['/home']" class="btn">Home</button>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <ul class="navbar-nav mr-auto" *ngIf="isAdmin()">
+      <div>
+        <li class="nav-item">
+          <div class="btn-group">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Countries</button>
+            <div class="dropdown-menu">
+              <button [routerLink]="['/add-country']" class="btn">Add country</button>
+              <button [routerLink]="['/country-list']" class="btn">Existing countries</button>
+            </div>
+          </div>
+        </li>
+      </div>
+      <li class="nav-item">
+          <button [routerLink]="['/add-region']" class="btn">Add region</button> 
+      </li>
+      <li class="nav-item">
+        <button [routerLink]="['/add-place']" class="btn">Add place</button>
+      </li>
+      <li class="nav-item">
+        <div class="btn-group">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accommodation types</button>
+            <div class="dropdown-menu">
+              <button [routerLink]="['/add-accommodation-type']" class="btn">Add accommodation type</button>
+              <button [routerLink]="['/accommodation-type-list']" class="btn">Existing accommodation types</button>
+            </div>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-auto" *ngIf="isManager()">
+      <li class="nav-item">
+         <button [routerLink]="['/add-accommodation']" class="btn">Add accommodation</button>
+      </li>
+    </ul>
+    <div float="right">
+      <ul class="navbar-nav mr-auto" float="right">
+        <li class="nav-item">
+            <button *ngIf="!IsLoggedIn()" [routerLink]="['/login']" class="btn">Log in</button>
+        </li>
+        <li class="nav-item">
+            <button *ngIf="!IsLoggedIn()" [routerLink]="['/register-user']" class="btn">Register as user</button>
+        </li>
+        <li class="nav-item">
+            <button *ngIf="IsLoggedIn()" [routerLink]="['/logout']" class="btn">Log out</button>
+        </li>
+      </ul>
+    </div>
   </div>
 
 
 </nav>
-
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
+<div>
+  <router-outlet></router-outlet>
 </div>
 
-<div class="btn-group">
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Action
-  </button>
-  <div class="dropdown-menu">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">Separated link</a>
-  </div>
-</div>
