@@ -1,5 +1,6 @@
 import { Place } from "app/place/place.model";
 import { AccommodationType } from "app/accommodation-type/accommodation-type.model";
+import { Room } from "app/room/room.model";
 
 export class Accommodation {
     Id                  : number;
@@ -16,6 +17,7 @@ export class Accommodation {
     Place               : Place;
     PlaceId             : number;
     UserId              : number;
+    Rooms               : Room[];
 
 
     constructor (id? : number, name? : string, description? : string, latitude? : number, longitude? : number,
@@ -28,5 +30,8 @@ export class Accommodation {
         this.Address = address;
         this.PlaceId = placeId;
         this.UserId = userId;
+        this.Rooms = [];
+        this.AccommodationType = new AccommodationType();
+        this.Place = new Place();
     }
 }

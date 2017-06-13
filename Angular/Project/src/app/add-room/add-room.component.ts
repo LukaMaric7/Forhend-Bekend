@@ -6,7 +6,8 @@ import { Room } from 'app/room/room.model';
 @Component({
   selector: 'app-add-room',
   templateUrl: './add-room.component.html',
-  styleUrls: ['./add-room.component.css']
+  styleUrls: ['./add-room.component.css'],
+  providers: [RoomService]
 })
 export class AddRoomComponent implements OnInit {
   AccommodationId: number;

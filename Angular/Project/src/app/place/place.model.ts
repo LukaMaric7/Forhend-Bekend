@@ -7,7 +7,7 @@ export class Place {
     Region: Region;
     RegionId: number;
 
-    constructor (id: number, name: string, regionId: number) {
+    constructor (id?: number, name?: string, regionId?: number) {
         this.Id = id;
         this.Name = name;
         this.RegionId = regionId;
