@@ -46,4 +46,10 @@ export class CountryService {
 
         return this.http.put(SocketService.socket + `api/countries`, JSON.stringify(country), opts);
     }
+
+    getByName(Name : string) : Observable<any> {
+        return this.http.get(SocketService.socket + `api/countries?$filter=Name eq '${Name}' &$expand=Regions`).map(res => res.json());
+    }
+
+    
 }

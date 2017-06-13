@@ -1,33 +1,12 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
   <div>
     <input class="form-control" type="text" placeholder="Name" name="Name" id="Name" [(ngModel)]="Name"/>
-    <select class="form-control" name="AccommodationType" id="AccommodationType" [(ngModel)]="AccommodationTypeId">
-      <option value="undefined" disabled selected hidden>Accommodation type</option>
-      <option class="form-control"  *ngFor = "let type of types" value={{type.Id}} >{{type.Name}}</option>
-    </select>
+    <input class="form-control" type="text" placeholder="Accommodation type" name="AccommodationType" id="AccommodationType" [(ngModel)]="AccommodationTypeName"/>
+    <input class="form-control" type="text" placeholder="Country" name="CountryName" id="CountryName" [(ngModel)]="CountryName"/>
+    <input class="form-control" type="text" placeholder="Region" name="RegionName" id="RegionName" [(ngModel)]="RegionName"/>
+    <input class="form-control" type="text" placeholder="Place" name="PlaceName" id="PlaceName" [(ngModel)]="PlaceName"/>
   </div>
   
-  <div>
-    <select class="form-control" name="Country" id="Country" [(ngModel)]="CountryId"> 
-      <option value="undefined" disabled selected hidden>Country</option>
-      <option class="form-control" *ngFor = "let country of countries" value={{country.Id}} >{{country.Name}}</option>
-    </select>
-  </div>
-
-  <div>
-    <select  class="form-control" name="Region" id="Region" [(ngModel)]="RegionId"> 
-      <option value="undefined" disabled selected hidden>Region</option>
-      <option md-option *ngFor = "let region of regions" value={{region.Id}} >{{region.Name}}</option>
-    </select>
-  </div>
-
-  <div>
-    <select class="form-control" name="Place" id="Place" [(ngModel)]="PlaceId"> 
-      <option value="undefined" disabled selected hidden>Place</option>
-      <option md-option *ngFor = "let place of places" value={{place.Id}} >{{place.Name}}</option>
-    </select>
-  </div>
-
   <div style="margin-left:40%;margin-top:10px;">
     <button class="btn btn-info" name="add" >Search</button>
   </div>

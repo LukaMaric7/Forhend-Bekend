@@ -48,4 +48,8 @@ export class RegionService {
      delete(id : number) : Observable<any> {
         return this.http.delete(SocketService.socket + `api/region/${id}`);
     }
+
+    getByNameOData(Name : string) : Observable<any> {
+        return this.http.get(SocketService.socket + `api/region?$filter=Name eq '${Name}' &$expand=Places, Country`).map(res => res.json());
+    }
 }

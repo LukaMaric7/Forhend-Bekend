@@ -38,4 +38,13 @@ export class PlaceService {
 
         return this.http.put(SocketService.socket + `api/places`, JSON.stringify(place), opts);
     }
+
+    getByNameOData(Name : string) : Observable<any> {
+        console.log(Name);
+        return this.http.get(SocketService.socket + `api/places?$filter=Name eq '${Name}' &$expand=Accommodations, Region/Country`).map(res => res.json() );
+    }
+
+    getByQuery(query : string) : Observable<any> {
+        return this.http.get(SocketService.socket + `api/places` + query).map(res => res.json());
+    }
 }
