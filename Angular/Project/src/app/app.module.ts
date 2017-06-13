@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { CountryListComponent } from './country-list/country-list.component';
@@ -79,13 +80,15 @@ const Routes = [
     AddAccommodationTypeComponent,
     AddAccommodationComponent,
     AccommodationTypeListComponent
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(Routes),
-    MaterialModule
+    MaterialModule,
+    NgbModule.forRoot()
   ],
   providers: [LocalStorageService, LoggedInGuard, IsAdminGuard],
   bootstrap: [AppComponent],
