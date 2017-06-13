@@ -1,0 +1,22 @@
+<p>
+  <!-- Kreiramo mapu -->
+  <agm-map [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" [zoom]="18">
+   
+    <!-- Postavljamo markere -->
+    <agm-marker [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" [title]="mapInfo.title"
+    [label]="mapInfo.label">
+
+      <!-- Svakom markeru dodajemo info-window (Nije obavezno!)-->
+      <agm-info-window [latitude]="mapInfo.centerLat" [longitude]="mapInfo.centerLong" >
+
+        <!-- U info-window stavljamo html -->
+        <span style="font-size: 16px;font-family:'Times New Roman'">Fakultet tehničkih nauka</span>
+        <br/>
+        <span style="font-family:'Times New Roman'; color:gray;"><strong>Jugodrvo</strong></span>
+        <span style="font-family:'Times New Roman'; color:gray;">Bulevar oslobođenja 131</span>
+        <a [href]="mapInfo.link">See the site.</a>
+      </agm-info-window>
+
+    </agm-marker>
+  </agm-map>
+</p>

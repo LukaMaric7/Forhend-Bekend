@@ -3,7 +3,6 @@ import { LocalStorageService } from './localStorage.service';
 import { SocketService } from 'app/socket.service';
 
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

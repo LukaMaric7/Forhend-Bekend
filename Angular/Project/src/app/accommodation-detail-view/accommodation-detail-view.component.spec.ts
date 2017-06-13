@@ -23,3 +23,5 @@ describe('AccommodationDetailViewComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+

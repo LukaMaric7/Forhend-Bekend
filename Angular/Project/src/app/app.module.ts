@@ -36,6 +36,8 @@ import { AccommodationTypeListComponent } from './accommodation-type-list/accomm
 import { AccommodationDetailViewComponent } from './accommodation-detail-view/accommodation-detail-view.component';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { RoomComponent } from './room/room.component';
+import { MapComponent } from './map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -87,7 +89,8 @@ const Routes = [
     AccommodationTypeListComponent,
     AccommodationDetailViewComponent,
     AddRoomComponent,
-    RoomComponent
+    RoomComponent,
+    MapComponent
     
   ],
   imports: [
@@ -96,7 +99,8 @@ const Routes = [
     HttpModule,
     RouterModule.forRoot(Routes),
     MaterialModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],
   providers: [LocalStorageService, LoggedInGuard, IsAdminGuard],
   bootstrap: [AppComponent],

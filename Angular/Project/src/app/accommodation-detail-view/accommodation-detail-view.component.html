@@ -1,20 +1,55 @@
-<div>
-  <div style="margin-top:20px; width: 100%">
+<div style="height:100%; margin-top:20px; margin-left:10%; margin-right:10%; ">
+  <div style="width:100%">
       <span style="float:left;">
-        <font style="color:white">Name: {{accommodation.Name}} </font> <br>
-        <font style="color:white">Address: {{accommodation.Address}} </font><br>
-        <font style="color:white">Accommodation Type: {{accommodation.AccommodationType.Name}} </font><br> 
-        <font style="color:white">Place: {{accommodation.Place.Name}} </font><br>
+        <div>
+          <font style="color:white">Name: {{accommodation.Name}} </font> <br>
+          <font style="color:white">Address: {{accommodation.Address}} </font><br>
+          <font style="color:white">Accommodation Type: {{accommodation.AccommodationType.Name}} </font><br> 
+          <font style="color:white">Place: {{accommodation.Place.Name}} </font><br>
+          <font style="color:white">Description: {{accommodation.Description}} </font><br>
+        </div>
+
+        <div>
+          <button class="btn btn-secondary" name="edit" (click) = "changeShowEdit()">Edit</button>
+          <div *ngIf="isShowEditPress()">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+            <div>
+              <label for = "Name">Name:</label>
+              <br>
+              <input type="text" name="Name" id="Name" [(ngModel)]="Name"/>
+            </div>
+
+            <div>
+              <label for = "Name">Address:</label>
+              <br>
+              <input type="text" name="Address" id="Address" [(ngModel)]="Address"/>
+            </div>
+
+            <div>
+              <label for = "Name">Description:</label>
+              <br>
+              <input type="text" name="Description" id="Description" [(ngModel)]="Description"/>
+            </div>
+
+            <div>
+            <button  class="btn btn-secondary"  name="edit" >Apply</button>
+            </div>
+          </form>
+          </div>
+        </div>
+
+        <div style="float:left; width:50%; margin: 0 auto">
+          <map [mapInfo]="mapInfo"></map>
+         </div>
       </span>
 
       <span style="float:right;">
-        <img [src]= "accommodation.ImageURL" alt="picture of accommodation" height="500px" width="500px">
+          <img [src]= "accommodation.ImageURL" alt="picture of accommodation" height="400px" width="500px">
       </span>
   </div>
 
-  <div style="width: 100%">
-    <span style="width:25%"></span>
-    <span style="width:50%">
+  <div style=" float:left; width:100%">
+    <div style="margin-left:40%; margin-top: 50px;">
       <font style="color:white; size:16">ROOMS</font> <br>
       <ul>
         <li *ngFor = "let r of accommodation.Rooms">
@@ -23,7 +58,11 @@
       </ul>
       <br>
       <button class="btn btn-secondary" name="add" [routerLink]="['/add-room/', accommodation.Id]">Add Room</button>
-    </span>
-    <span style="width:25%"></span>
+    </div>
   </div>
+
+<div>
+
+</div>
+
 </div>
