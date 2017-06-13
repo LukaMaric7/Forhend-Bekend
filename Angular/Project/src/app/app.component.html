@@ -1,5 +1,9 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav style="background-color: rgba(0,0,0,0.5);
+    height: 60px;
+    border-bottom: 0px;
+    transition: background-color .1s ease .3s;"
+     class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" >
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <button [routerLink]="['/home']" class="btn">Home</button>
@@ -7,12 +11,15 @@
     </ul>
     <ul class="navbar-nav mr-auto" *ngIf="isAdmin()">
       <div>
-        <li class="nav-item">
-          <div class="btn-group">
+        <li class="nav-item" >
+          <div class="btn-group"  >
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Countries</button>
-            <div class="dropdown-menu">
-              <button [routerLink]="['/add-country']" class="btn">Add country</button>
-              <button [routerLink]="['/country-list']" class="btn">Existing countries</button>
+            <div class="dropdown-menu" style="background-color: rgba(0,0,0,0.5);
+                                              border-bottom: 0px;
+                                              transition: background-color .1s ease .5s;
+                                              margin-top:11px">
+              <a [routerLink]="['/add-country']" class="btn btn-secondary" style="background-color: transparent; border: 0px; color:white;">Add country</a>
+              <a [routerLink]="['/country-list']" class="btn btn-secondary" style="background-color: transparent; border: 0px; color:white;">Existing countries</a>
             </div>
           </div>
         </li>
@@ -26,20 +33,23 @@
       <li class="nav-item">
         <div class="btn-group">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accommodation types</button>
-            <div class="dropdown-menu">
-              <button [routerLink]="['/add-accommodation-type']" class="btn">Add accommodation type</button>
-              <button [routerLink]="['/accommodation-type-list']" class="btn">Existing accommodation types</button>
+            <div class="dropdown-menu" style="background-color: rgba(0,0,0,0.5);
+                                              border-bottom: 0px;
+                                              transition: background-color .1s ease .5s;
+                                              margin-top:11px">
+              <a [routerLink]="['/add-accommodation-type']" class="btn btn-secondary" style="background-color: transparent; border: 0px; color:white;">Add accommodation type</a>
+              <a [routerLink]="['/accommodation-type-list']" class="btn btn-secondary" style="background-color: transparent; border: 0px; color:white;">Existing accommodation types</a>
             </div>
         </div>
       </li>
     </ul>
-    <ul class="navbar-nav mr-auto" *ngIf="isManager()">
+    <ul class="navbar-nav mr-auto" *ngIf="isManager()" >
       <li class="nav-item">
          <button [routerLink]="['/add-accommodation']" class="btn">Add accommodation</button>
       </li>
     </ul>
     <div float="right">
-      <ul class="navbar-nav mr-auto" float="right">
+      <ul class="navbar-nav mr-auto" float="right" >
         <li class="nav-item">
             <button *ngIf="!IsLoggedIn()" [routerLink]="['/login']" class="btn">Log in</button>
         </li>
