@@ -12,7 +12,8 @@ import { SocketService } from 'app/socket.service';
 })
 export class HomeComponent implements OnInit {
   accommodations : Accommodation[];
-
+  showFilter : boolean;
+  
   constructor(private localStorageService : LocalStorageService, private accommodationService : AccommodationService) { 
     this.accommodations = [];
   }
@@ -28,6 +29,21 @@ export class HomeComponent implements OnInit {
     for(let entry of this.accommodations){
       entry.ImageURL = SocketService.socket + entry.ImageURL;
     }
+  }
+
+  ShowFilter() : void{
+    if(this.showFilter == true)
+    {
+      this.showFilter = false;
+    }
+    else
+    {
+      this.showFilter = true;
+    }
+  }
+
+  isShowFilter() : boolean{
+    return this.showFilter;
   }
 
 }

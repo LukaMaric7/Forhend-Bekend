@@ -38,6 +38,7 @@ import { AddRoomComponent } from './add-room/add-room.component';
 import { RoomComponent } from './room/room.component';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { FilterComponent } from './filter/filter.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -90,7 +91,8 @@ const Routes = [
     AccommodationDetailViewComponent,
     AddRoomComponent,
     RoomComponent,
-    MapComponent
+    MapComponent,
+    FilterComponent
     
   ],
   imports: [
