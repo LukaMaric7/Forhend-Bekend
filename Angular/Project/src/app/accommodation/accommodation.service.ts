@@ -42,4 +42,18 @@ export class AccommodationService {
         let ret = this.http.get(SocketService.socket + `api/accommodation?$filter=Id eq ${Id} &$expand=AccommodationType,Place,Rooms`).map(res => res.json());
         return ret;
     }
+
+    edit(accommodation: Accommodation) : Observable<any> {
+        console.log(accommodation);
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+        console.log(JSON.stringify(accommodation));
+        let opts = new RequestOptions();
+        opts.headers = header;
+        accommodation.Place = null;
+        accommodation.AccommodationType = null;
+        accommodation.Rooms = null;
+
+        return this.http.put(SocketService.socket + `api/accommodation`, JSON.stringify(accommodation), opts);
+    }
 }

@@ -41,21 +41,17 @@ namespace BookingApp.Controllers
             return Ok(accommodation);
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPut]
-        [Route("accommodation/{id}")]
+        [Route("accommodation")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAccommodation(int id, Accommodation accommodation)
+        public IHttpActionResult PutAccommodation(Accommodation accommodation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != accommodation.Id)
-            {
-                return BadRequest();
-            }
 
             db.Entry(accommodation).State = EntityState.Modified;
 
@@ -65,7 +61,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccommodationExists(id))
+                if (!AccommodationExists(accommodation.Id))
                 {
                     return NotFound();
                 }
@@ -124,7 +120,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("accommodation/{id}")]
         [ResponseType(typeof(Accommodation))]
