@@ -1,13 +1,28 @@
-<div>
-  <div>
-    <h2> {{accommodation?.Name}} </h2>
-  </div>
-  <div>
-    <img [src]= "accommodation.ImageURL" alt="picture of accommodation" height="100" width="100">
-  </div>
-  <div>
-    Type : {{accommodation.AccommodationType.Name}}
-    Place: {{accommodation.Place}}
-    Description: {{accommodation.Description}}
-  </div>
-</div>
+<span (click)="onClick()">
+  <span style=" float:left; background-color:aliceblue; width:20px;"> </span>
+
+  <span style=" float:right;">
+    <div style="width:150px; height:10px">
+    </div>
+
+    <div style="width:150px; height:30px">
+      <span style="text-align:center; background-color:powderblue; float:left; width:80%; height:100%">
+        <font style="color:aliceblue">{{accommodation.Name}}</font>
+      </span>
+
+      <span style="text-align:center; background-color:greenyellow; float:right; width:20%; height:100%"> 
+        <font style="color: aliceblue">{{accommodation.AverageGrade}}</font>
+      </span>
+    </div>
+    <div>
+      <img [src]= "accommodation.ImageURL" alt="picture of accommodation" height="150px" width="150px">
+    </div>
+    <div style="width:150px; height:50px; text-align:center; background-color:powderblue;">
+    <font style="color: aliceblue">
+        Type : {{accommodation.AccommodationType.Name}}
+        Place: {{accommodation.Place}}
+        Description: {{accommodation.Description}}
+    </font>
+    </div>
+  </span>
+</span>

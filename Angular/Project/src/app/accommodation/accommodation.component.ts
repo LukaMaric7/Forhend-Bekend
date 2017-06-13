@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Accommodation }  from './accommodation.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'accommodation',
@@ -10,12 +11,16 @@ import { Accommodation }  from './accommodation.model';
 export class AccommodationComponent implements OnInit {
   @Input () accommodation : Accommodation;
 
-  constructor() {
+  constructor(private route : Router) {
 
    }
 
   ngOnInit() {
   }
 
+  onClick()
+  {
+      this.route.navigate(['/accommodation-detail-view/',this.accommodation.Id]);
+  }
 
 }

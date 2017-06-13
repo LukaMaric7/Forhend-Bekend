@@ -33,6 +33,7 @@ import { AccommodationTypeComponent } from './accommodation-type/accommodation-t
 import { AddAccommodationTypeComponent } from './add-accommodation-type/add-accommodation-type.component';
 import { AddAccommodationComponent } from './add-accommodation/add-accommodation.component';
 import { AccommodationTypeListComponent } from './accommodation-type-list/accommodation-type-list.component';
+import { AccommodationDetailViewComponent } from './accommodation-detail-view/accommodation-detail-view.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -52,7 +53,8 @@ const Routes = [
   {path : "add-place", component: AddPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "add-accommodation-type", component: AddAccommodationTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "accommodation-type-list", component: AccommodationTypeListComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path : "add-accommodation", component: AddAccommodationComponent, canActivate: [LoggedInGuard]}
+  {path : "add-accommodation", component: AddAccommodationComponent, canActivate: [LoggedInGuard]},
+  {path : "accommodation-detail-view/:Id", component: AccommodationDetailViewComponent, canActivate: [LoggedInGuard]}
 ]
 
 @NgModule({
@@ -79,7 +81,8 @@ const Routes = [
     AccommodationTypeComponent,
     AddAccommodationTypeComponent,
     AddAccommodationComponent,
-    AccommodationTypeListComponent
+    AccommodationTypeListComponent,
+    AccommodationDetailViewComponent
     
   ],
   imports: [

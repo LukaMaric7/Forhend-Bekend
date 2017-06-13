@@ -35,4 +35,8 @@ export class AccommodationService {
         return this.http.post(SocketService.socket + `api/accommodation`, formData, options);
            
     }
+
+    getByIdOData(Id : number) : Observable<any> {
+        return this.http.get(SocketService.socket + `api/accommodation?$filter=Id eq ${Id} &$expand=AccommodationType &$expand=Place`).map(res => res.json());
+    }
 }
