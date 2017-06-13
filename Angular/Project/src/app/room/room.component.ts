@@ -24,10 +24,15 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {this.Id = parseInt(params["Id"])});
+    
+    this.RoomNumber = this.room.RoomNumber;
+    this.BadCount = this.room.BadCount;
+    this.Description = this.room.Description;
+    this.PricePerNight = this.room.PricePerNight;
   }
 
   onSubmit(){
-    this.roomService.edit(new Room(this.Id, this.RoomNumber, this.BadCount, this.Description, 
+    this.roomService.edit(new Room(this.room.Id, this.RoomNumber, this.BadCount, this.Description, 
     this.PricePerNight, this.room.AccommodationId)).subscribe();
   }
 

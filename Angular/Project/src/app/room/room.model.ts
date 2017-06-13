@@ -4,7 +4,7 @@ export class Room {
     Id: number;
     RoomNumber: number;
     BadCount: number;
-    Descriptio: string;
+    Description: string;
     PricePerNight: number;
     AccommodationId: number;
     Accommodation: Accommodation;
@@ -13,7 +13,7 @@ export class Room {
         this.Id = id;
         this.RoomNumber = roomNumber;
         this.BadCount = badCount;
-        this.Descriptio = description;
+        this.Description = description;
         this.PricePerNight = pricePerNight;
         this.AccommodationId = accommodationId;
         this.Accommodation = accommodation;
