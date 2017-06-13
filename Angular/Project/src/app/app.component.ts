@@ -7,7 +7,7 @@ import { SocketService } from 'app/socket.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ["./bootstrap-4.0.0-alpha.6-dist/css/bootstrap.css"],
+  styleUrls: ["./app.component.css"],
   providers: [LocalStorageService]
 })
 export class AppComponent {
