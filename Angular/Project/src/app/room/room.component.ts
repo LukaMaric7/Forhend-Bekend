@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Room } from './room.model';
 import { RoomService } from 'app/room/room.service';
 import { Router, ActivatedRoute } from "@angular/router";
@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 })
 export class RoomComponent implements OnInit {
   @Input() room : Room;
+  @Output() deleteRoomEvent : EventEmitter<Room>;
   Id : number;
   RoomNumber: number;
   BadCount: number;
@@ -20,6 +21,7 @@ export class RoomComponent implements OnInit {
 
   constructor(private roomService : RoomService, private activatedRoute : ActivatedRoute) {
     this.showEdit = false;
+    this.deleteRoomEvent = new EventEmitter();
    }
 
   ngOnInit() {
@@ -50,5 +52,9 @@ export class RoomComponent implements OnInit {
     {
       this.showEdit = true;
     }
+  }
+
+  deleteRoom(){
+      this.roomService.delete(this.room.Id).subscribe(x => {this.deleteRoomEvent.emit(this.room);});
   }
 }
