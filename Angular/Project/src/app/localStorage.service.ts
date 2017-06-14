@@ -35,5 +35,9 @@ export class LocalStorageService {
 
         return false;
     }
+
+    getUserId() : string{
+        return localStorage.getItem(LSE.Id.toString());
+    }
     
 }
