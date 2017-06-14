@@ -26,6 +26,9 @@ export class FilterComponent implements OnInit {
   PlaceName             : string;
   CountryName           : string;
   RegionName            : string;
+  BedCount              : number;
+  MinPrice              : number;
+  MaxPrice              : number;
 
   types                 : AccommodationType[];  
   places                : Place[];
@@ -53,6 +56,70 @@ export class FilterComponent implements OnInit {
   }
 
   onSubmit() {
+    let query = "?$filter=";
+    if(this.CountryName != ""){
+      query += `Place/Region/Country/Name eq '${this.CountryName}' and `;
+    }
+
+    if(this.RegionName != ""){
+      query += `Place/Region/Name eq '${this.RegionName}' and `;
+    }
+
+    if(this.PlaceName != ""){
+      query += `Place/Name eq '${this.PlaceName}' and `;
+    }
+
+    if(this.AccommodationTypeName != ""){
+      query += `AccommodationType/Name eq '${this.AccommodationTypeName}' and `;
+    }
+
+    if(this.Name != "")
+    {
+      query += `Name eq '${this.Name}' and `;
+    }
+
+    if(this.BedCount != undefined)
+    {
+      query += `Rooms/any(room : room/BadCount eq ${this.BedCount}) and `;
+    }
+
+    if(this.MinPrice != undefined)
+    {
+      query += `Rooms/any(room : room/PricePerNight ge ${this.MinPrice}) and `;
+    }
+
+    if(this.MaxPrice != undefined)
+    {
+      query += `Rooms/any(room : room/PricePerNight le ${this.MaxPrice}) and `;
+    }
+
+    if(this.AverageGrade != undefined)
+    {
+      query += `AverageGrade ge ${this.AverageGrade} and `;
+    }
+
+
+    if(this.CountryName == "" && this.RegionName == "" && this.PlaceName == "" && this.AccommodationTypeName == "" && this.Name == "" &&
+       this.BedCount == undefined && this.MinPrice == undefined && this.MaxPrice == undefined && this.AverageGrade == undefined){
+      query = "";
+    }
+    else{
+      query = query.substr(0, query.lastIndexOf('and '));
+      this.CountryName = "";
+      this.RegionName = "";
+      this.PlaceName = "";
+      this.Name = "";
+      this.AccommodationTypeName = "";
+      this.BedCount = undefined;
+      this.MinPrice = undefined;
+      this.MaxPrice = undefined;
+      this.AverageGrade = undefined;
+    }
+
+    
+    this.accommodationService.getByQuery(query).subscribe(o => console.log(o));
+
+/*
     if       ( this.CountryName == "" && this.RegionName == "" && this.PlaceName == "" ) {
       this.accommodationService.getAll().subscribe(o => {this.accommodaitons = o.json(); } );
     } else if( this.CountryName == "" && this.RegionName == "" && this.PlaceName != "" ) {
@@ -163,7 +230,7 @@ export class FilterComponent implements OnInit {
           }
 
         });
-    }
+    }*/
  }
 }
 
