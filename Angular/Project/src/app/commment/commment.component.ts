@@ -1,18 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Comment } from './comment.model';
+import { CommentService } from 'app/commment/comment.service';
 
 @Component({
   selector: 'commment',
   templateUrl: './commment.component.html',
-  styleUrls: ['./commment.component.css']
+  styleUrls: ['./commment.component.css'],
+  providers: [CommentService]
 })
 export class CommmentComponent implements OnInit {
   @Input() comment : Comment;
   @Input() accommodationId : number;
+  @Output() commentDeletedEvent : EventEmitter<Comment>
   showEdit : boolean;
   userName : string;
 
-  constructor() { }
+  constructor(private commentService : CommentService) {
+    this.commentDeletedEvent = new EventEmitter();
+   }
 
   ngOnInit() {
   }
@@ -33,13 +38,17 @@ export class CommmentComponent implements OnInit {
     }
   }
 
+  deleteComment() : void {
+    this.commentService.delete(this.comment.Id).subscribe(o => {this.commentDeletedEvent.emit(this.comment);});
+  }
+
   haveText() : boolean {
     if(this.comment.Text != "")
     {
-      return false;
+      return true;
     }
     
-    return true;
+    return false;
   }
 
 }

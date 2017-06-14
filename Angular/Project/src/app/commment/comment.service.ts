@@ -30,7 +30,7 @@ export class CommentService {
     }
 
     getByIdOData(Id : number) : Observable<any> {
-        return this.http.get(SocketService.socket + `api/comments?$filter=Id eq ${Id} &$expand=Regions`).map(res => res.json());
+        return this.http.get(SocketService.socket + `api/comments?$filter=Id eq ${Id} &$expand=User`).map(res => res.json());
     }
 
 

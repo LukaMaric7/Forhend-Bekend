@@ -8,6 +8,7 @@ import { Comment } from 'app/commment/comment.model';
 import { CommentService } from 'app/commment/comment.service';
 import { MapInfo } from "app/map/map-info.model";
 import { LSE } from 'app/localStorageEnum.model';
+import { LocalStorageService } from 'app/localStorage.service';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class AccommodationDetailViewComponent implements OnInit {
   
 
   constructor(private accommodationService :AccommodationService, private router: Router, 
-  private activatedRoute: ActivatedRoute, private commentService : CommentService) {
+  private activatedRoute: ActivatedRoute, private commentService : CommentService, private localStorageService : LocalStorageService) {
     this.accommodation = new Accommodation();
     this.mapInfo = new MapInfo(45.242268, 19.842954, 
     "", "" , "" , "");
@@ -103,7 +104,14 @@ export class AccommodationDetailViewComponent implements OnInit {
   }
 
   onSubmitComment(){
-    this.commentService.add(new Comment(1,this.Grade,this.Comment, this.Id, parseInt(localStorage.getItem(LSE.Id.toString())))).subscribe();
+    this.commentService.add(new Comment(1,this.Grade,this.Comment, this.Id, this.localStorageService.getUserId())).subscribe(o => {
+      let com = o.json();
+      this.commentService.getByIdOData(com.Id).subscribe(o => {
+        this.accommodation.Comments.push(o[0]);});
+    });
+    this.Grade = undefined;
+    this.Comment = "";
+    this.changeShowComment();
   }
 
   deleteRoom(room : Room) : void{
@@ -116,6 +124,11 @@ export class AccommodationDetailViewComponent implements OnInit {
       this.router.navigate(['/home']);
     } );
 
+  }
+
+  deleteComment(comment : Comment) : void {
+    let index = this.accommodation.Comments.indexOf(comment);
+    this.accommodation.Comments.splice(index,1);
   }
 
 }
