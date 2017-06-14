@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+<form #f="ngForm" >
   <div>
     <input class="form-control" type="text" placeholder="Name" name="Name" id="Name" [(ngModel)]="Name"/>
     <input class="form-control" type="text" placeholder="Accommodation type" name="AccommodationType" id="AccommodationType" [(ngModel)]="AccommodationTypeName"/>
@@ -10,8 +10,8 @@
     <input style="float:right; width:50%" type="text" placeholder="Max price" name="max" id="max" [(ngModel)]="MaxPrice"/>
     <input class="form-control" type="text" placeholder="Average grade" name="grade" id="grade" [(ngModel)]="AverageGrade"/>
   </div>
-  
-  <div style="margin-left:40%;margin-top:10px;">
-    <button class="btn btn-info" name="add" >Search</button>
-  </div>
 </form>
+<div style="margin-left:28%;margin-top:10px;">
+    <button class="btn btn-info" name="add" (click)="onSubmit()">Filter</button>
+    <button  style="margin-left:3px;" class="btn btn-info" name="add" (click)="Remove()">Remove filter</button>
+</div>

@@ -39,6 +39,7 @@ import { RoomComponent } from './room/room.component';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { FilterComponent } from './filter/filter.component';
+import { RoomTableComponent } from './room-table/room-table.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},

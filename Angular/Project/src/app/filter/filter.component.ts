@@ -57,6 +57,13 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
   }
 
+  Remove(){
+    let query = `?$expand=Place,AccommodationType`;
+    console.log("aa")
+    this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
+        this.filterEvent.emit(this.accommodaitons)});
+  }
+
   onSubmit() {
     let query = "?$filter=";
     if(this.CountryName != ""){
@@ -103,10 +110,11 @@ export class FilterComponent implements OnInit {
 
     if(this.CountryName == "" && this.RegionName == "" && this.PlaceName == "" && this.AccommodationTypeName == "" && this.Name == "" &&
        this.BedCount == undefined && this.MinPrice == undefined && this.MaxPrice == undefined && this.AverageGrade == undefined){
-      query = "";
+      query = `?$expand=Place,AccommodationType`;
     }
     else{
       query = query.substr(0, query.lastIndexOf('and '));
+      query += `&$expand=Place,AccommodationType`;
       this.CountryName = "";
       this.RegionName = "";
       this.PlaceName = "";
@@ -122,7 +130,7 @@ export class FilterComponent implements OnInit {
     this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
         this.filterEvent.emit(this.accommodaitons);
   });
-
+  
 /*
     if       ( this.CountryName == "" && this.RegionName == "" && this.PlaceName == "" ) {
       this.accommodationService.getAll().subscribe(o => {this.accommodaitons = o.json(); } );

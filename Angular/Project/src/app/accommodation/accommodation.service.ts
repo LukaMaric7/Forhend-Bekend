@@ -64,10 +64,4 @@ export class AccommodationService {
     getByQuery(query : string) : Observable<any> {
         return this.http.get(SocketService.socket + `api/accommodation` + query).map(res => res.json());
     }
-
-    getByIdPlaceName(Name : string) : Observable<any> {
-        
-        let ret = this.http.get(SocketService.socket + `api/accommodation?$filter=PlaceId eq 7 &$expand=Place,Place/Region,Place/Region/Country`).map(res => res.json());
-        return ret;
-    }
 }

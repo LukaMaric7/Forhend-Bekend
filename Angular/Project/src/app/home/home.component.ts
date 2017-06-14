@@ -31,8 +31,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  doFilter(accommodations : Accommodation[]) : void {
+  doFitler(accommodations : Accommodation[]) : void {
     this.accommodations = accommodations;
+    this.changeImageUrl();
   }
 
 }

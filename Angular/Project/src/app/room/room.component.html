@@ -1,36 +1,38 @@
-<div style="background-color:white;"> 
-    <p>Room Number: {{room.RoomNumber}} </p>
-    <p>Bad count: {{room.BadCount}} </p>
-    <p>Description: {{room.Description}} </p>
-    <p>Price per night: {{room.PricePerNight}} </p>
+
+    <span style="width:20%; display:inline-block;">{{room.RoomNumber}} </span>
+    <span style="width:20%; display:inline-block;">{{room.BadCount}} </span>
+    <span style="width:20%; display:inline-block;">{{room.Description}} </span>
+    <span style="width:20%; display:inline-block;">{{room.PricePerNight}} </span>
+    <span style="width:15%; display:inline-block;">
     <button  md-button name="edit" (click) = "changeShowEdit()">Edit</button>
 
-    <div *ngIf="isShowEditPress()">
-    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
-      <div>
-        <label for = "RoomNumber">Room number:</label>
-        <br>
-        <input type="text" name="RoomNumber" id="RoomNumber" [(ngModel)]="RoomNumber"/>
+      <div *ngIf="isShowEditPress()">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+        <div>
+          <label for = "RoomNumber">Room number:</label>
+          <br>
+          <input type="text" name="RoomNumber" id="RoomNumber" [(ngModel)]="RoomNumber"/>
+        </div>
+        <div>
+          <label for = "BadCount">Bad count:</label>
+          <br>
+          <input type="text" name="BadCount" id="BadCount" [(ngModel)]="BadCount"/>
+        </div>
+        <div>
+          <label for = "Description">Description:</label>
+          <br>
+          <input type="text" name="Description" id="Description" [(ngModel)]="Description"/>
+        </div>
+        <div>
+          <label for = "PricePerNight">Price Per Night:</label>
+          <br>
+          <input type="text" name="PricePerNight" id="PricePerNight" [(ngModel)]="PricePerNight"/>
+        </div>
+        <div>
+          <button  md-button name="edit" >Apply</button>
+        </div>
+      </form>
       </div>
-      <div>
-        <label for = "BadCount">Bad count:</label>
-        <br>
-        <input type="text" name="BadCount" id="BadCount" [(ngModel)]="BadCount"/>
-      </div>
-      <div>
-        <label for = "Description">Description:</label>
-        <br>
-        <input type="text" name="Description" id="Description" [(ngModel)]="Description"/>
-      </div>
-      <div>
-        <label for = "PricePerNight">Price Per Night:</label>
-        <br>
-        <input type="text" name="PricePerNight" id="PricePerNight" [(ngModel)]="PricePerNight"/>
-      </div>
-      <div>
-        <button  md-button name="edit" >Apply</button>
-      </div>
-    </form>
-    </div>
-    <button md-button name="delete" (click) = "deleteRoom()">Delete</button>
-</div>
+      <button md-button name="delete" (click) = "deleteRoom()">Delete</button>
+    </span>
+
