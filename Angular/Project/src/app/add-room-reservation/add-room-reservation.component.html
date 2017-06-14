@@ -4,15 +4,17 @@
     <span style="float:left">
       <label for = "StartDate">Check In:</label>
        <br>
-       <input type="date" name="StartDate" id="StartDate" [(ngModel)]="StartDate"/>
+       <input required="true" type="date" name="StartDate" id="StartDate" [min]="currentDate" (change)="changeStartDate()" [(ngModel)]="StartDate"/>
     </span>
 
     <span style="float:right">
       <label for = "EndDate">Check Out:</label>
       <br>
-      <input type="date" name="EndDate" id="EndDate" [(ngModel)]="EndDate"/>
+      <input required="true" type="date" name="EndDate" id="EndDate" [min]="minForEnd"  (change)="changeStartDate1()" [(ngModel)]="EndDate" />
        
-      <input  class="btn btn-secondary" type="submit" value="Book now"/>
+      <input *ngIf="Booking()" class="btn-default" type="submit" value="Book now"/>
+      <input *ngIf="Busy()" class="btn-warning" type="submit" disabled value="Busy"/>
+      <input *ngIf="Success()"  class="btn-success" type="submit" disabled value="Success"/>
     </span>
   </div>
 </form>
