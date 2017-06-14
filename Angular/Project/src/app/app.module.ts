@@ -39,7 +39,9 @@ import { RoomComponent } from './room/room.component';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { FilterComponent } from './filter/filter.component';
-import { RoomTableComponent } from './room-table/room-table.component';
+import { AddRoomReservationComponent } from './add-room-reservation/add-room-reservation.component';
+import { RoomReservationComponent } from './room-reservation/room-reservation.component';
+import { CommmentComponent } from './commment/commment.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -61,7 +63,8 @@ const Routes = [
   {path : "accommodation-type-list", component: AccommodationTypeListComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "add-accommodation", component: AddAccommodationComponent, canActivate: [LoggedInGuard]},
   {path : "accommodation-detail-view/:Id", component: AccommodationDetailViewComponent},
-  {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard/*dodati za menadzera guard*/]}
+  {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard/*dodati za menadzera guard*/]},
+  {path : "add-room-reservation/:Id", component: AddRoomReservationComponent, canActivate: [LoggedInGuard]}
 ]
 
 @NgModule({
@@ -93,7 +96,10 @@ const Routes = [
     AddRoomComponent,
     RoomComponent,
     MapComponent,
-    FilterComponent
+    FilterComponent,
+    AddRoomReservationComponent,
+    RoomReservationComponent,
+    CommmentComponent
     
   ],
   imports: [
