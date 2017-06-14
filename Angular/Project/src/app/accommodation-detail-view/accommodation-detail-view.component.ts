@@ -4,20 +4,27 @@ import { Accommodation } from "app/accommodation/accommodation.model";
 import { AccommodationService } from "app/accommodation/accommodation.service";
 import { SocketService } from 'app/socket.service';
 import { Room } from 'app/room/room.model';
+import { Comment } from 'app/commment/comment.model';
+import { CommentService } from 'app/commment/comment.service';
 import { MapInfo } from "app/map/map-info.model";
+import { LSE } from 'app/localStorageEnum.model';
+import { LocalStorageService } from 'app/localStorage.service';
 
 
 @Component({
   selector: 'accommodation-detail-view',
   templateUrl: './accommodation-detail-view.component.html',
   styleUrls: ['./accommodation-detail-view.component.css'],
-  providers: [AccommodationService, SocketService]
+  providers: [AccommodationService, SocketService, CommentService]
 })
 export class AccommodationDetailViewComponent implements OnInit {
   Id            : number;
   accommodation : Accommodation;
   mapInfo       : MapInfo
   showEdit      : boolean;
+  showComment   : boolean;
+  Comment       : string;
+  Grade         : number;
 
   Name          : string; 
   Description   : string;
@@ -25,11 +32,13 @@ export class AccommodationDetailViewComponent implements OnInit {
   ImageURL      : string;
   
 
-  constructor(private accommodationService :AccommodationService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private accommodationService :AccommodationService, private router: Router, 
+  private activatedRoute: ActivatedRoute, private commentService : CommentService, private localStorageService : LocalStorageService) {
     this.accommodation = new Accommodation();
     this.mapInfo = new MapInfo(45.242268, 19.842954, 
     "", "" , "" , "");
     this.showEdit = false;
+    this.showComment = false;
    }
 
   ngOnInit() {
@@ -70,12 +79,39 @@ export class AccommodationDetailViewComponent implements OnInit {
     }
   }
 
+  isShowCommentPress() {
+    return this.showComment;
+  }
+
+  changeShowComment()
+  {
+    if(this.showComment)
+    {
+       this.showComment = false;
+    }
+    else
+    {
+      this.showComment = true;
+    }
+  }
+
   onSubmit()
   {
       this.accommodationService.edit(new Accommodation(this.accommodation.Id, this.Name, this.Description, this.accommodation.Latitude, this.accommodation.Longitude,
              this.accommodation.AccommodationTypeId, this.Address, this.accommodation.PlaceId, this.accommodation.UserId, 
              this.accommodation.Approved, this.ImageURL)).subscribe( o => { this.accommodation.Name = this.Name; this.accommodation.Address = this.Address; this.accommodation.Description = this.Description;} );
       this.showEdit = false;
+  }
+
+  onSubmitComment(){
+    this.commentService.add(new Comment(1,this.Grade,this.Comment, this.Id, this.localStorageService.getUserId())).subscribe(o => {
+      let com = o.json();
+      this.commentService.getByIdOData(com.Id).subscribe(o => {
+        this.accommodation.Comments.push(o[0]);});
+    });
+    this.Grade = undefined;
+    this.Comment = "";
+    this.changeShowComment();
   }
 
   deleteRoom(room : Room) : void{
@@ -88,6 +124,11 @@ export class AccommodationDetailViewComponent implements OnInit {
       this.router.navigate(['/home']);
     } );
 
+  }
+
+  deleteComment(comment : Comment) : void {
+    let index = this.accommodation.Comments.indexOf(comment);
+    this.accommodation.Comments.splice(index,1);
   }
 
 }

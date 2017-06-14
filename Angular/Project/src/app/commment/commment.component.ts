@@ -1,15 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Comment } from './comment.model';
+import { CommentService } from 'app/commment/comment.service';
 
 @Component({
-  selector: 'app-commment',
+  selector: 'commment',
   templateUrl: './commment.component.html',
-  styleUrls: ['./commment.component.css']
+  styleUrls: ['./commment.component.css'],
+  providers: [CommentService]
 })
 export class CommmentComponent implements OnInit {
+  @Input() comment : Comment;
+  @Input() accommodationId : number;
+  @Output() commentDeletedEvent : EventEmitter<Comment>
+  showEdit : boolean;
+  userName : string;
 
-  constructor() { }
+  constructor(private commentService : CommentService) {
+    this.commentDeletedEvent = new EventEmitter();
+   }
 
   ngOnInit() {
+  }
+
+  isShowEditPress() {
+    return this.showEdit;
+  }
+
+  changeShowEdit()
+  {
+    if(this.showEdit)
+    {
+       this.showEdit = false;
+    }
+    else
+    {
+      this.showEdit = true;
+    }
+  }
+
+  deleteComment() : void {
+    this.commentService.delete(this.comment.Id).subscribe(o => {this.commentDeletedEvent.emit(this.comment);});
+  }
+
+  haveText() : boolean {
+    if(this.comment.Text != "")
+    {
+      return true;
+    }
+    
+    return false;
   }
 
 }

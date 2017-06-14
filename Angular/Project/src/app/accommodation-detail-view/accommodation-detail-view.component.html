@@ -75,6 +75,44 @@
       <button class="btn btn-secondary" name="add" [routerLink]="['/add-room/', accommodation.Id]">Add Room</button>
     </div>
   </div>
+  <div style="width:100%; margin-top: 50px;">
+    <div style=" width:100%; ">
+      <font style="color:white; size:16">COMMENTS</font> <br>
+      
+      <div style="background-color: rgba(0,0,0,0.5);
+                  transition: background-color .1s ease .3s;">
+        <span style="width:22%; display:inline-block;"><font style="color:white; size:22">User</font></span>
+        <span style="width:75%; display:inline-block;"><font style="color:white; size:22">Comment</font></span>
+      </div>
+
+      <div *ngFor = "let c of accommodation.Comments" style="background-color: rgba(0,0,0,0.5);
+                  transition: background-color .1s ease .3s;">
+                  <font style="color:white; size:22">
+        <commment [comment] = "c" [accommodationId] = accommodation.Id
+        (commentDeletedEvent)="deleteComment($event)"></commment> </font>
+      </div>
+      <br>
+      <button class="btn btn-secondary" name="add" (click) = "changeShowComment()">Add comment</button>
+    </div>
+  </div>
+  <div *ngIf="isShowCommentPress()">
+    <form #f="ngForm" (ngSubmit)="onSubmitComment(f.value)">
+      <div>
+        <label for = "Comment">Comment:</label>
+        <br>
+        <textarea type="text" name="Comment" id="Comment" [(ngModel)]="Comment">
+        </textarea>
+      </div>
+      <div>
+        <label for = "Grade">Grade:</label>
+        <br>
+        <input type="text" name="Grade" id="Grade" [(ngModel)]="Grade"/>
+      </div>
+      <div>
+        <button class="btn btn-secondary" name="post">Post comment</button>
+      </div>
+    </form>
+  </div>
 
 <div>
 

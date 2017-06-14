@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -17,6 +18,7 @@ namespace BookingApp.Controllers
         private BAContext db = new BAContext();
 
         [HttpGet]
+        [EnableQuery]
         [Route("comments")]
         public IQueryable<Comment> GetComment()
         {
@@ -24,11 +26,12 @@ namespace BookingApp.Controllers
         }
 
         [HttpGet]
-        [Route("comments/{id1}/{id2}")]
+        [EnableQuery]
+        [Route("comments/{id1}")]
         [ResponseType(typeof(Comment))]
-        public IHttpActionResult GetComment(int id1, int id2)
+        public IHttpActionResult GetComment(int id1)
         {
-            Comment comment = db.Comments.Find(new { AccommodationId = id1, UserId = id2 });
+            Comment comment = db.Comments.Find(id1);
             if (comment == null)
             {
                 return NotFound();
@@ -37,7 +40,7 @@ namespace BookingApp.Controllers
             return Ok(comment);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
         [Route("comments/{id1}/{id2}")]
         [ResponseType(typeof(void))]
@@ -74,7 +77,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("comments")]
         [ResponseType(typeof(Comment))]
@@ -91,13 +94,13 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Comment",id1 = comment.AccommodationId, id2 = comment.UserId }, comment);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
-        [Route("comments/{id1}/{id2}")]
+        [Route("comments/{id1}")]
         [ResponseType(typeof(Comment))]
-        public IHttpActionResult DeleteComment(int id1, int id2)
+        public IHttpActionResult DeleteComment(int id1)
         {
-            Comment comment = db.Comments.Find(new { AccommodationId = id1, UserId = id2});
+            Comment comment = db.Comments.Find(id1);
             if (comment == null)
             {
                 return NotFound();

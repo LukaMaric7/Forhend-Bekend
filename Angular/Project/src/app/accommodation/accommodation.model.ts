@@ -1,6 +1,7 @@
 import { Place } from "app/place/place.model";
 import { AccommodationType } from "app/accommodation-type/accommodation-type.model";
 import { Room } from "app/room/room.model";
+import { Comment } from 'app/commment/comment.model';
 
 export class Accommodation {
     Id                  : number;
@@ -18,6 +19,7 @@ export class Accommodation {
     PlaceId             : number;
     UserId              : number;
     Rooms               : Room[];
+    Comments            : Comment[];
 
 
     constructor (id? : number, name? : string, description? : string, latitude? : number, longitude? : number,
