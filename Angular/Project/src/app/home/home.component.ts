@@ -31,19 +31,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ShowFilter() : void{
-    if(this.showFilter == true)
-    {
-      this.showFilter = false;
-    }
-    else
-    {
-      this.showFilter = true;
-    }
-  }
-
-  isShowFilter() : boolean{
-    return this.showFilter;
+  doFilter(accommodations : Accommodation[]) : void {
+    this.accommodations = accommodations;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Accommodation } from "app/accommodation/accommodation.model";
 import { AccommodationService } from "app/accommodation/accommodation.service";
 import { AccommodationType } from "app/accommodation-type/accommodation-type.model";
@@ -19,7 +19,8 @@ import { Http, Response, Headers, Request, RequestOptions } from '@angular/http'
   providers: [AccommodationService, AccommodationTypeService, PlaceService, RegionService, CountryService, SocketService]
 })
 export class FilterComponent implements OnInit {
-  @Input() accommodaitons : Accommodation[];
+ accommodaitons : Accommodation[];
+ @Output() filterEvent : EventEmitter<Accommodation[]>;
   Name                  : string; 
   AverageGrade          : number;
   AccommodationTypeName : string;
@@ -50,6 +51,7 @@ export class FilterComponent implements OnInit {
     this.CountryName = "";
     this.RegionName = "";
     this.PlaceName = "";
+    this.filterEvent = new EventEmitter();
   }
 
   ngOnInit() {
@@ -117,7 +119,9 @@ export class FilterComponent implements OnInit {
     }
 
     
-    this.accommodationService.getByQuery(query).subscribe(o => console.log(o));
+    this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
+        this.filterEvent.emit(this.accommodaitons);
+  });
 
 /*
     if       ( this.CountryName == "" && this.RegionName == "" && this.PlaceName == "" ) {
