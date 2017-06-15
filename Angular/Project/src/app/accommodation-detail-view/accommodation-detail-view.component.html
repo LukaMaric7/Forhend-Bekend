@@ -92,7 +92,7 @@
         (commentDeletedEvent)="deleteComment($event)"></commment> </font>
       </div>
       <br>
-      <button class="btn btn-secondary" name="add" (click) = "changeShowComment()">Add comment</button>
+      <button *ngIf="CanComment()" class="btn btn-secondary" name="add" (click) = "changeShowComment()">Add comment</button>
     </div>
   </div>
   <div *ngIf="isShowCommentPress()">

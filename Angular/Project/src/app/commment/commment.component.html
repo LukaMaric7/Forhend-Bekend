@@ -1,6 +1,6 @@
     <span style="width:20%; display:inline-block;"><font style="color:white; size:22">{{comment.User.Name}} {{comment.User.LastName}}</font></span>
     <span *ngIf="haveText()" style="width:70%; display:inline-block;"><font style="color:white; size:22">{{comment.Text}}</font></span>
     <span *ngIf="haveText()" style="width:7%; display:inline-block;">
-        <button class="btn btn-secondary" name="add" (click) = "deleteComment()">Delete</button>
+        <button *ngIf="yourComment()" class="btn btn-secondary" name="add" (click) = "deleteComment()">Delete</button>
     </span>
   
