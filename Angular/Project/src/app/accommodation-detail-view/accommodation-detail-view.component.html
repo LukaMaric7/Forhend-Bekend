@@ -10,8 +10,8 @@
         </div>
 
         <div>
-          <button class="btn btn-secondary" name="edit" (click) = "changeShowEdit()">Edit</button>
-          <button class="btn btn-secondary" name="delete" (click) = "deleteAccommodation()">Delete</button>
+          <button *ngIf="CanEditOrDeleteOrAdd()" class="btn btn-secondary" name="edit" (click) = "changeShowEdit()">Edit</button>
+          <button *ngIf="CanEditOrDeleteOrAdd()" class="btn btn-secondary" name="delete" (click) = "deleteAccommodation()">Delete</button>
 
           <div *ngIf="isShowEditPress()">
           <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
@@ -60,19 +60,19 @@
         <span style="width:12%; display:inline-block;"><font style="color:white; size:22">Bad count</font></span>
         <span style="width:12%; display:inline-block;"><font style="color:white; size:22">Description</font></span>
         <span style="width:12%; display:inline-block;"><font style="color:white; size:22">Price per night</font></span>
-        <span style="width:25%; display:inline-block;"><font style="color:white; size:22">Edit/Delete</font></span>
-        <span style="width:12%; display:inline-block;"><font style="color:white; size:22">Booking</font></span>
+        <span *ngIf="CanEditOrDeleteOrAdd()" style="width:25%; display:inline-block;"><font style="color:white; size:22">Edit/Delete</font></span>
+        <span *ngIf="CanBookRoom()" style="width:12%; display:inline-block;"><font style="color:white; size:22">Booking</font></span>
       </div>
 
       <div *ngFor = "let r of accommodation.Rooms" style="background-color: rgba(0,0,0,0.5);
                   transition: background-color .1s ease .3s;">
                   <font style="color:white; size:22">
-        <room [room] = "r"
+        <room [room] = "r" [Accommodation] = accommodation
         (deleteRoomEvent)="deleteRoom($event)"></room> </font>
       </div>
       
       <br>
-      <button class="btn btn-secondary" name="add" [routerLink]="['/add-room/', accommodation.Id]">Add Room</button>
+      <button *ngIf="CanEditOrDeleteOrAdd()" class="btn btn-secondary" name="add" [routerLink]="['/add-room/', accommodation.Id]">Add Room</button>
     </div>
   </div>
   <div style="width:100%; margin-top: 50px;">

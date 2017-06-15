@@ -36,6 +36,15 @@ export class LocalStorageService {
         return false;
     }
 
+    isUser() : boolean {
+        if ( localStorage.getItem(LSE.Role.toString()) == "AppUser")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     getUserId() : number {
         return parseInt(localStorage.getItem(LSE.Id.toString()));
     }

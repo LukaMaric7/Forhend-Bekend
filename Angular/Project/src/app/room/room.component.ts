@@ -2,16 +2,19 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Room } from './room.model';
 import { RoomService } from 'app/room/room.service';
 import { Router, ActivatedRoute } from "@angular/router";
+import { Accommodation } from 'app/accommodation/accommodation.model';
+import { LocalStorageService } from 'app/localStorage.service';
 
 @Component({
   selector: 'room',
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.css'],
-  providers: [RoomService]
+  providers: [RoomService, LocalStorageService]
 })
 export class RoomComponent implements OnInit {
   @Input() room : Room;
   @Output() deleteRoomEvent : EventEmitter<Room>;
+  @Input() Accommodation : Accommodation;
   Id : number;
   RoomNumber: number;
   BadCount: number;
@@ -19,7 +22,8 @@ export class RoomComponent implements OnInit {
   PricePerNight: number;
   showEdit: boolean;
 
-  constructor(private roomService : RoomService, private activatedRoute : ActivatedRoute) {
+  constructor(private roomService : RoomService, private activatedRoute : ActivatedRoute,
+  private localStorageService : LocalStorageService) {
     this.showEdit = false;
     this.deleteRoomEvent = new EventEmitter();
    }
@@ -52,6 +56,27 @@ export class RoomComponent implements OnInit {
     {
       this.showEdit = true;
     }
+  }
+
+  CanEditOrDelete() : boolean {
+    if(this.localStorageService.IsLoggedIn()){
+      if(this.Accommodation.UserId == this.localStorageService.getUserId()){
+        return true;
+      }
+
+      return false;
+    }
+    return false;
+  }
+
+  CanBookRoom() : boolean{
+    if(this.localStorageService.IsLoggedIn()){
+      if(this.localStorageService.isUser()){
+        return true;
+      }
+      return false;
+    }
+    return false
   }
 
   deleteRoom(){
