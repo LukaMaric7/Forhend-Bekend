@@ -28,4 +28,8 @@ export class AppComponent {
   isManager() : Boolean {
     return this.localStorageService.isManager();
   }
+
+  isUser() : Boolean {
+    return this.localStorageService.isUser();
+  }
 }

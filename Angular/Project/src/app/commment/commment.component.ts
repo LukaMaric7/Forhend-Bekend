@@ -54,10 +54,13 @@ export class CommmentComponent implements OnInit {
   }
 
   yourComment() : boolean {
+    if(this.localStorageService.IsLoggedIn()){
     if(this.comment.UserId == this.localStorageService.getUserId()){
       return true;
     }
      return false;
+    }
+    return false;
   }
 
 }
