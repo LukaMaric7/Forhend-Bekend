@@ -328,10 +328,6 @@
     <Compile Include="Migrations\201706150941534_BanFieldForUserAdded.Designer.cs">
       <DependentUpon>201706150941534_BanFieldForUserAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706151740174_CommentUnique.cs" />
-    <Compile Include="Migrations\201706151740174_CommentUnique.Designer.cs">
-      <DependentUpon>201706151740174_CommentUnique.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
     <Compile Include="Models\AccommodationType.cs" />
@@ -456,9 +452,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706150941534_BanFieldForUserAdded.resx">
       <DependentUpon>201706150941534_BanFieldForUserAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706151740174_CommentUnique.resx">
-      <DependentUpon>201706151740174_CommentUnique.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
