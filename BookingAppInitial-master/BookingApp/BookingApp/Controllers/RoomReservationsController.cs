@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.OData;
 
 namespace BookingApp.Controllers
 {
@@ -17,6 +18,7 @@ namespace BookingApp.Controllers
         BAContext db = new BAContext();
 
         [HttpGet]
+        [EnableQuery]
         [Route("reservation")]
         public IQueryable<RoomReservation> GetReservation()
         {
@@ -37,33 +39,23 @@ namespace BookingApp.Controllers
             return Ok(reservation);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut]
-        [Route("reservation/{idRoom}/{idUser}/{time}")]
+        [Route("reservation/{Id}")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutReservation(int idRoom, int idUser, byte[] time, RoomReservation reservation)
+        public IHttpActionResult PutReservation(int Id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (idRoom != reservation.RoomId)
+            RoomReservation r =db.Reservations.Where(o => o.Equals(Id)).FirstOrDefault();
+            if( r != null)
             {
-                return BadRequest();
+                r.Canceled = true;
             }
 
-            if (idUser != reservation.UserId)
-            {
-                return BadRequest();
-            }
-
-            if (time != reservation.TimeStamp)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(reservation).State = EntityState.Modified;
+            db.Entry(r).State = EntityState.Modified;
 
             try
             {
@@ -71,7 +63,7 @@ namespace BookingApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ReservationExists(idRoom, idUser, time))
+                if (!ReservationExists(Id))
                 {
                     return NotFound();
                 }
@@ -95,13 +87,24 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Reservations.Add(reservation);
-            db.SaveChanges();
+            IQueryable<RoomReservation> query = db.Reservations.Where(o => o.RoomId.Equals(reservation.RoomId) && o.Canceled.Equals(true)
+                                              && ((reservation.EndDate   >= o.StartDate && reservation.EndDate   <= o.EndDate ) ||
+                                                  (reservation.StartDate >= o.StartDate && reservation.StartDate <= o.EndDate ) ||
+                                                  (reservation.StartDate <= o.StartDate && reservation.EndDate   >= o.EndDate )));
+            if (query.Count() == 0)
+            {
+                db.Reservations.Add(reservation);
+                db.SaveChanges();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
 
             return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = reservation.RoomId }, reservation);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete]
         [Route("reservation/{id}")]
         [ResponseType(typeof(RoomReservation))]
@@ -112,9 +115,24 @@ namespace BookingApp.Controllers
             {
                 return NotFound();
             }
+            reservation.Canceled = true;
+            db.Entry(reservation).State = EntityState.Modified;
 
-            db.Reservations.Remove(reservation);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReservationExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return Ok(reservation);
         }
@@ -128,9 +146,9 @@ namespace BookingApp.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ReservationExists(int idRoom, int idUser, byte[] time)
+        private bool ReservationExists(int id)
         {
-            return db.Reservations.Count(e => (e.RoomId == idRoom && e.UserId == idUser && e.TimeStamp == time )) > 0;
+            return db.Reservations.Count(e => (e.Id == id)) > 0;
         }
     }
 }

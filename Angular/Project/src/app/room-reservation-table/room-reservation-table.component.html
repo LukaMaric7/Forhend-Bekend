@@ -19,7 +19,7 @@
       <td>{{res.StartDate}}</td>
       <td>{{res.EndDate}}</td>
       <td *ngIf="!res.Canceled"><button (click)="Cancel(res.Id)"class="btn btn-secondary">Cancel</button></td>
-      <td *ngIf="res.Canceled"><<font size="3" color="red">Canceled!</font></button></td>
+      <td *ngIf="res.Canceled"><font size="3" color="red">Canceled!</font></td>
     </tr>
   </tbody>
 </table>

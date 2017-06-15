@@ -38,4 +38,8 @@ export class RoomReservationService {
         return this.http.get(SocketService.socket + `api/reservation?$filter=Room/Accommodation/Id eq ${AccId} and
                              UserId eq ${UserId} and DateStart le ${date}`).map(res => res.json() );
     }
+
+    cancel(id : number){
+        return this.http.delete(SocketService.socket + `api/reservation/${id}`);
+    }
 }
