@@ -89,7 +89,14 @@ namespace BookingApp.Controllers
             }
 
             db.Comments.Add(comment);
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                return BadRequest("You already commented!");
+            }
 
             return CreatedAtRoute("DefaultApi", new { controller = "Comment",id1 = comment.AccommodationId, id2 = comment.UserId }, comment);
         }

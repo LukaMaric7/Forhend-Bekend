@@ -23,6 +23,8 @@ export class LogoutService {
         let ret = this.http.post(SocketService.socket + `api/Account/Logout`, "", opts);
         localStorage.removeItem(LSE.User.toString());
         localStorage.removeItem(LSE.Role.toString());
+        localStorage.removeItem(LSE.Id.toString());
+        localStorage.removeItem(LSE.UserName.toString());
 
         return ret;
     }

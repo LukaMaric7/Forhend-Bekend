@@ -27,6 +27,8 @@ import { PlaceDetailViewComponent } from './place-detail-view/place-detail-view.
 import { AddPlaceComponent } from './add-place/add-place.component';
 import { LoggedInGuard } from "app/guards/logged-in.guard";
 import { IsAdminGuard } from "app/guards/isAdmin.guard";
+import { IsManagerGuard } from "app/guards/isManager.guard";
+import { IsUserGuard } from "app/guards/isUser.guard";
 import { LocalStorageService } from "app/localStorage.service";
 import { AccommodationComponent } from './accommodation/accommodation.component';
 import { AccommodationTypeComponent } from './accommodation-type/accommodation-type.component';
@@ -63,12 +65,12 @@ const Routes = [
   {path : "add-place", component: AddPlaceComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "add-accommodation-type", component: AddAccommodationTypeComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
   {path : "accommodation-type-list", component: AccommodationTypeListComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
-  {path : "add-accommodation", component: AddAccommodationComponent, canActivate: [LoggedInGuard]},
+  {path : "add-accommodation", component: AddAccommodationComponent, canActivate: [LoggedInGuard, IsManagerGuard]},
   {path : "accommodation-detail-view/:Id", component: AccommodationDetailViewComponent},
-  {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard/*dodati za menadzera guard*/]},
-  {path : "add-room-reservation/:Id", component: AddRoomReservationComponent, canActivate: [LoggedInGuard]},
-  {path : "my-reservations", component: RoomReservationTableComponent, canActivate: [LoggedInGuard]},
-  {path : "manager-list", component: ManagerListComponent, canActivate: [LoggedInGuard]}
+  {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard, IsManagerGuard]},
+  {path : "add-room-reservation/:Id", component: AddRoomReservationComponent, canActivate: [LoggedInGuard, IsUserGuard]},
+  {path : "my-reservations", component: RoomReservationTableComponent, canActivate: [LoggedInGuard, IsUserGuard]},
+  {path : "manager-list", component: ManagerListComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
 ]
 
 @NgModule({
@@ -117,7 +119,7 @@ const Routes = [
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({apiKey: 'AIzaSyDnihJyw_34z5S1KZXp90pfTGAqhFszNJk'})
   ],
-  providers: [LocalStorageService, LoggedInGuard, IsAdminGuard],
+  providers: [LocalStorageService, LoggedInGuard, IsAdminGuard, IsManagerGuard, IsUserGuard],
   bootstrap: [AppComponent],
 
 })

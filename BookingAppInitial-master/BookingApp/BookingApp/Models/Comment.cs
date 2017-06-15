@@ -23,6 +23,7 @@ namespace BookingApp.Models
 
         public AppUser User { get; set; }
         
+        [Index(IsUnique = true)]
         [ForeignKey("User")]
         public int UserId { get; set; }
     }
