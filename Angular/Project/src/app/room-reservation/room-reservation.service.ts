@@ -29,4 +29,13 @@ export class RoomReservationService {
      delete(id : number) : Observable<any> {
         return this.http.delete(SocketService.socket + `api/reservation/${id}`);
     }
+
+    getByUserIdOData(Id : number) : Observable<any> {
+        return this.http.get(SocketService.socket + `api/reservation?$filter=UserId eq ${Id} &$expand=Room, Room/Accommodation`).map(res => res.json() );
+    }
+
+    getByAccIdUserIdAndDate(AccId : number, UserId : number, date : Date) : Observable<any> {
+        return this.http.get(SocketService.socket + `api/reservation?$filter=Room/Accommodation/Id eq ${AccId} and
+                             UserId eq ${UserId} and DateStart le ${date}`).map(res => res.json() );
+    }
 }

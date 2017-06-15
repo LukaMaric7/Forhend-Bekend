@@ -1,0 +1,24 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Accommodation name</th>
+      <th>Room number</th>
+      <th>Bed count</th>
+      <th>Price per night</th>
+      <th>Check In</th>
+      <th>Check Out</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor = "let res of reservations">
+      <td>{{res.Room.Accommodation.Name}}</td>
+      <td>{{res.Room.RoomNumber}}</td>
+      <td>{{res.Room.BadCount}}</td>
+      <td>{{res.Room.PricePerNight}}</td>
+      <td>{{res.StartDate}}</td>
+      <td>{{res.EndDate}}</td>
+      <td><button class="btn btn-secondary">Cancel</button></td>
+    </tr>
+  </tbody>
+</table>
