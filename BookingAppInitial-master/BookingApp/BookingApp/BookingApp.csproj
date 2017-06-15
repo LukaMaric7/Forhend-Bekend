@@ -323,6 +323,10 @@
     <Compile Include="Migrations\201706150727241_RoomRexxervationModified.Designer.cs">
       <DependentUpon>201706150727241_RoomRexxervationModified.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706150941534_BanFieldForUserAdded.cs" />
+    <Compile Include="Migrations\201706150941534_BanFieldForUserAdded.Designer.cs">
+      <DependentUpon>201706150941534_BanFieldForUserAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
     <Compile Include="Models\AccommodationType.cs" />
@@ -444,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706150727241_RoomRexxervationModified.resx">
       <DependentUpon>201706150727241_RoomRexxervationModified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706150941534_BanFieldForUserAdded.resx">
+      <DependentUpon>201706150941534_BanFieldForUserAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

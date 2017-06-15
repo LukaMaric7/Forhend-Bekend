@@ -17,6 +17,8 @@ namespace BookingApp.Models
         [StringLength(64)]
         public string LastName { get; set; }
 
+        public bool IsBanned { get; set; }
+
         public List<Accommodation> Accommodations { get; set; }
 
         public List<Comment> Comments { get; set; }
