@@ -9,13 +9,15 @@ import { CommentService } from 'app/commment/comment.service';
 import { MapInfo } from "app/map/map-info.model";
 import { LSE } from 'app/localStorageEnum.model';
 import { LocalStorageService } from 'app/localStorage.service';
+import { RoomReservationService } from 'app/room-reservation/room-reservation.service';
+import { RoomReservation } from 'app/room-reservation/room-reservation.model';
 
 
 @Component({
   selector: 'accommodation-detail-view',
   templateUrl: './accommodation-detail-view.component.html',
   styleUrls: ['./accommodation-detail-view.component.css'],
-  providers: [AccommodationService, SocketService, CommentService]
+  providers: [AccommodationService, SocketService, CommentService, RoomReservationService]
 })
 export class AccommodationDetailViewComponent implements OnInit {
   Id            : number;
@@ -25,20 +27,24 @@ export class AccommodationDetailViewComponent implements OnInit {
   showComment   : boolean;
   Comment       : string;
   Grade         : number;
+  canComment    : boolean;
 
   Name          : string; 
   Description   : string;
   Address       : string;
   ImageURL      : string;
+  Reservations  : RoomReservation[];
   
 
   constructor(private accommodationService :AccommodationService, private router: Router, 
-  private activatedRoute: ActivatedRoute, private commentService : CommentService, private localStorageService : LocalStorageService) {
+  private activatedRoute: ActivatedRoute, private commentService : CommentService, 
+  private localStorageService : LocalStorageService, private roomReservationService : RoomReservationService) {
     this.accommodation = new Accommodation();
     this.mapInfo = new MapInfo(45.242268, 19.842954, 
     "", "" , "" , "");
     this.showEdit = false;
     this.showComment = false;
+    this.canComment = false;
    }
 
   ngOnInit() {
@@ -54,6 +60,7 @@ export class AccommodationDetailViewComponent implements OnInit {
         this.Description = this.accommodation.Description;
         this.Address = this.accommodation.Address;
     });
+    this.Check();
      
   }
 
@@ -112,6 +119,20 @@ export class AccommodationDetailViewComponent implements OnInit {
     this.Grade = undefined;
     this.Comment = "";
     this.changeShowComment();
+  }
+
+  CanComment() : boolean {
+    return this.canComment;
+  }
+
+  Check() : void {
+    this.roomReservationService.getByAccIdUserIdAndDate(this.Id, this.localStorageService.getUserId(), new Date()).subscribe(o => {this.Reservations = o as RoomReservation[];
+    if(this.Reservations.length > 0){
+      this.canComment = true;
+    }
+    else{
+      this.canComment = false;
+    }})
   }
 
   deleteRoom(room : Room) : void{

@@ -15,6 +15,8 @@ namespace BookingApp.Models
         [ForeignKey("Room")]
         public int RoomId { get; set; }
 
+        public bool Canceled { get; set; }
+
         public AppUser User { get; set; }
         
         [ForeignKey("User")]

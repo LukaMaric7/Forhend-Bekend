@@ -319,6 +319,10 @@
     <Compile Include="Migrations\201706140853164_KeysChangedInCommentAndRoomReservation.Designer.cs">
       <DependentUpon>201706140853164_KeysChangedInCommentAndRoomReservation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706150727241_RoomRexxervationModified.cs" />
+    <Compile Include="Migrations\201706150727241_RoomRexxervationModified.Designer.cs">
+      <DependentUpon>201706150727241_RoomRexxervationModified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Accommodation.cs" />
     <Compile Include="Models\AccommodationType.cs" />
@@ -437,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706140853164_KeysChangedInCommentAndRoomReservation.resx">
       <DependentUpon>201706140853164_KeysChangedInCommentAndRoomReservation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706150727241_RoomRexxervationModified.resx">
+      <DependentUpon>201706150727241_RoomRexxervationModified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

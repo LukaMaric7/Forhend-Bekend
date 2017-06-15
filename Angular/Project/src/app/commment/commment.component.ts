@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Comment } from './comment.model';
 import { CommentService } from 'app/commment/comment.service';
+import { LocalStorageService } from 'app/localStorage.service';
+
 
 @Component({
   selector: 'commment',
   templateUrl: './commment.component.html',
   styleUrls: ['./commment.component.css'],
-  providers: [CommentService]
+  providers: [CommentService, LocalStorageService]
 })
 export class CommmentComponent implements OnInit {
   @Input() comment : Comment;
@@ -15,7 +17,7 @@ export class CommmentComponent implements OnInit {
   showEdit : boolean;
   userName : string;
 
-  constructor(private commentService : CommentService) {
+  constructor(private commentService : CommentService, private localStorageService : LocalStorageService) {
     this.commentDeletedEvent = new EventEmitter();
    }
 
@@ -49,6 +51,13 @@ export class CommmentComponent implements OnInit {
     }
     
     return false;
+  }
+
+  yourComment() : boolean {
+    if(this.comment.UserId == this.localStorageService.getUserId()){
+      return true;
+    }
+     return false;
   }
 
 }
