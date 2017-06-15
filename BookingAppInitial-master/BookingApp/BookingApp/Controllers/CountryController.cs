@@ -39,7 +39,7 @@ namespace BookingApp.Controllers
             return Ok(country);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("countries")]
         [ResponseType(typeof(void))]
@@ -71,7 +71,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-       // [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("countries")]
         [ResponseType(typeof(Country))]
@@ -88,7 +88,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Country", id = country.Id }, country);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("countries/{id}")]
         [ResponseType(typeof(Country))]

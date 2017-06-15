@@ -106,7 +106,7 @@ export class AccommodationDetailViewComponent implements OnInit {
   {
       this.accommodationService.edit(new Accommodation(this.accommodation.Id, this.Name, this.Description, this.accommodation.Latitude, this.accommodation.Longitude,
              this.accommodation.AccommodationTypeId, this.Address, this.accommodation.PlaceId, this.accommodation.UserId, 
-             this.accommodation.Approved, this.ImageURL)).subscribe( o => { this.accommodation.Name = this.Name; this.accommodation.Address = this.Address; this.accommodation.Description = this.Description;} );
+             this.accommodation.Approved, this.ImageURL)).subscribe( o => { this.accommodation.Name = this.Name; this.accommodation.Address = this.Address; this.accommodation.Description = this.Description;}, o => {alert(o.json().Message);});
       this.showEdit = false;
   }
 
@@ -165,7 +165,7 @@ export class AccommodationDetailViewComponent implements OnInit {
   deleteAccommodation(){
     this.accommodationService.delete(this.accommodation.Id).subscribe(o => {
       this.router.navigate(['/home']);
-    } );
+    }, o => {alert(o.json().Message);} );
 
   }
 

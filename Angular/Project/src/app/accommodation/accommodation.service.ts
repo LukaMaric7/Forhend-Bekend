@@ -4,6 +4,7 @@ import { Http, Response, Headers, Request, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 import { Accommodation } from './accommodation.model';
 import { SocketService } from 'app/socket.service';
+import { LSE } from 'app/localStorageEnum.model'
 
 @Injectable()
 export class AccommodationService {
@@ -29,7 +30,8 @@ export class AccommodationService {
         console.log(formData);
         let headers = new Headers();
         headers.append('enctype', 'multipart/form-data');
-        
+        //headers.append('Content-type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
         headers.append('Accept', 'application/json');
         let options = new RequestOptions({ headers: headers });
         
@@ -44,10 +46,10 @@ export class AccommodationService {
     }
 
     edit(accommodation: Accommodation) : Observable<any> {
-        console.log(accommodation);
         let header = new Headers();
         header.append('Content-type', 'application/json');
-        console.log(JSON.stringify(accommodation));
+        //headers.append('Content-type', 'application/x-www-form-urlencoded');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
         let opts = new RequestOptions();
         opts.headers = header;
         accommodation.Place = null;
@@ -58,7 +60,13 @@ export class AccommodationService {
     }
 
      delete(id : number) : Observable<any> {
-        return this.http.delete(SocketService.socket + `api/accommodation/${id}`);
+         let header = new Headers();
+        header.append('Content-type', 'application/json');
+        //headers.append('Content-type', 'application/x-www-form-urlencoded');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
+        let opts = new RequestOptions();
+        opts.headers = header;
+        return this.http.delete(SocketService.socket + `api/accommodation/${id}`, opts);
     }
 
     getByQuery(query : string) : Observable<any> {

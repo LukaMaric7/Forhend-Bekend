@@ -39,7 +39,7 @@ namespace BookingApp.Controllers
             return Ok(region);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("region")]
         [ResponseType(typeof(void))]
@@ -71,7 +71,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-       // [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [EnableQuery]
         [Route("region")]
@@ -89,7 +89,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Region", id = region.Id }, region);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("region/{id}")]
         [ResponseType(typeof(Region))]

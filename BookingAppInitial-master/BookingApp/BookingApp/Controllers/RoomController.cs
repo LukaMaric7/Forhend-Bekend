@@ -37,7 +37,7 @@ namespace BookingApp.Controllers
             return Ok(room);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Manager")]
         [HttpPut]
         [Route("room")]
         [ResponseType(typeof(void))]
@@ -47,29 +47,39 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            db.Entry(room).State = EntityState.Modified;
-
-            try
+            if (user != null)
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RoomExists(room.Id))
+                try
                 {
-                    return NotFound();
+                    Accommodation acc = db.Accommodations.Where(a => a.Id == room.AccommodationId).FirstOrDefault();
+                    if (acc != null && acc.UserId == user.appUserId)
+                    {
+                        db.Entry(room).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return BadRequest("You can not modify room that is not yours!");
+                    }
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!RoomExists(room.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
-
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [Route("room")]
         [ResponseType(typeof(Room))]
@@ -79,14 +89,33 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            db.Rooms.Add(room);
-            db.SaveChanges();
+            if (user != null)
+            {
+                try
+                {
+                    Accommodation acc = db.Accommodations.Where(a => a.Id == room.AccommodationId).FirstOrDefault();
+                    if (acc != null && acc.UserId == user.appUserId)
+                    {
+                        db.Rooms.Add(room);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return BadRequest("You can not add room into accommodation that is not yours!");
+                    }
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
 
             return CreatedAtRoute("DefaultApi", new { controller = "Room", id = room.Id }, room);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Manager")]
         [HttpDelete]
         [Route("room/{id}")]
         [ResponseType(typeof(Room))]
@@ -97,10 +126,28 @@ namespace BookingApp.Controllers
             {
                 return NotFound();
             }
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            db.Rooms.Remove(room);
-            db.SaveChanges();
-
+            if (user != null)
+            {
+                try
+                {
+                    Accommodation acc = db.Accommodations.Where(a => a.Id == room.AccommodationId).FirstOrDefault();
+                    if (acc != null && acc.UserId == user.appUserId)
+                    {
+                        db.Rooms.Remove(room);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return BadRequest("You can not remove room from accommodation that is not yours!");
+                    }
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
             return Ok(room);
         }
 

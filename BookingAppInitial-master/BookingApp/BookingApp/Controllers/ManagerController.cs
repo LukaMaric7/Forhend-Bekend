@@ -35,10 +35,10 @@ namespace BookingApp.Controllers
         }
        
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("manager")]
         public List<AppUser> GetReservation()
         {
-            var userStore = new UserStore<BAIdentityUser>(db);
             List<AppUser> appUsers = new List<AppUser>();
 
             var role = db.Roles.Where(r => r.Name.Equals("Manager")).FirstOrDefault();
@@ -52,6 +52,7 @@ namespace BookingApp.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("manager/{Id}")]
         [ResponseType(typeof(void))]
         public IHttpActionResult BanUnban(int Id)

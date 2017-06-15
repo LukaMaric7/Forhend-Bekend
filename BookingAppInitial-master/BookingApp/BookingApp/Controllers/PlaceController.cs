@@ -39,7 +39,7 @@ namespace BookingApp.Controllers
             return Ok(product);
         }
 
-       // [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [Route("places")]
         [ResponseType(typeof(void))]
@@ -71,7 +71,7 @@ namespace BookingApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("places")]
         [ResponseType(typeof(Place))]
@@ -88,7 +88,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Place", id = product.Id }, product);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("places/{id}")]
         [ResponseType(typeof(Place))]

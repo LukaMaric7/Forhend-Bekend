@@ -1,5 +1,7 @@
 ﻿using BookingApp.Models;
 using System;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -41,7 +43,7 @@ namespace BookingApp.Controllers
             return Ok(accommodation);
         }
 
-       // [Authorize]
+        [Authorize(Roles =("Manager"))]
         [HttpPut]
         [Route("accommodation")]
         [ResponseType(typeof(void))]
@@ -50,31 +52,37 @@ namespace BookingApp.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
+            } 
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-
-            db.Entry(accommodation).State = EntityState.Modified;
-
-            try
+            if (user != null)
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AccommodationExists(accommodation.Id))
+                try
+                {
+                    if (accommodation != null && accommodation.UserId.Equals(user.appUserId))
+                    {
+                        db.Entry(accommodation).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return BadRequest("You can't modify accommodation that is not yours!");
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+            }
+            else
+            {
+                return BadRequest("You can't modify accommodation if you are not logged in!");
             }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        //[Authorize]
+        [Authorize(Roles = ("Manager"))]
         [HttpPost]
         [Route("accommodation")]
         [ResponseType(typeof(Accommodation))]
@@ -120,7 +128,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
         }
 
-        //[Authorize]
+        [Authorize(Roles = ("Manager"))]
         [HttpDelete]
         [Route("accommodation/{id}")]
         [ResponseType(typeof(Accommodation))]
@@ -131,10 +139,27 @@ namespace BookingApp.Controllers
             {
                 return NotFound();
             }
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            db.Accommodations.Remove(accommodation);
-            db.SaveChanges();
-
+            if (user != null)
+            {
+                try
+                {
+                    if (accommodation != null && accommodation.UserId.Equals(user.appUserId))
+                    {
+                        db.Accommodations.Remove(accommodation);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return BadRequest("You can not remove accommodation that is not yours!");
+                    }
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
             return Ok(accommodation);
         }
 
