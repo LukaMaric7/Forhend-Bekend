@@ -48,6 +48,11 @@
          <button [routerLink]="['/add-accommodation']" class="btn btn-secondary">Add accommodation</button>
       </li>
     </ul>
+    <ul class="navbar-nav mr-auto" *ngIf="isUser()" >
+      <li class="nav-item">
+         <button [routerLink]="['/my-reservations']" class="btn btn-secondary">My reservations</button>
+      </li>
+    </ul>
     <div float="right">
       <ul class="navbar-nav mr-auto" float="right" >
         <li class="nav-item">
