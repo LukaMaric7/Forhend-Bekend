@@ -60,7 +60,7 @@ export class AccommodationDetailViewComponent implements OnInit {
         this.Description = this.accommodation.Description;
         this.Address = this.accommodation.Address;
     });
-    this.Check();
+    this.CheckIfCanComment();
      
   }
 
@@ -125,7 +125,7 @@ export class AccommodationDetailViewComponent implements OnInit {
     return this.canComment;
   }
 
-  Check() : void {
+  CheckIfCanComment() : void {
     this.roomReservationService.getByAccIdUserIdAndDate(this.Id, this.localStorageService.getUserId(), new Date()).subscribe(o => {this.Reservations = o as RoomReservation[];
     if(this.Reservations.length > 0){
       this.canComment = true;
@@ -135,6 +135,27 @@ export class AccommodationDetailViewComponent implements OnInit {
     }})
   }
 
+  CanEditOrDeleteOrAdd() : boolean {
+    if(this.localStorageService.IsLoggedIn()){
+      if(this.accommodation.UserId == this.localStorageService.getUserId()){
+        return true;
+      }
+
+      return false;
+    }
+    return false;
+  }
+
+  CanBookRoom() : boolean{
+    if(this.localStorageService.IsLoggedIn()){
+      if(this.localStorageService.isUser()){
+        return true;
+      }
+      return false;
+    }
+    return false
+  }
+  
   deleteRoom(room : Room) : void{
     let index = this.accommodation.Rooms.indexOf(room);
     this.accommodation.Rooms.splice(index,1);
