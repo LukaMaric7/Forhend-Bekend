@@ -126,7 +126,8 @@ export class AccommodationDetailViewComponent implements OnInit {
   }
 
   CheckIfCanComment() : void {
-    this.roomReservationService.getByAccIdUserIdAndDate(this.Id, this.localStorageService.getUserId(), new Date()).subscribe(o => {this.Reservations = o as RoomReservation[];
+    this.roomReservationService.getByAccIdUserIdAndDate(this.Id, this.localStorageService.getUserId(), new Date().toJSON().split('T')[0]).subscribe(o => {this.Reservations = o as RoomReservation[];
+    console.log(this.Reservations)
     if(this.Reservations.length > 0){
       this.canComment = true;
     }

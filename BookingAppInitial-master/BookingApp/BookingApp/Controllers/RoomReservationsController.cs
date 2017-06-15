@@ -87,7 +87,7 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            IQueryable<RoomReservation> query = db.Reservations.Where(o => o.RoomId.Equals(reservation.RoomId) && o.Canceled.Equals(true)
+            IQueryable<RoomReservation> query = db.Reservations.Where(o => o.RoomId.Equals(reservation.RoomId) && o.Canceled.Equals(false)
                                               && ((reservation.EndDate   >= o.StartDate && reservation.EndDate   <= o.EndDate ) ||
                                                   (reservation.StartDate >= o.StartDate && reservation.StartDate <= o.EndDate ) ||
                                                   (reservation.StartDate <= o.StartDate && reservation.EndDate   >= o.EndDate )));
@@ -115,7 +115,15 @@ namespace BookingApp.Controllers
             {
                 return NotFound();
             }
-            reservation.Canceled = true;
+            if (reservation.StartDate > DateTime.Now)
+            {
+                reservation.Canceled = true;
+            }
+            else
+            {
+                return NotFound();
+            }
+
             db.Entry(reservation).State = EntityState.Modified;
 
             try
