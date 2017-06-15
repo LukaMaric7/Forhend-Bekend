@@ -1,4 +1,5 @@
 export class AppUser{
+    Id       : number;
     Username : string;
     Password : string;
     Email : string;

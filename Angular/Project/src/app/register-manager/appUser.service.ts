@@ -24,4 +24,8 @@ export class AppUserService {
     getAll() : Observable<any>{
         return this.http.get(SocketService.socket + `api/manager`);
     }
+
+    banUnban(Id : number) : Observable<any>{
+        return this.http.delete(SocketService.socket + `api/manager/${Id}`);
+    }
 }

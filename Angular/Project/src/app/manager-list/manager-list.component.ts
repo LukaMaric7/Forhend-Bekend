@@ -14,7 +14,22 @@ export class ManagerListComponent implements OnInit {
   constructor(private appUserService : AppUserService) { }
 
   ngOnInit() {
-    this.appUserService.getAll().subscribe(o => console.log(o));
+    this.appUserService.getAll().subscribe(o => { 
+      this.managers = o.json();
+    });
   }
+
+  Ban(id : number){
+    this.appUserService.banUnban(id).subscribe(o => {
+      this.managers.find(o=>o.Id == id).IsBanned = true;
+    });
+  }
+
+  Unban(id : number){
+    this.appUserService.banUnban(id).subscribe(o => {
+      this.managers.find(o=>o.Id == id).IsBanned = false;
+    });
+  }
+  
 
 }
