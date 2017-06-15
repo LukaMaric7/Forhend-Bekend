@@ -41,9 +41,10 @@ export class AddRoomReservationComponent implements OnInit {
         this.booking = false;
         this.success = true;
         console.log("udje")
-      });
-
-      
+      }, o=> {this.busy = true; this.booking = false;});    
+    }
+    else{
+      alert("Some fields are empty!");
     }
   }
 
