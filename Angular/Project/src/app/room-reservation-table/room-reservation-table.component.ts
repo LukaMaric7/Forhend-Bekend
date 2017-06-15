@@ -20,5 +20,9 @@ export class RoomReservationTableComponent implements OnInit {
       console.log(this.reservations);
     });
   }
+  Cancel(Id : number)
+  {
+    console.log(Id);
+  }
 
 }
