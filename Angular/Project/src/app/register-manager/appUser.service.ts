@@ -20,4 +20,8 @@ export class AppUserService {
         return this.http.post(SocketService.socket + `api/Account/Register`, 
         JSON.stringify(user), opts);
     }
+
+    getAll() : Observable<any>{
+        return this.http.get(SocketService.socket + `api/manager`);
+    }
 }

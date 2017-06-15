@@ -5,6 +5,7 @@ export class AppUser{
     Role : string;
     Name : string;
     Lastname : string;
+    IsBanned : boolean;
 
     constructor (username: string, password: string, email : string, role : string, lastName : string, name : string) {
         this.Username = username;
@@ -13,5 +14,6 @@ export class AppUser{
         this.Role = role;
         this.Lastname = lastName;
         this.Name = name;
+        this.IsBanned = false;
     }
 }

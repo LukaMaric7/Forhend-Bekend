@@ -68,7 +68,7 @@ const Routes = [
   {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard/*dodati za menadzera guard*/]},
   {path : "add-room-reservation/:Id", component: AddRoomReservationComponent, canActivate: [LoggedInGuard]},
   {path : "my-reservations", component: RoomReservationTableComponent, canActivate: [LoggedInGuard]},
-  {path : "managerList", component: ManagerListComponent, canActivate: [LoggedInGuard]}
+  {path : "manager-list", component: ManagerListComponent, canActivate: [LoggedInGuard]}
 ]
 
 @NgModule({

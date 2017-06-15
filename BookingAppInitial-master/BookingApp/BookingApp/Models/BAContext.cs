@@ -19,7 +19,9 @@ namespace BookingApp.Models
         public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<Place> Places { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
- 
+
+
+
         public BAContext() : base("name=BADB")
         {            
         }

@@ -1,3 +1,17 @@
-<p>
-  manager-list works!
-</p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Manager name</th>
+      <th>Manager lasnName</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor = "let manager of managers">
+      <td>{{manager.Name}}</td>
+      <td>{{manager.LastName}}</td>
+      <td><button class="btn btn-secondary">Cancel</button></td>
+      <td><font size="3" color="red">Canceled!</font></td>
+    </tr>
+  </tbody>
+</table>
