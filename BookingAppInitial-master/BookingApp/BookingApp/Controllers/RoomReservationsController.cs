@@ -39,44 +39,7 @@ namespace BookingApp.Controllers
             return Ok(reservation);
         }
 
-        //[Authorize]
-        [HttpPut]
-        [Route("reservation/{Id}")]
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutReservation(int Id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            RoomReservation r =db.Reservations.Where(o => o.Equals(Id)).FirstOrDefault();
-            if( r != null)
-            {
-                r.Canceled = true;
-            }
-
-            db.Entry(r).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReservationExists(Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        //[Authorize]
+        [Authorize(Roles = "AppUser")]
         [HttpPost]
         [Route("reservation")]
         [ResponseType(typeof(RoomReservation))]
@@ -104,7 +67,7 @@ namespace BookingApp.Controllers
             return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = reservation.RoomId }, reservation);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "AppUser")]
         [HttpDelete]
         [Route("reservation/{id}")]
         [ResponseType(typeof(RoomReservation))]
@@ -115,33 +78,39 @@ namespace BookingApp.Controllers
             {
                 return NotFound();
             }
-            if (reservation.StartDate > DateTime.Now)
-            {
-                reservation.Canceled = true;
-            }
-            else
-            {
-                return NotFound();
-            }
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            db.Entry(reservation).State = EntityState.Modified;
-
-            try
+            if(user != null)
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReservationExists(id))
+                if(reservation != null && reservation.UserId.Equals(user.appUserId))
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    if (reservation.StartDate > DateTime.Now)
+                    {
+                        reservation.Canceled = true;
+                        db.Entry(reservation).State = EntityState.Modified;
+
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (DbUpdateConcurrencyException)
+                        {
+                            if (!ReservationExists(id))
+                            {
+                                return NotFound();
+                            }
+                            else
+                            {
+                                throw;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("You are supposed to be in your accommodation right now, can not cancel reservation!");
+                    }
                 }
             }
-
             return Ok(reservation);
         }
 

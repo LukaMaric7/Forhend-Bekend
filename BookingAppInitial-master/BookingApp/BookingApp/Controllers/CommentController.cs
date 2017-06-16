@@ -26,7 +26,6 @@ namespace BookingApp.Controllers
         }
 
         [HttpGet]
-        [EnableQuery]
         [Route("comments/{id1}")]
         [ResponseType(typeof(Comment))]
         public IHttpActionResult GetComment(int id1)
@@ -40,44 +39,7 @@ namespace BookingApp.Controllers
             return Ok(comment);
         }
 
-        //[Authorize]
-        [HttpPut]
-        [Route("comments/{id1}/{id2}")]
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutComment(int id1, int id2, Comment comment)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id1 != comment.AccommodationId || id2 != comment.UserId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(comment).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CommentExists(id1, id2))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        //[Authorize]
+        [Authorize(Roles ="AppUser")]
         [HttpPost]
         [Route("comments")]
         [ResponseType(typeof(Comment))]
@@ -87,21 +49,34 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            db.Comments.Add(comment);
-            try
+            if(user != null)
             {
-                db.SaveChanges();
-            }
-            catch
-            {
-                return BadRequest("You already commented!");
+                RoomReservation rr = db.Reservations.FirstOrDefault(r => r.UserId.Equals(user.appUserId));
+                if(rr != null && rr.StartDate < DateTime.Now)
+                {
+                    Comment c = db.Comments.FirstOrDefault(com => com.UserId.Equals(user.appUserId) && com.AccommodationId.Equals(comment.AccommodationId));
+                    if (c == null)
+                    {
+                        db.Comments.Add(comment);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return BadRequest("You already commented!");
+                    }
+                }
+                else
+                {
+                    return BadRequest("You have not arrived to your accommodation yet, so you can not comment.");
+                }
             }
 
             return CreatedAtRoute("DefaultApi", new { controller = "Comment",id1 = comment.AccommodationId, id2 = comment.UserId }, comment);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "AppUser")]
         [HttpDelete]
         [Route("comments/{id1}")]
         [ResponseType(typeof(Comment))]
@@ -112,9 +87,27 @@ namespace BookingApp.Controllers
             {
                 return NotFound();
             }
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            db.Comments.Remove(comment);
-            db.SaveChanges();
+            if (user != null)
+            {
+                try
+                {
+                    if (comment != null && comment.UserId.Equals(user.appUserId))
+                    {
+                        db.Comments.Remove(comment);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return BadRequest("You can not remove comment that is not yours!");
+                    }
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
 
             return Ok(comment);
         }
