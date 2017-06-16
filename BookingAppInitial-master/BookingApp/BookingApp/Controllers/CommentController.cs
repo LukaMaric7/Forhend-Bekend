@@ -53,23 +53,35 @@ namespace BookingApp.Controllers
 
             if(user != null)
             {
-                RoomReservation rr = db.Reservations.FirstOrDefault(r => r.UserId.Equals(user.appUserId));
-                if(rr != null && rr.StartDate < DateTime.Now)
+               // var rrr = db.Reservations.Join(db.Rooms, u1 => u1.RoomId, u2 => u2.Id, (u1, u2) => new { res = u1, room = u2 });
+                var reservations = db.Reservations.Where(r => r.Room.AccommodationId.Equals(comment.AccommodationId) && r.UserId.Equals(user.appUserId) && r.Canceled.Equals(false)).ToList();
+
+                if (reservations.Count > 0)
                 {
-                    Comment c = db.Comments.FirstOrDefault(com => com.UserId.Equals(user.appUserId) && com.AccommodationId.Equals(comment.AccommodationId));
-                    if (c == null)
+                    DateTime min = reservations.Min(o => o.StartDate);
+                    RoomReservation rr = reservations.FirstOrDefault(r => r.StartDate.Equals(min));
+
+                    if (rr != null && rr.StartDate < DateTime.Now)
                     {
-                        db.Comments.Add(comment);
-                        db.SaveChanges();
+                        Comment c = db.Comments.FirstOrDefault(com => com.UserId.Equals(user.appUserId) && com.AccommodationId.Equals(comment.AccommodationId));
+                        if (c == null)
+                        {
+                            db.Comments.Add(comment);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            return BadRequest("You already commented!");
+                        }
                     }
                     else
                     {
-                        return BadRequest("You already commented!");
+                        return BadRequest("You have not arrived to your accommodation yet, so you can not comment.");
                     }
                 }
                 else
                 {
-                    return BadRequest("You have not arrived to your accommodation yet, so you can not comment.");
+                    return BadRequest("You haven't made any reservations.");
                 }
             }
 

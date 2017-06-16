@@ -44,7 +44,7 @@ export class RoomReservationService {
     }
 
     getByAccIdUserIdAndDate(AccId : number, UserId : number, date : string) : Observable<any> {
-        return this.http.get(SocketService.socket + `api/reservation?$filter=Room/Accommodation/Id eq ${AccId} and UserId eq ${UserId} and StartDate le DateTime'${date} and Canceled eq false'`).map(res => res.json() );
+        return this.http.get(SocketService.socket + `api/reservation?$filter=Room/Accommodation/Id eq ${AccId} and UserId eq ${UserId} and StartDate le DateTime'${date}'  and Canceled eq false`).map(res => res.json() );
     }
 
     cancel(id : number){
@@ -55,6 +55,6 @@ export class RoomReservationService {
         let opts = new RequestOptions();
         opts.headers = header;
 
-        return this.http.delete(SocketService.socket + `api/reservation/${id}`);
+        return this.http.delete(SocketService.socket + `api/reservation/${id}`, opts);
     }
 }

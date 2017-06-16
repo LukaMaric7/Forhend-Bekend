@@ -54,29 +54,35 @@ namespace BookingApp.Controllers
                 return BadRequest(ModelState);
             } 
             var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
-
-            if (user != null)
+            if (!db.AppUsers.FirstOrDefault(o => o.Id.Equals(user.appUserId)).IsBanned)
             {
-                try
+                if (user != null)
                 {
-                    if (accommodation != null && accommodation.UserId.Equals(user.appUserId))
+                    try
                     {
-                        db.Entry(accommodation).State = EntityState.Modified;
-                        db.SaveChanges();
+                        if (accommodation != null && accommodation.UserId.Equals(user.appUserId))
+                        {
+                            db.Entry(accommodation).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            return BadRequest("You can't modify accommodation that is not yours!");
+                        }
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        return BadRequest("You can't modify accommodation that is not yours!");
+                        return NotFound();
                     }
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    return NotFound();
+                    return BadRequest("You can't modify accommodation if you are not logged in!");
                 }
             }
             else
             {
-                return BadRequest("You can't modify accommodation if you are not logged in!");
+                return BadRequest("You are banned, can not perform this operation.");
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -94,37 +100,45 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
-            var httpRequest = HttpContext.Current.Request;
-            accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
+            var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            foreach (string file in httpRequest.Files)
+            if (!db.AppUsers.FirstOrDefault(o => o.Id.Equals(user.appUserId)).IsBanned)
             {
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
 
-                var postedFile = httpRequest.Files[file];
-                if (postedFile != null && postedFile.ContentLength > 0)
+                var httpRequest = HttpContext.Current.Request;
+                accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
+
+                foreach (string file in httpRequest.Files)
                 {
+                    HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created);
 
-                    IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
-                    var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
-                    var extension = ext.ToLower();
-                    if (!AllowedFileExtensions.Contains(extension))
+                    var postedFile = httpRequest.Files[file];
+                    if (postedFile != null && postedFile.ContentLength > 0)
                     {
-                        return BadRequest();
-                    }
-                    else
-                    {
-                        var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName);
-                        accommodation.ImageURL = "Content/AccommodationPictures/" + postedFile.FileName;
-                        postedFile.SaveAs(filePath);
+
+                        IList<string> AllowedFileExtensions = new List<string> { ".jpg", ".gif", ".png" };
+                        var ext = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf('.'));
+                        var extension = ext.ToLower();
+                        if (!AllowedFileExtensions.Contains(extension))
+                        {
+                            return BadRequest();
+                        }
+                        else
+                        {
+                            var filePath = HttpContext.Current.Server.MapPath("~/Content/AccommodationPictures/" + postedFile.FileName);
+                            accommodation.ImageURL = "Content/AccommodationPictures/" + postedFile.FileName;
+                            postedFile.SaveAs(filePath);
+                        }
                     }
                 }
-            }
-            
-            db.Accommodations.Add(accommodation);
-            db.SaveChanges();
 
+                db.Accommodations.Add(accommodation);
+                db.SaveChanges();
+            }
+            else
+            {
+                return BadRequest("You are banned, can not perform this operation.");
+            }
             return CreatedAtRoute("DefaultApi", new { controller = "Accommodation", id = accommodation.Id }, accommodation);
         }
 
@@ -141,24 +155,31 @@ namespace BookingApp.Controllers
             }
             var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
-            if (user != null)
+            if (!db.AppUsers.FirstOrDefault(o => o.Id.Equals(user.appUserId)).IsBanned)
             {
-                try
+                if (user != null)
                 {
-                    if (accommodation != null && accommodation.UserId.Equals(user.appUserId))
+                    try
                     {
-                        db.Accommodations.Remove(accommodation);
-                        db.SaveChanges();
+                        if (accommodation != null && accommodation.UserId.Equals(user.appUserId))
+                        {
+                            db.Accommodations.Remove(accommodation);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            return BadRequest("You can not remove accommodation that is not yours!");
+                        }
                     }
-                    else
+                    catch
                     {
-                        return BadRequest("You can not remove accommodation that is not yours!");
+                        return BadRequest();
                     }
                 }
-                catch
-                {
-                    return BadRequest();
-                }
+            }
+            else
+            {
+                return BadRequest("You are banned, can not perform this operation.");
             }
             return Ok(accommodation);
         }
