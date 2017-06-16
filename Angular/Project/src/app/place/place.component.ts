@@ -19,6 +19,7 @@ export class PlaceComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.Name = this.place.Name;
   }
 
   deletePlace()
@@ -43,7 +44,7 @@ export class PlaceComponent implements OnInit {
 
   onSubmit(){
     this.showEdit = false;
-    this.placeService.edit(new Place(this.place.Id, this.Name, this.place.RegionId)).subscribe();
+    this.placeService.edit(new Place(this.place.Id, this.Name, this.place.RegionId)).subscribe(x => {this.place.Name = this.Name;}, x => {alert(x.json().Message)});
   }
 
 

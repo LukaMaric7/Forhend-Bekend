@@ -15,7 +15,7 @@ export class AccommodationTypeListComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.accommodationTypeService.getAll().subscribe(x => this.accommodationTypes = x.json());
+    this.accommodationTypeService.getAll().subscribe(x => this.accommodationTypes = x.json(), x => {alert(x.json().Message);});
   }
 
   deleteAccommodationType(accommodationType : AccommodationType) : void{

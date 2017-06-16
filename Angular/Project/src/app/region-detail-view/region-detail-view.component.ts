@@ -23,7 +23,7 @@ export class RegionDetailViewComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {this.Id = parseInt(params["Id"])});
     this.showEdit = false;
-    this.regionService.getByIdOData(this.Id).subscribe(o => {this.region = (o[0] as Region);});
+    this.regionService.getByIdOData(this.Id).subscribe(o => {this.region = (o[0] as Region); this.Name = this.region.Name;});
   }
 
   isShowEditPress() {
@@ -44,7 +44,7 @@ export class RegionDetailViewComponent implements OnInit {
 
   onSubmit(){
     this.showEdit = false;
-    this.regionService.edit(this.Id, new Region(this.region.Id, this.Name, this.region.CountryId)).subscribe();
+    this.regionService.edit(this.Id, new Region(this.region.Id, this.Name, this.region.CountryId)).subscribe(x => {this.region.Name = this.Name}, x => {alert(x.json().Message)});
   }
 
   deletePlace(place : Place) : void{

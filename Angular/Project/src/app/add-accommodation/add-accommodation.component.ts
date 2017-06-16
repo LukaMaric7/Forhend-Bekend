@@ -10,6 +10,7 @@ import { RegionService } from "app/region/region.service";
 import { Country }  from "app/country/country.model";
 import { CountryService } from "app/country/country.service";
 import { LSE } from "app/localStorageEnum.model";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-accommodation',
@@ -46,7 +47,8 @@ export class AddAccommodationComponent implements OnInit {
     file                : File;
 
   constructor(private accommodationTypeService : AccommodationTypeService, private accommodationService : AccommodationService, 
-              private placeService : PlaceService, private regionService : RegionService, private countryService : CountryService) {
+              private placeService : PlaceService, private regionService : RegionService, private countryService : CountryService,
+              private router : Router) {
     this.types = [];
     this.places = [];
     this.regions = [];
@@ -73,7 +75,7 @@ export class AddAccommodationComponent implements OnInit {
   onSubmit()
   {
     this.accommodationService.add(new Accommodation(1, this.Name, this.Description, this.Latitude, this.Longitude, this.AccommodationTypeId,
-    this.Address, this.PlaceId, parseInt(localStorage.getItem(LSE.Id.toString()))), this.file).subscribe();
+    this.Address, this.PlaceId, parseInt(localStorage.getItem(LSE.Id.toString()))), this.file).subscribe(x => {this.router.navigate(['/home'])}, x => {alert(x.json().Message)});
   }
 
   CountrySelected()

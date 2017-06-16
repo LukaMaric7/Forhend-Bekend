@@ -43,6 +43,6 @@ export class AccommodationTypeComponent implements OnInit {
 
   deleteAccommodationType()
   {
-    this.accommodationTypeService.delete(this.accommodationType.Id).subscribe(x => {this.deleteType.emit(this.accommodationType);});
+    this.accommodationTypeService.delete(this.accommodationType.Id).subscribe(x => {this.deleteType.emit(this.accommodationType);}, x => {alert(x.json().Message);});
   }
 }

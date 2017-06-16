@@ -22,7 +22,7 @@ export class CountryComponent implements OnInit {
 
   deleteCountry()
   {
-    this.countryService.delete(this.country.Id).subscribe(x => {this.deleteCountryEvent.emit(this.country);});
+    this.countryService.delete(this.country.Id).subscribe(x => {this.deleteCountryEvent.emit(this.country);},x => {alert(x.json().Message)});
   }
 
 }
