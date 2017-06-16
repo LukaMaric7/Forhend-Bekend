@@ -41,7 +41,7 @@ export class CommmentComponent implements OnInit {
   }
 
   deleteComment() : void {
-    this.commentService.delete(this.comment.Id).subscribe(o => {this.commentDeletedEvent.emit(this.comment);});
+    this.commentService.delete(this.comment.Id).subscribe(o => {this.commentDeletedEvent.emit(this.comment);}, x => {alert(x.json().Message)});
   }
 
   haveText() : boolean {

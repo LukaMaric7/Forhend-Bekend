@@ -39,7 +39,8 @@ export class RoomComponent implements OnInit {
 
   onSubmit(){
     this.roomService.edit(new Room(this.room.Id, this.RoomNumber, this.BadCount, this.Description, 
-    this.PricePerNight, this.room.AccommodationId)).subscribe();
+    this.PricePerNight, this.room.AccommodationId)).subscribe(x => {this.room.RoomNumber = this.RoomNumber; this.room.BadCount = this.BadCount; 
+      this.room.Description = this.Description; this.room.PricePerNight = this.PricePerNight;}, x => {alert(x.json().Message)});
   }
 
   isShowEditPress() {
@@ -80,6 +81,6 @@ export class RoomComponent implements OnInit {
   }
 
   deleteRoom(){
-      this.roomService.delete(this.room.Id).subscribe(x => {this.deleteRoomEvent.emit(this.room);});
+      this.roomService.delete(this.room.Id).subscribe(x => {this.deleteRoomEvent.emit(this.room);}, x => {alert(x.json().Message)});
   }
 }

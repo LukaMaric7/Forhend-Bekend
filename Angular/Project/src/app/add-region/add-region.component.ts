@@ -3,6 +3,7 @@ import { Region } from "app/region/region.model";
 import { Country } from "app/country/country.model";
 import { RegionService } from 'app/region/region.service'
 import { CountryService } from "app/country/country.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'add-region',
@@ -16,7 +17,8 @@ export class AddRegionComponent implements OnInit {
   countries: Country [];
   CountryID: number;
 
-  constructor(private countryService: CountryService, private addRegionService: RegionService) {
+  constructor(private countryService: CountryService, private addRegionService: RegionService,
+              private router : Router) {
     this.countries = [];
    }
 
@@ -25,7 +27,7 @@ export class AddRegionComponent implements OnInit {
   }
 
   onSubmit(param : any){
-    this.addRegionService.add(new Region(1, this.Name, this.CountryID)).subscribe();
+    this.addRegionService.add(new Region(1, this.Name, this.CountryID)).subscribe(x => {this.router.navigate(['/home']);}, x => {alert(x.json().Message)});
     this.Name = "";
     this.Country = null;
   }

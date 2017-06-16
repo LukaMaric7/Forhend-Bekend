@@ -22,13 +22,13 @@ export class ManagerListComponent implements OnInit {
   Ban(id : number){
     this.appUserService.banUnban(id).subscribe(o => {
       this.managers.find(o=>o.Id == id).IsBanned = true;
-    });
+    }, x => {alert(x.json().Message)});
   }
 
   Unban(id : number){
     this.appUserService.banUnban(id).subscribe(o => {
       this.managers.find(o=>o.Id == id).IsBanned = false;
-    });
+    }, x => {alert(x.json().Message)});
   }
   
 

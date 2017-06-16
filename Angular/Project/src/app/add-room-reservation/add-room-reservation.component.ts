@@ -40,7 +40,6 @@ export class AddRoomReservationComponent implements OnInit {
       this.roomReservationService.add(new RoomReservation(1,this.RoomId, this.UserId, this.StartDate, this.EndDate)).subscribe(o =>{
         this.booking = false;
         this.success = true;
-        console.log("udje")
       }, o=> {this.busy = true; this.booking = false;});    
     }
     else{
