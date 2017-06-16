@@ -3,6 +3,7 @@ import { Country } from "app/country/country.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SocketService } from 'app/socket.service';
+import { LSE } from "app/localStorageEnum.model";
 
 @Injectable()
 export class CountryService {
@@ -21,6 +22,7 @@ export class CountryService {
     add(country : Country) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
 
         let opts = new RequestOptions();
         opts.headers = header;
@@ -30,7 +32,14 @@ export class CountryService {
     }
 
     delete(id : number) : Observable<any> {
-        return this.http.delete(SocketService.socket + `api/countries/${id}`);
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.delete(SocketService.socket + `api/countries/${id}`, opts);
     }
 
     getByIdOData(Id : number) : Observable<any> {
@@ -40,6 +49,7 @@ export class CountryService {
     edit(country: Country) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
 
         let opts = new RequestOptions();
         opts.headers = header;

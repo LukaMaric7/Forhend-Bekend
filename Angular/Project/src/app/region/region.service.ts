@@ -3,6 +3,7 @@ import { Region } from "app/region/region.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SocketService } from 'app/socket.service';
+import { LSE } from "app/localStorageEnum.model";
 
 @Injectable()
 export class RegionService {
@@ -14,6 +15,7 @@ export class RegionService {
      add(region : Region) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
 
         let opts = new RequestOptions();
         opts.headers = header;
@@ -22,7 +24,7 @@ export class RegionService {
         JSON.stringify(region), opts);
     }
 
-     getAll() : Observable<any> {
+    getAll() : Observable<any> {
         return this.http.get(SocketService.socket + "api/region?$expand=Country");
     }
 
@@ -30,13 +32,14 @@ export class RegionService {
         return this.http.get(SocketService.socket + `api/region/${id}`);
     }
 
-     getByIdOData(Id : number) : Observable<any> {
+    getByIdOData(Id : number) : Observable<any> {
         return this.http.get(SocketService.socket + `api/region?$filter=Id eq ${Id} &$expand=Places`).map(res => res.json());
     }
 
     edit(Id : number, region : Region){
         let header = new Headers();
         header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
 
         let opts = new RequestOptions();
         opts.headers = header;
@@ -45,8 +48,15 @@ export class RegionService {
         JSON.stringify(region), opts);
     }
 
-     delete(id : number) : Observable<any> {
-        return this.http.delete(SocketService.socket + `api/region/${id}`);
+    delete(id : number) : Observable<any> {
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.delete(SocketService.socket + `api/region/${id}`, opts);
     }
 
     getByNameOData(Name : string) : Observable<any> {

@@ -3,6 +3,7 @@ import { Room } from "app/room/room.model";
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SocketService } from 'app/socket.service';
+import { LSE } from "app/localStorageEnum.model";
 
 @Injectable()
 export class RoomService {
@@ -17,6 +18,7 @@ export class RoomService {
      add(room : Room) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
 
         let opts = new RequestOptions();
         opts.headers = header;
@@ -25,17 +27,25 @@ export class RoomService {
         JSON.stringify(room), opts);
     }
 
-     delete(id : number) : Observable<any> {
-        return this.http.delete(SocketService.socket + `api/room/${id}`);
+    delete(id : number) : Observable<any> {
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+        
+        return this.http.delete(SocketService.socket + `api/room/${id}`, opts);
     }
 
     edit(room: Room) : Observable<any> {
-    let header = new Headers();
-    header.append('Content-type', 'application/json');
-    console.log(JSON.stringify(room));
-    let opts = new RequestOptions();
-    opts.headers = header;
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
 
-    return this.http.put(SocketService.socket + `api/room`, JSON.stringify(room), opts);
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.put(SocketService.socket + `api/room`, JSON.stringify(room), opts);
     }
 }

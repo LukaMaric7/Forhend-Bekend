@@ -4,6 +4,7 @@ import { Http, Response, Headers, Request, RequestOptions } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 import { SocketService } from 'app/socket.service';
 import { RoomReservation } from "app/room-reservation/room-reservation.model";
+import { LSE } from "app/localStorageEnum.model";
 
 @Injectable()
 export class RoomReservationService {
@@ -15,9 +16,10 @@ export class RoomReservationService {
         return this.http.get(SocketService.socket + "api/reservation");
     }
 
-     add(reservation : RoomReservation) : Observable<any> {
+    add(reservation : RoomReservation) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
 
         let opts = new RequestOptions();
         opts.headers = header;
@@ -26,8 +28,15 @@ export class RoomReservationService {
         JSON.stringify(reservation), opts);
     }
 
-     delete(id : number) : Observable<any> {
-        return this.http.delete(SocketService.socket + `api/reservation/${id}`);
+    delete(id : number) : Observable<any> {
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
+        return this.http.delete(SocketService.socket + `api/reservation/${id}`, opts);
     }
 
     getByUserIdOData(Id : number) : Observable<any> {
@@ -35,11 +44,17 @@ export class RoomReservationService {
     }
 
     getByAccIdUserIdAndDate(AccId : number, UserId : number, date : string) : Observable<any> {
-        console.log(date)
         return this.http.get(SocketService.socket + `api/reservation?$filter=Room/Accommodation/Id eq ${AccId} and UserId eq ${UserId} and StartDate le DateTime'${date} and Canceled eq false'`).map(res => res.json() );
     }
 
     cancel(id : number){
+        let header = new Headers();
+        header.append('Content-type', 'application/json');
+        header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
+
+        let opts = new RequestOptions();
+        opts.headers = header;
+
         return this.http.delete(SocketService.socket + `api/reservation/${id}`);
     }
 }

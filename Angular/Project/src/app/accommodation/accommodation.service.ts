@@ -21,22 +21,21 @@ export class AccommodationService {
     }
 
     add(accommodation : Accommodation, file : File) : Observable<any> {
-       accommodation.Place = null;
-       accommodation.Rooms = null;
-       accommodation.AccommodationType = null;
+        accommodation.Place = null;
+        accommodation.Rooms = null;
+        accommodation.AccommodationType = null;
+
         let formData:FormData = new FormData();
         formData.append('accommodation', JSON.stringify(accommodation));
         formData.append('uploadFile', file, file.name);
-        console.log(formData);
+
         let headers = new Headers();
         headers.append('enctype', 'multipart/form-data');
-        //headers.append('Content-type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
         headers.append('Accept', 'application/json');
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post(SocketService.socket + `api/accommodation`, formData, options);
-           
+        return this.http.post(SocketService.socket + `api/accommodation`, formData, options); 
     }
 
     getByIdOData(Id : number) : Observable<any> {
@@ -48,10 +47,10 @@ export class AccommodationService {
     edit(accommodation: Accommodation) : Observable<any> {
         let header = new Headers();
         header.append('Content-type', 'application/json');
-        //headers.append('Content-type', 'application/x-www-form-urlencoded');
         header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
         let opts = new RequestOptions();
         opts.headers = header;
+
         accommodation.Place = null;
         accommodation.AccommodationType = null;
         accommodation.Rooms = null;
@@ -60,12 +59,12 @@ export class AccommodationService {
     }
 
      delete(id : number) : Observable<any> {
-         let header = new Headers();
+        let header = new Headers();
         header.append('Content-type', 'application/json');
-        //headers.append('Content-type', 'application/x-www-form-urlencoded');
         header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
         let opts = new RequestOptions();
         opts.headers = header;
+        
         return this.http.delete(SocketService.socket + `api/accommodation/${id}`, opts);
     }
 
