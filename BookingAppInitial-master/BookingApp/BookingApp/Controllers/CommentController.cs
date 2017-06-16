@@ -68,6 +68,13 @@ namespace BookingApp.Controllers
                         {
                             db.Comments.Add(comment);
                             db.SaveChanges();
+
+                            double averageGrade = CalculateAverageGrade(comment.AccommodationId);
+
+                            Accommodation acc = db.Accommodations.Where(a => a.Id == comment.AccommodationId).FirstOrDefault();
+                            acc.AverageGrade = averageGrade;
+
+                            db.SaveChanges();
                         }
                         else
                         {
@@ -136,6 +143,15 @@ namespace BookingApp.Controllers
         private bool CommentExists(int id1, int id2)
         {
             return db.Comments.Count(e => e.AccommodationId == id1 && e.UserId == id2) > 0;
+        }
+
+
+        private double CalculateAverageGrade(int id)
+        {
+            var comments = db.Comments.Where(c => c.AccommodationId == id).ToList();
+            double sum = comments.Sum(g => g.Grade).Value;
+
+            return sum / comments.Count;
         }
     }
 }
