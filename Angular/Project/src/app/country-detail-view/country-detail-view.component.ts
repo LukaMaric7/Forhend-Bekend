@@ -24,8 +24,7 @@ export class CountryDetailViewComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {this.Id = parseInt(params["Id"])});
-    console.log(this.Id);
-    this.countryService.getByIdOData(this.Id).subscribe(o => {this.country = (o[0] as Country); console.log(this.country)});
+    this.countryService.getByIdOData(this.Id).subscribe(o => {this.country = (o[0] as Country); this.Name = this.country.Name; this.Code = this.country.Code;});
   }
 
   isShowEditPress() {
@@ -46,9 +45,11 @@ export class CountryDetailViewComponent implements OnInit {
 
   onSubmit()
     {
-      this.countryService.edit(new Country(this.Id, this.Name, this.Code)).subscribe();
-      this.Name = "";
-      this.Code = "";
+      this.countryService.edit(new Country(this.Id, this.Name, this.Code)).subscribe( o => {
+        this.country.Name= this.Name; 
+        this.country.Code = this.Code;
+      }, o => alert(o.json().Message));
+      
     }
 
   deleteRegion(region : Region) : void{

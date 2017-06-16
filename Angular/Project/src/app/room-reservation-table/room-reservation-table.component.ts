@@ -24,7 +24,7 @@ export class RoomReservationTableComponent implements OnInit {
   {
     this.reservaationService.cancel(Id).subscribe(o => {
       this.reservations.find(o=>o.Id == Id).Canceled = true;
-    });
+    }, o=>alert(o.json().Message));
   }
 
 }

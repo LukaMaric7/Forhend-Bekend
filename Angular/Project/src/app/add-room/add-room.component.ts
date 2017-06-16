@@ -23,8 +23,10 @@ export class AddRoomComponent implements OnInit {
   }
 
   onSubmit(){
-    this.roomService.add(new Room(1,this.RoomNumber,this.BadCount,this.Description,this.PrivePerNight,this.AccommodationId)).subscribe();
-    this.router.navigate(['/home']);
+    this.roomService.add(new Room(1,this.RoomNumber,this.BadCount,this.Description,this.PrivePerNight,this.AccommodationId)).subscribe(o => {
+     this.router.navigate(['accommodation-detail-view/', this.AccommodationId]);
+    }, o => alert(o.json().Message));
+    
   }
 
 }

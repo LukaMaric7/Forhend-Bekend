@@ -23,7 +23,7 @@ export class RegisterUserComponent implements OnInit {
 
    onSubmit()
   {
-    this.registerUserService.register(new AppUser(this.Username,this.Password,this.Email,"AppUser", this.Lastname, this.Name)).subscribe();
+    this.registerUserService.register(new AppUser(this.Username,this.Password,this.Email,"AppUser", this.Lastname, this.Name)).subscribe(o=>{}, o=>alert(o.json().Message));
     this.Username = "";
     this.Password = "";
     this.Email = "";

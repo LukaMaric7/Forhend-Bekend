@@ -20,6 +20,6 @@ export class RegionComponent implements OnInit {
   }
   
   deleteRegion(){
-      this.regionService.delete(this.region.Id).subscribe(x => {this.deleteRegionEvent.emit(this.region);});
+      this.regionService.delete(this.region.Id).subscribe(x => {this.deleteRegionEvent.emit(this.region);}, o => alert(o.json().Message));
   }
 }

@@ -22,7 +22,7 @@ export class RegisterManagerComponent implements OnInit {
   }
 
   onSubmit(){
-    this.appUserService.register(new AppUser(this.Username,this.Password,this.Email,"Manager", this.Lastname, this.Name)).subscribe();
+    this.appUserService.register(new AppUser(this.Username,this.Password,this.Email,"Manager", this.Lastname, this.Name)).subscribe(o=> {}, o=> alert(o.json().Message));
     this.Username = "";
     this.Password = "";
     this.Email = "";

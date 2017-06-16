@@ -59,7 +59,7 @@ export class AccommodationDetailViewComponent implements OnInit {
         this.Name = this.accommodation.Name;
         this.Description = this.accommodation.Description;
         this.Address = this.accommodation.Address;
-    });
+    }, o=> alert(o.json().Message));
     this.CheckIfCanComment();
      
   }
@@ -115,7 +115,7 @@ export class AccommodationDetailViewComponent implements OnInit {
       let com = o.json();
       this.commentService.getByIdOData(com.Id).subscribe(o => {
         this.accommodation.Comments.push(o[0]);});
-    });
+    }, o=> alert(o.json().Message));
     this.Grade = undefined;
     this.Comment = "";
     this.changeShowComment();
@@ -133,7 +133,7 @@ export class AccommodationDetailViewComponent implements OnInit {
     }
     else{
       this.canComment = false;
-    }})
+    }}, o=> alert(o.json().Message));
   }
 
   CanEditOrDeleteOrAdd() : boolean {
