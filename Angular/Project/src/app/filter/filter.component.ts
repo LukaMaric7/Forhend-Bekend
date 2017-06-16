@@ -20,7 +20,7 @@ import { Http, Response, Headers, Request, RequestOptions } from '@angular/http'
 })
 export class FilterComponent implements OnInit {
  accommodaitons : Accommodation[];
- @Output() filterEvent : EventEmitter<Accommodation[]>;
+ @Output() filterEvent : EventEmitter<string>;
   Name                  : string; 
   AverageGrade          : number;
   AccommodationTypeName : string;
@@ -58,14 +58,14 @@ export class FilterComponent implements OnInit {
   }
 
   Remove(){
-    let query = `?$expand=Place,AccommodationType`;
-    console.log("aa")
-    this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
-        this.filterEvent.emit(this.accommodaitons)});
+    let query = ``;
+    
+    //this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
+        this.filterEvent.emit(query);
   }
 
   onSubmit() {
-    let query = "?$filter=";
+    let query = "&$filter=";
     if(this.CountryName != ""){
       query += `Place/Region/Country/Name eq '${this.CountryName}' and `;
     }
@@ -127,122 +127,8 @@ export class FilterComponent implements OnInit {
     }
 
     
-    this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
-        this.filterEvent.emit(this.accommodaitons);
-  });
-  
-/*
-    if       ( this.CountryName == "" && this.RegionName == "" && this.PlaceName == "" ) {
-      this.accommodationService.getAll().subscribe(o => {this.accommodaitons = o.json(); } );
-    } else if( this.CountryName == "" && this.RegionName == "" && this.PlaceName != "" ) {
-      this.placeService.getByNameOData(this.PlaceName).subscribe(o => {this.accommodaitons = (o[0] as Place).Accommodations; } );
-    } else if( this.CountryName == "" && this.RegionName != "" && this.PlaceName == "" ) {
-      this.regionService.getByNameOData(this.RegionName).subscribe( o => {
-        this.places = o[0].Places;
-        let query = `?$filter=PlaceId eq `;
-        for(let entry of this.places) {
-          query += entry.Id.toString()  + ` or PlaceId eq `; 
-        }
-        query = query.substr(0, query.lastIndexOf('o'));
-
-        this.accommodationService.getByQuery(query).subscribe( o => { this.accommodaitons = o; console.log(this.accommodaitons)});
-      });
-    } else if( this.CountryName == "" && this.RegionName != "" && this.PlaceName != "" ) {
-        this.placeService.getByNameOData(this.PlaceName).subscribe(o => {
-          if( (o[0] as Place) != undefined){
-            if( (o[0] as Place).Region.Name == this.RegionName){
-              this.accommodaitons = (o[0] as Place).Accommodations;
-            }
-            else{
-              this.accommodaitons = [];
-            }
-          }
-          else{
-              this.accommodaitons = [];
-          }
-         } );
-    } else if( this.CountryName != "" && this.RegionName == "" && this.PlaceName == "" ) {
-        this.countryService.getByName(this.CountryName).subscribe(o => {
-          this.regions = o[0].Regions;
-          
-          let query = `?$filter=RegionId eq `;
-          for(let entry of this.regions) {
-            query += entry.Id.toString()  + ` or RegionId eq `; 
-          }
-          query = query.substr(0, query.lastIndexOf('or'));
-
-          this.placeService.getByQuery(query).subscribe( o => { 
-            this.places = o; 
-
-            let query1 = `?$filter=PlaceId eq `;
-            for(let entry of this.places) {
-              query1 += entry.Id.toString()  + ` or PlaceId eq `; 
-            }
-            query1 = query1.substr(0, query1.lastIndexOf('o'));
-
-            this.accommodationService.getByQuery(query1).subscribe( o => { this.accommodaitons = o; console.log(this.accommodaitons)});
-
-          });
-        });
-    } else if( this.CountryName != "" && this.RegionName == "" && this.PlaceName != "" ) {
-        this.placeService.getByNameOData(this.PlaceName).subscribe(o => {
-          this.Place = o[0];
-          if(this.Place != undefined)
-          {
-            if(this.Place.Region.Country.Name == this.CountryName) {
-              this.accommodaitons = this.Place.Accommodations;
-            }
-            else{
-              this.accommodaitons = [];
-            }
-          }
-          else{
-            this.accommodaitons = [];
-          }
-
-        });
-    } else if( this.CountryName != "" && this.RegionName != "" && this.PlaceName == "" ) {
-        this.regionService.getByNameOData(this.RegionName).subscribe(o => {
-          this.Region = o[0];
-          
-          if(this.Region != undefined){
-            if(this.Region.Country.Name == this.CountryName) {
-              this.places = this.Region.Places;
-              let query = `?$filter=PlaceId eq `;
-              for(let entry of this.places) {
-                query += entry.Id.toString()  + ` or PlaceId eq `; 
-              }
-              query = query.substr(0, query.lastIndexOf('o'));
-
-              this.accommodationService.getByQuery(query).subscribe( o => { this.accommodaitons = o; });
-            }
-            else {
-              this.accommodaitons = [];
-            }
-          }
-          else{
-            this.accommodaitons = [];
-          }
-        });
-        
-    } else if( this.CountryName != "" && this.RegionName != "" && this.PlaceName != "" ) {
-        this.placeService.getByNameOData(this.PlaceName).subscribe(o => {
-          this.Place = o[0];
-          if(this.Place != undefined)
-          {
-            if(this.Place.Region.Country.Name == this.CountryName && this.Place.Region.Name == this.RegionName) {
-              this.accommodaitons = this.Place.Accommodations;
-            }
-            else{
-              this.accommodaitons = [];
-            }
-          }
-          else{
-            this.accommodaitons = [];
-          }
-
-        });
-    }*/
+    //this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
+     this.filterEvent.emit(query);
  }
 }
 

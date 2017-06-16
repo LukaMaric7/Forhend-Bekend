@@ -9,3 +9,16 @@
 <div>
   <span style="float:left;" *ngFor = "let acc of accommodations"><accommodation [accommodation] = "acc"></accommodation></span>
 </div>
+<div style="margin-top:42%; margin-left:46%">
+  <nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li *ngIf="showPreviousButton()" class="page-item"><a (click)="previousPage()" class="page-link">Previous</a></li>
+    <li class="page-item">
+      <ul style="display:inline-block" class="pagination" *ngFor="let c of counter; let i=index">
+        <li class="page-item"><a class="page-link" (click)="ChangePage((pageNumber-1)*2 + i +1)">{{(pageNumber-1)*2 +i +1}}</a></li>
+      </ul>
+    </li>
+    <li *ngIf="showNextButton()" class="page-item"><a (click)="nextPage()" class="page-link">Next</a></li>
+  </ul>
+</nav>
+</div>

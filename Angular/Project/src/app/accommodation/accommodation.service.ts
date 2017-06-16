@@ -12,13 +12,17 @@ export class AccommodationService {
     constructor(private http : Http){
      }
     
-    getAll() : Observable<any> {
-        return this.http.get(SocketService.socket + "api/accommodation");
+    getAll(pageNumber: number, pageSize: number, filter : string) : Observable<any> {
+        let skip = (pageNumber - 1) * pageSize;
+
+        return this.http.get(SocketService.socket + `odata/OData?$top=${pageSize}&$skip=${skip} ${filter} &$expand=Place,AccommodationType &$inlinecount=allpages`);
     }
 
     getAllOData() : Observable<any> {
         return this.http.get(SocketService.socket + "api/accommodation?$expand=AccommodationType");
     }
+
+   
 
     add(accommodation : Accommodation, file : File) : Observable<any> {
         accommodation.Place = null;
@@ -64,7 +68,7 @@ export class AccommodationService {
         header.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
         let opts = new RequestOptions();
         opts.headers = header;
-        
+
         return this.http.delete(SocketService.socket + `api/accommodation/${id}`, opts);
     }
 
