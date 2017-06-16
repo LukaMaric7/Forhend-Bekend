@@ -116,6 +116,13 @@ namespace BookingApp.Controllers
                     {
                         db.Comments.Remove(comment);
                         db.SaveChanges();
+
+                        double averageGrade = CalculateAverageGrade(comment.AccommodationId);
+
+                        Accommodation acc = db.Accommodations.Where(a => a.Id == comment.AccommodationId).FirstOrDefault();
+                        acc.AverageGrade = averageGrade;
+
+                        db.SaveChanges();
                     }
                     else
                     {
