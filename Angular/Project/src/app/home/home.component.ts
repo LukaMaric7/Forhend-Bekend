@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(private localStorageService : LocalStorageService, private accommodationService : AccommodationService, private pagingServie : PagingService) { 
     this.accommodations = [];
     this.pageNumber = 1;
-    this.filter = "";
+    this.filter = "&$filter=Approved";
   }
 
   ngOnInit() {

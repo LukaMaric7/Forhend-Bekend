@@ -44,7 +44,7 @@ namespace BookingApp.Controllers
             return Ok(accommodation);
         }
 
-        [Authorize(Roles =("Manager"))]
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPut]
         [Route("accommodation")]
         [ResponseType(typeof(void))]
@@ -59,12 +59,20 @@ namespace BookingApp.Controllers
             {
                 if (user != null)
                 {
+                    var userRole = user.Roles.First().RoleId;
+                    var role = db.Roles.FirstOrDefault(r => r.Id == userRole);
+                    bool isAdmin = role.Name.Equals("Admin");
                     try
                     {
-                        if (accommodation != null && accommodation.UserId.Equals(user.appUserId))
+                        if (isAdmin || (accommodation != null && accommodation.UserId.Equals(user.appUserId)))
                         {
                             db.Entry(accommodation).State = EntityState.Modified;
                             db.SaveChanges();
+                            if(isAdmin)
+                            {
+                                NotificationHub.Notify_NotApprovedAccommodation("");
+                                NotificationHub.Notify_AccommodationApproved(accommodation.UserId.ToString(), accommodation.Id);
+                            }
                         }
                         else
                         {

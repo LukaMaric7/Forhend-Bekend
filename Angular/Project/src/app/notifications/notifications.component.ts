@@ -27,8 +27,13 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit() {
     this.checkConnection();
-    this.subscribeForNotApprovedNotification();
-    this.subscribeForNewAccommodationNotification();
+    if(this.isAdmin()){
+      this.subscribeForNotApprovedNotification();
+      this.subscribeForNewAccommodationNotification();
+    }
+    else if(this.isManager()){
+      this.subscribeForAccommodationApproved();
+    }
   }
 
   private checkConnection(){
@@ -47,6 +52,10 @@ export class NotificationsComponent implements OnInit {
     this.notifService.notificationReceived2.subscribe(e => this.onNotification2(e));
   }
 
+   private subscribeForAccommodationApproved () {
+    this.notifService.notificationReceived2.subscribe(e => this.onNotification2(e));
+  }
+
   public onNotification(notif: string) {
 
      this.ngZone.run(() => { 
@@ -60,22 +69,21 @@ export class NotificationsComponent implements OnInit {
     });  
   }
 
-
-  public onClick() {
-    if (this.isConnected) {
-      this.click().subscribe(data => console.log(data));
+    isAdmin() : boolean {
+      return localStorage.getItem(LSE.Role.toString()) == "Admin";
     }
-  } 
 
+    isManager() : boolean {
+      return localStorage.getItem(LSE.Role.toString()) == "Manager";
+    }
 
+    Remove(notif : string) {
+      let index = this.notifications.indexOf(notif);
+      this.notifications.splice(index, 1);
+      console.log("obrisan");
+    }
 
-   click(): Observable<any> {
-        const headers: Headers = new Headers();
-        headers.append("Accept", "text/plain")
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem(LSE.User.toString()));
-        const opts: RequestOptions = new RequestOptions();
-        opts.headers = headers;
-        
-        return this.http.post("http://localhost:54042/api/WSClick", "", opts);
+    Remove1() {
+      this.notApproved = 0;
     }
 }

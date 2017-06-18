@@ -18,8 +18,8 @@ export class AccommodationService {
         return this.http.get(SocketService.socket + `odata/OData?$top=${pageSize}&$skip=${skip} ${filter} &$expand=Place,AccommodationType &$inlinecount=allpages`);
     }
 
-    getAllOData() : Observable<any> {
-        return this.http.get(SocketService.socket + "api/accommodation?$expand=AccommodationType");
+    getAllNotApproved() : Observable<any> {
+        return this.http.get(SocketService.socket + "api/accommodation?$filter=Approved eq false");
     }
 
    

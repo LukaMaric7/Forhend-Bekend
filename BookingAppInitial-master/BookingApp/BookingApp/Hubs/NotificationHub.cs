@@ -16,15 +16,15 @@ namespace BookingApp.Hubs
     {
         private static IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
         private static Timer t = new Timer();
-        BAContext db = new BAContext();
+        private static BAContext db = new BAContext();
 
         public void AddToGroup(int id, string role)
         {
             if (role.Equals("Admin"))
             {
                 Groups.Add(Context.ConnectionId, "Admins");
-                int notApproved = db.Accommodations.Where(o => o.Approved.Equals(false)).Count();
-                Notify_NotApprovedAccommodation(Context.ConnectionId, notApproved);
+                
+                Notify_NotApprovedAccommodation(Context.ConnectionId);
             }
             else if(role.Equals("Manager"))
             {
@@ -37,9 +37,22 @@ namespace BookingApp.Hubs
             hubContext.Clients.Group("Admins").newAddommodationAddedNotification(id);
         }
 
-        public static void Notify_NotApprovedAccommodation(string connectionId, int number)
+        public static void Notify_NotApprovedAccommodation(string connectionId)
         {
-            hubContext.Clients.Client(connectionId).notApprovedAccommodationNotification(number);
+            int notApproved = db.Accommodations.Where(o => o.Approved.Equals(false)).Count();
+            if (!connectionId.Equals(""))
+            {
+                hubContext.Clients.Client(connectionId).notApprovedAccommodationNotification(notApproved);
+            }
+            else
+            {
+                hubContext.Clients.Group("Admins").notApprovedAccommodationNotification(notApproved);
+            }
+        }
+
+        public static void Notify_AccommodationApproved(string userId, int accommodationId)
+        {
+            hubContext.Clients.Group(userId).accommodationApproved(accommodationId);
         }
 
         public void GetTime()

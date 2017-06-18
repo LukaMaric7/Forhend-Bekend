@@ -1,16 +1,31 @@
-<div align="right" >
+<div *ngIf="isAdmin()" align="right" >
 <h1> Notifications </h1>
 
 <div *ngIf="notApproved > 0"> <font color="red"> You have {{notApproved}} accommodations that need to be approved. </font> 
-<button class="btn btn-secondary">Resolve</button> 
-<button type="button" class="btn btn-secondary" aria-label="Close">
+<button class="btn btn-secondary" [routerLink]="['/not-approved-accommodations']">Resolve</button> 
+<button type="button" class="btn btn-secondary" (click)="Remove1()" aria-label="Close">
   <span aria-hidden="true">&times;</span>
 </button>
 </div>
 
 <ul> 
   <font color="red"><li *ngFor="let notif of notifications">New accommodation added with id: {{notif}}. 
-    <button type="button" class="btn btn-secondary" aria-label="Close">
+    <button class="btn btn-secondary" [routerLink]="['/not-approved-accommodations']">Resolve</button> 
+    <button type="button" class="btn btn-secondary" (click)="Remove(notif)" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </li></font>
+
+</ul>
+
+</div>
+
+<div *ngIf="isManager()" align="right" >
+<h1> Notifications </h1>
+
+<ul> 
+  <font color="red"><li *ngFor="let notif of notifications">Accommodation with id: {{notif}} approved. 
+    <button type="button" class="btn btn-secondary" (click)="Remove(notif)" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
     </li></font>

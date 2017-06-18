@@ -58,14 +58,14 @@ export class FilterComponent implements OnInit {
   }
 
   Remove(){
-    let query = ``;
+    let query = `&$filter=Approved eq true`;
     
     //this.accommodationService.getByQuery(query).subscribe(o => { console.log(o); this.accommodaitons = o;
         this.filterEvent.emit(query);
   }
 
   onSubmit() {
-    let query = "&$filter=";
+    let query = "&$filter=Approved eq true and";
     if(this.CountryName != ""){
       query += `Place/Region/Country/Name eq '${this.CountryName}' and `;
     }

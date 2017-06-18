@@ -29,10 +29,16 @@ export class NotificationService {
         this.connection = $.hubConnection("http://localhost:54042/");  
         // create new proxy as name already given in top  
         this.proxy = this.connection.createHubProxy(this.proxyName);  
-        // register on server events  
-        this.registerOnNotApprovedNotification();
-        this.registerOnNewAccommodationNotification();
+        let role = localStorage.getItem(LSE.Role.toString());
 
+        // register on server events  
+        if(role == "Admin"){
+            this.registerOnNotApprovedNotification();
+            this.registerOnNewAccommodationNotification();
+        }
+        else if(role == "Manager"){
+            this.registerOnAccommodationApproved();
+        }
         // call the connecion start method to start the connection to send and receive events. 
         this.startConnection(); 
         
@@ -71,4 +77,12 @@ export class NotificationService {
             this.notificationReceived2.emit(data);  
         }); 
     }
+
+    public registerOnAccommodationApproved(): void {  
+        
+        this.proxy.on('accommodationApproved', (data: string) => {  
+            console.log('accommodation approved: ' + data);  
+            this.notificationReceived2.emit(data);  
+        }); 
+    }  
 }  
