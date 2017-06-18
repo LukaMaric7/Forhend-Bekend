@@ -13,6 +13,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Newtonsoft.Json;
 using System.Web.Http.OData;
+using BookingApp.Hubs;
 
 namespace BookingApp.Controllers
 {
@@ -134,6 +135,7 @@ namespace BookingApp.Controllers
 
                 db.Accommodations.Add(accommodation);
                 db.SaveChanges();
+                NotificationHub.Notify_NewAccommodationAdded(accommodation.Id);
             }
             else
             {

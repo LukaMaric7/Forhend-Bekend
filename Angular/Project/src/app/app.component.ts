@@ -3,6 +3,7 @@ import { LocalStorageService } from './localStorage.service';
 import { SocketService } from 'app/socket.service';
 import { PagingService } from 'app/paging.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +15,6 @@ export class AppComponent {
 
   constructor(private localStorageService : LocalStorageService) {
     SocketService.socket = "http://localhost:54042/";
-   // PagingService.pageSize = 5;
    }
 
   IsLoggedIn() : boolean {

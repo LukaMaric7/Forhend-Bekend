@@ -46,6 +46,7 @@ import { RoomReservationComponent } from './room-reservation/room-reservation.co
 import { CommmentComponent } from './commment/commment.component';
 import { RoomReservationTableComponent } from './room-reservation-table/room-reservation-table.component';
 import { ManagerListComponent } from './manager-list/manager-list.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const Routes = [
   {path : "home", component: HomeComponent},
@@ -70,7 +71,8 @@ const Routes = [
   {path : "add-room/:Id", component: AddRoomComponent,canActivate: [LoggedInGuard, IsManagerGuard]},
   {path : "add-room-reservation/:Id", component: AddRoomReservationComponent, canActivate: [LoggedInGuard, IsUserGuard]},
   {path : "my-reservations", component: RoomReservationTableComponent, canActivate: [LoggedInGuard, IsUserGuard]},
-  {path : "manager-list", component: ManagerListComponent, canActivate: [LoggedInGuard, IsAdminGuard]}
+  {path : "manager-list", component: ManagerListComponent, canActivate: [LoggedInGuard, IsAdminGuard]},
+  {path : "n", component: NotificationsComponent}
 ]
 
 @NgModule({
@@ -107,7 +109,8 @@ const Routes = [
     RoomReservationComponent,
     CommmentComponent,
     RoomReservationTableComponent,
-    ManagerListComponent
+    ManagerListComponent,
+    NotificationsComponent
     
   ],
   imports: [
