@@ -109,13 +109,26 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
+            
+            
+
             var user = db.Users.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
 
             if (!db.AppUsers.FirstOrDefault(o => o.Id.Equals(user.appUserId)).IsBanned)
             {
 
                 var httpRequest = HttpContext.Current.Request;
-                accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
+                try
+                {
+                    accommodation = JsonConvert.DeserializeObject<Accommodation>(httpRequest.Form[0]);
+
+                   
+                }
+                catch(Exception)
+                {
+                    return BadRequest("Some field values are not correct.");
+                }
+                
 
                 foreach (string file in httpRequest.Files)
                 {
@@ -141,8 +154,15 @@ namespace BookingApp.Controllers
                     }
                 }
 
-                db.Accommodations.Add(accommodation);
-                db.SaveChanges();
+                try
+                {
+                    db.Accommodations.Add(accommodation);
+                    db.SaveChanges();
+                }
+                catch(Exception)
+                {
+                    return BadRequest("Some fields are not correct.");
+                }
                 NotificationHub.Notify_NewAccommodationAdded(accommodation.Id);
             }
             else

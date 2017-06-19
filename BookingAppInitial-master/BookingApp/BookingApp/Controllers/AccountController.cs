@@ -327,19 +327,33 @@ namespace BookingApp.Controllers
         {
             BookingApp.Models.BAContext context = new BAContext();
 
-            AppUser appUser = new AppUser() { Name = model.Name, LastName = model.Lastname };
+            if (model.Name != "" && model.Lastname != "" && model.Email != "" && model.Password != "" && model.Username != "")
+            {
 
-            var user = new BAIdentityUser() { Id = Guid.NewGuid().ToString(), UserName = model.Username,
-                Email = model.Email, appUser = appUser, PasswordHash = BAIdentityUser.HashPassword(model.Password)};
-             
-            var userStore = new UserStore<BAIdentityUser>(context);
-            var userManager = new UserManager<BAIdentityUser>(userStore);
-            
-            userManager.Create(user);
-            userManager.AddToRole(user.Id, model.Role);
-            
+                AppUser appUser = new AppUser() { Name = model.Name, LastName = model.Lastname };
 
-            return Ok();
+                var user = new BAIdentityUser()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = model.Username,
+                    Email = model.Email,
+                    appUser = appUser,
+                    PasswordHash = BAIdentityUser.HashPassword(model.Password)
+                };
+
+                var userStore = new UserStore<BAIdentityUser>(context);
+                var userManager = new UserManager<BAIdentityUser>(userStore);
+
+                userManager.Create(user);
+                userManager.AddToRole(user.Id, model.Role);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Some fields are empty.");
+            }
+
+            
         }
 
         // POST api/Account/RegisterExternal

@@ -29,7 +29,10 @@ export class Accommodation {
         this.Description = description;
         this.Latitude = latitude;
         this.Longitude = longitude;
+       
         this.AccommodationTypeId = typeId;
+    
+    
         this.Address = address;
         this.PlaceId = placeId;
         this.UserId = userId;

@@ -16,6 +16,7 @@ namespace BookingApp.Controllers
     public class RoomReservationsController : ApiController
     {
         BAContext db = new BAContext();
+        private static object lockObj = new object();
 
         [HttpGet]
         [EnableQuery]
@@ -45,25 +46,27 @@ namespace BookingApp.Controllers
         [ResponseType(typeof(RoomReservation))]
         public IHttpActionResult PostReservation(RoomReservation reservation)
         {
-            if (!ModelState.IsValid)
+            lock (lockObj)
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            IQueryable<RoomReservation> query = db.Reservations.Where(o => o.RoomId.Equals(reservation.RoomId) && o.Canceled.Equals(false)
-                                              && ((reservation.EndDate   >= o.StartDate && reservation.EndDate   <= o.EndDate ) ||
-                                                  (reservation.StartDate >= o.StartDate && reservation.StartDate <= o.EndDate ) ||
-                                                  (reservation.StartDate <= o.StartDate && reservation.EndDate   >= o.EndDate )));
-            if (query.Count() == 0)
-            {
-                db.Reservations.Add(reservation);
-                db.SaveChanges();
+                IQueryable<RoomReservation> query = db.Reservations.Where(o => o.RoomId.Equals(reservation.RoomId) && o.Canceled.Equals(false)
+                                                  && ((reservation.EndDate >= o.StartDate && reservation.EndDate <= o.EndDate) ||
+                                                      (reservation.StartDate >= o.StartDate && reservation.StartDate <= o.EndDate) ||
+                                                      (reservation.StartDate <= o.StartDate && reservation.EndDate >= o.EndDate)));
+                if (query.Count() == 0)
+                {
+                    db.Reservations.Add(reservation);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
             }
-            else
-            {
-                return BadRequest(ModelState);
-            }
-
             return CreatedAtRoute("DefaultApi", new { controller = "RoomReservation", id = reservation.RoomId }, reservation);
         }
 

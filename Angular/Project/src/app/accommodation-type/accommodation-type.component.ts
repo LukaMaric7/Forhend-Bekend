@@ -34,11 +34,14 @@ export class AccommodationTypeComponent implements OnInit {
     else
     {
       this.showEdit = true;
+      this.Name = this.accommodationType.Name;
     }
   }
    onSubmit(){
     this.showEdit = false;
-    this.accommodationTypeService.edit(new AccommodationType(this.accommodationType.Id, this.Name)).subscribe();
+    this.accommodationTypeService.edit(new AccommodationType(this.accommodationType.Id, this.Name)).subscribe( o => {
+      this.accommodationType.Name = this.Name;
+    }, o=> alert(o.json().Message));
   }
 
   deleteAccommodationType()
